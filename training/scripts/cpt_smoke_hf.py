@@ -112,11 +112,26 @@ def main():
     model.gradient_checkpointing_enable(gradient_checkpointing_kwargs={"use_reentrant": False})
     model.config.use_cache = False  # incompatible with grad ckpt
 
-    # Qwen3.5 has vocab=250K. Materializing logits [B, T, 250K] in fp32 burns
-    # ~8GB at seq=8K and is the dominant OOM cause. Use FLA's fused linear-CE
-    # which never materializes the full logits tensor.
-    from fla.modules.fused_linear_cross_entropy import FusedLinearCrossEntropyLoss
-    fused_loss = FusedLinearCrossEntropyLoss(reduction="mean", ignore_index=-100)
+    # Qwen3.5 has vocab=250K. Materializing logits [B, T, 250K] in one go would
+    # eat ~8GB+ even at seq=8K. We do CE in chunks across the BT dimension —
+    # FSDP-compatible (no exotic kernels accessing shard-internal storage).
+    def chunked_lm_loss(hidden: torch.Tensor, lm_head_weight: torch.Tensor,
+                         labels: torch.Tensor, chunk_size: int = 2048,
+                         ignore_index: int = -100) -> torch.Tensor:
+        # hidden: [B, T-1, H]; labels: [B, T-1]
+        flat_h = hidden.reshape(-1, hidden.shape[-1])
+        flat_l = labels.reshape(-1)
+        total = flat_h.new_zeros(())
+        n_valid = flat_l.new_zeros((), dtype=torch.long)
+        for i in range(0, flat_h.shape[0], chunk_size):
+            ch_h = flat_h[i:i + chunk_size]
+            ch_l = flat_l[i:i + chunk_size]
+            ch_logits = F.linear(ch_h, lm_head_weight)
+            ch_loss = F.cross_entropy(ch_logits.float(), ch_l,
+                                       ignore_index=ignore_index, reduction="sum")
+            total = total + ch_loss
+            n_valid = n_valid + (ch_l != ignore_index).sum()
+        return total / n_valid.clamp(min=1).to(total.dtype)
 
     # ---- Data: streaming sequences from packed jsonl ----
     class PackedJsonl(IterableDataset):
@@ -158,19 +173,11 @@ def main():
     loader = DataLoader(ds, batch_size=1, collate_fn=collate, num_workers=0)
 
     # ---- Optimizer + schedule ----
-    # 8-bit Adam to fit 4B model + states on 4xH100 (full Adam fp32 = ~60GB, 8-bit = ~15GB)
-    try:
-        import bitsandbytes as bnb
-        optim = bnb.optim.PagedAdamW8bit(model.parameters(), lr=args.lr,
-                                          betas=(0.9, 0.95), eps=1e-8,
-                                          weight_decay=args.weight_decay)
-        if accel.is_main_process:
-            print("[smoke] using PagedAdamW8bit (bitsandbytes)", flush=True)
-    except ImportError:
-        if accel.is_main_process:
-            print("[smoke] bitsandbytes missing -> falling back to torch AdamW fp32 (will OOM at 4B)", flush=True)
-        optim = torch.optim.AdamW(model.parameters(), lr=args.lr, betas=(0.9, 0.95),
-                                   eps=1e-8, weight_decay=args.weight_decay)
+    # Standard fp32 AdamW. With FSDP-FULL_SHARD on 4 cards, optimizer state shards
+    # across ranks (~10GB/rank vs ~40GB unsharded). Keeps math clean (no 8-bit
+    # quantization artifacts) and is what production CPT uses.
+    optim = torch.optim.AdamW(model.parameters(), lr=args.lr, betas=(0.9, 0.95),
+                               eps=1e-8, weight_decay=args.weight_decay)
 
     def lr_lambda(step):
         if step < args.warmup_steps:
@@ -194,20 +201,18 @@ def main():
             batch = next(data_iter)
         t0 = time.time()
         with accel.accumulate(model):
-            # Forward to hidden states only — avoid the huge fp32 logits + CE inside the model.
-            # Under DDP/FSDP the inner CausalLM is wrapped; unwrap once and reuse its backbone.
+            # Forward to hidden states only — chunked CE handles the huge logits.
+            # Under DDP/FSDP the inner CausalLM is wrapped; unwrap once for clean access.
             input_ids = batch["input_ids"]
             labels = batch["labels"]
             inner = accel.unwrap_model(model)
             backbone = inner.model  # Qwen3_5Model
             outputs = backbone(input_ids=input_ids, use_cache=False, output_hidden_states=False)
             hidden = outputs.last_hidden_state if hasattr(outputs, "last_hidden_state") else outputs[0]
-            # Shift for causal LM: predict token t+1 from hidden t
             shift_hidden = hidden[:, :-1, :].contiguous()
             shift_labels = labels[:, 1:].contiguous()
-            # FLA fused: forward signature is (x, target, weight, bias).
-            # Internally flattens batch/seq, computes loss without materializing full logits.
-            loss = fused_loss(shift_hidden, shift_labels, inner.lm_head.weight)
+            loss = chunked_lm_loss(shift_hidden, inner.lm_head.weight, shift_labels,
+                                    chunk_size=2048)
             accel.backward(loss)
             if accel.sync_gradients:
                 accel.clip_grad_norm_(model.parameters(), args.grad_clip)
