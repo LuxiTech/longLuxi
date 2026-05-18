@@ -17,6 +17,8 @@ help:
 	@echo "  sync-inference        + serving extras (vllm, sglang)"
 	@echo "  sync-all              install everything"
 	@echo "  setup-flame           clone flame + flash-linear-attention into external/"
+	@echo "  setup-llamafactory    clone hiyouga/LLaMA-Factory into external/"
+	@echo "  setup-external        clone both"
 	@echo "  baseline-eval         W1: run Qwen3.5-4B baseline NIAH @ 128K"
 	@echo "  smoke-1m              W2: launch 1M CPT smoke run"
 	@echo "  stage-a               W2-3: full 1M CPT"
@@ -56,9 +58,14 @@ sync-dev:
 
 # ---------------- External setup ----------------
 
-.PHONY: setup-flame
+.PHONY: setup-flame setup-llamafactory setup-external
 setup-flame:
 	bash training/flame_wrapper/setup_flame.sh
+
+setup-llamafactory:
+	bash training/llamafactory_wrapper/setup_llamafactory.sh
+
+setup-external: setup-flame setup-llamafactory
 
 # ---------------- Baseline eval (W1) ----------------
 

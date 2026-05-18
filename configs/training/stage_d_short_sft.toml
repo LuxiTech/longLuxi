@@ -1,4 +1,5 @@
 # Stage D: Short instruction-recovery SFT
+# 框架: LLaMA-Factory (hiyouga/LLaMA-Factory)
 # 周次: W8
 # 起点: Stage B (2M) 或 C (4M) 的最佳 ckpt
 # 目标: 恢复 CPT 后可能下降的 chat / instruction following 能力
@@ -10,6 +11,12 @@ seed = 42
 output_dir = "checkpoints/stage_d_short_sft"
 resume_from = "checkpoints/stage_b_2m/latest"   # 或 stage_c_4m/latest
 
+[framework]
+backend = "llamafactory"
+cli = "llamafactory-cli"
+# 生成的 LF yaml 由 training/llamafactory_wrapper/toml_to_lf_yaml.py 转换
+generated_yaml = "configs/training/_generated/stage_d_short_sft.lf.yaml"
+
 [model]
 base_id = "Qwen/Qwen3.5-4B-Instruct"
 yarn_config = "configs/yarn/yarn_2m.json"   # 跟随 reader stage
@@ -18,6 +25,7 @@ dtype = "bfloat16"
 gradient_checkpointing = true
 
 [training]
+finetuning_type = "full"       # 4B 可承受全参；LoRA 作为 ablation
 context_length = 32768         # 8K-32K 短序列足够
 micro_batch_size = 4
 global_batch_tokens = 131072   # 4 * 32K
@@ -28,21 +36,25 @@ lr_scheduler = "linear"
 warmup_ratio = 0.05
 weight_decay = 0.01
 max_grad_norm = 1.0
+enable_liger_kernel = true     # LF 支持，减显存
 
 [parallelism]
+# LF 走 DeepSpeed；CP 短序列不需要
+deepspeed_stage = 3
+data_parallel_degree = 16
 context_parallel_degree = 1
 tensor_parallel_degree = 1
-data_parallel_degree = 16
 
 [checkpoint]
 save_every_steps = 100
 keep_last = 5
-async_save = false   # 短序列 ckpt 小，同步即可
 
 [data]
+# LF 数据格式：sharegpt jsonl
+format = "sharegpt"
 mix_file = "data/processed/short_sft_mix.jsonl"
 # 配比: 通用 instruction / math / code / Chinese QA / English QA
-# 比例参考 ttt.md §6.1，但因为时间紧，先用 OpenInstruct-3 + Tulu-3 + MetaMathQA + Magicoder 各取 5-10K
+# 时间紧 → Tulu-3 + OpenInstruct-3 + MetaMathQA + Magicoder 各取 5-10K
 example_budget = 50000
 shuffle = true
 

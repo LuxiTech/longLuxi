@@ -50,6 +50,41 @@ def test_spec_doc_present():
     assert "2M-4M" in text
 
 
+def test_toml_to_lf_yaml_stage_d(tmp_path):
+    """Stage D TOML must convert to valid LF yaml with expected keys."""
+    import subprocess, sys
+    out = tmp_path / "stage_d.lf.yaml"
+    res = subprocess.run(
+        [sys.executable, str(REPO_ROOT / "training/llamafactory_wrapper/toml_to_lf_yaml.py"),
+         "--toml", str(REPO_ROOT / "configs/training/stage_d_short_sft.toml"),
+         "--out", str(out)],
+        capture_output=True, text=True, timeout=30,
+    )
+    assert res.returncode == 0, res.stderr
+    text = out.read_text()
+    assert "stage: sft" in text
+    assert "cutoff_len: 32768" in text
+    assert "finetuning_type: full" in text
+    assert "flash_attn: fa2" in text
+
+
+def test_toml_to_lf_yaml_stage_e(tmp_path):
+    """Stage E (512K memory SFT) must include Ulysses sequence_parallel + custom template."""
+    import subprocess, sys
+    out = tmp_path / "stage_e.lf.yaml"
+    res = subprocess.run(
+        [sys.executable, str(REPO_ROOT / "training/llamafactory_wrapper/toml_to_lf_yaml.py"),
+         "--toml", str(REPO_ROOT / "configs/training/stage_e_memory_sft.toml"),
+         "--out", str(out)],
+        capture_output=True, text=True, timeout=30,
+    )
+    assert res.returncode == 0, res.stderr
+    text = out.read_text()
+    assert "cutoff_len: 524288" in text
+    assert "sequence_parallel_size: 16" in text
+    assert "template: memory_evidence_qa" in text
+
+
 def test_baseline_eval_dry_run():
     """baseline_eval.py --dry-run should print a plan and exit 0 without heavy deps."""
     import subprocess, sys
