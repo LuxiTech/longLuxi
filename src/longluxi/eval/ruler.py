@@ -106,32 +106,43 @@ def _build_niah_multiquery(length_tokens, tokenizer, rng):
 
 
 def _build_vt(length_tokens, tokenizer, rng):
-    """Variable tracking. foo=A; A=B; B=42; what is foo? Expected 42."""
+    """Variable tracking. v0=v1; v1=v2; ...; vN=42; what is v0? Expected 42."""
     chain_len = rng.randint(3, 5)
     chain = [f"v{i}" for i in range(chain_len)]
     final = f"{rng.randint(10000, 99999)}"
-    assignments = [f"{chain[i]} = {chain[i+1]}." for i in range(chain_len - 1)]
-    assignments.append(f"{chain[-1]} = {final}.")
+    assignments = [f" {chain[i]} = {chain[i+1]}. " for i in range(chain_len - 1)]
+    assignments.append(f" {chain[-1]} = {final}. ")
     rng.shuffle(assignments)
+
+    # Token-level: build haystack of length_tokens, then splice assignments at
+    # evenly-spaced positions. Matches the pattern of _build_niah_multikey /
+    # _build_niah_multiquery so input length stays close to length_tokens.
     haystack = load_haystack_corpus(length_tokens, allow_network=True)
-    hay_words = haystack.split()
-    n_words = max(len(hay_words), length_tokens)
-    out_parts: list[str] = []
-    step = max(1, n_words // (len(assignments) + 1))
-    next_assign = iter(assignments)
-    for i, w in enumerate(hay_words[:n_words]):
-        out_parts.append(w)
-        if (i + 1) % step == 0:
-            try:
-                out_parts.append(next(next_assign))
-            except StopIteration:
-                pass
-    for left in next_assign:
-        out_parts.append(left)
-    text = " ".join(out_parts)
+    hay_ids = tokenizer(haystack, add_special_tokens=False)["input_ids"]
+    assign_ids = [tokenizer(a, add_special_tokens=False)["input_ids"] for a in assignments]
+    assign_budget = sum(len(a) for a in assign_ids)
+    target = max(length_tokens - assign_budget - 100, 64)
+    if len(hay_ids) < target:
+        hay_ids = (hay_ids * ((target // max(len(hay_ids), 1)) + 1))[:target]
+    hay_ids = hay_ids[:target]
+    n = len(assignments)
+    # spread n assignment positions across the haystack
+    positions = sorted({int(target * (i + 1) / (n + 1)) for i in range(n)})
+    # if dedup collapses positions (very short haystack), pad to n
+    while len(positions) < n:
+        positions.append(min(target, positions[-1] + 1))
+    out_ids: list = []
+    last = 0
+    for pos, ids in zip(positions[:n], assign_ids, strict=True):
+        out_ids.extend(hay_ids[last:pos])
+        out_ids.extend(ids)
+        last = pos
+    out_ids.extend(hay_ids[last:])
+    text = tokenizer.decode(out_ids)
     prompt = (
         "Read the text and trace the variable chain.\n\n<text>\n" + text + "\n</text>\n\n"
-        f"Question: What is the final value of {chain[0]}?\nAnswer with just the value."
+        f"Question: What is the final numeric value of {chain[0]} after following the chain?\n"
+        "Answer with just the number."
     )
     return {"task": "vt", "prompt": prompt, "expected": final,
             "length_tokens": length_tokens}
