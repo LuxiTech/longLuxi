@@ -19,7 +19,7 @@ generated_yaml = "configs/training/_generated/stage_e_memory_sft.lf.yaml"
 fallback = "trl_sft"
 
 [model]
-base_id = "Qwen/Qwen3.5-4B-Instruct"
+base_id = "Qwen/Qwen3.5-4B"
 yarn_config = "configs/yarn/yarn_2m.json"
 attn_impl = "flash_attention_2"
 dtype = "bfloat16"

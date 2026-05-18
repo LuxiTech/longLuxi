@@ -4,7 +4,7 @@ Input: query + (chunk_text, chunk_summary, metadata)
 Output: structured <evidence> XML block (see spec §5.4 / §10.2)
 
 Compressor model is configurable (configs/retrieval/pipeline.yaml#compression):
-- W7 起点：Qwen3.5-4B-Instruct (baseline)
+- W7 起点：Qwen3.5-4B (baseline)
 - W8+：换成 self-trained reader (Stage E ckpt)
 """
 from __future__ import annotations

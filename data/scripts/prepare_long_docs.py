@@ -32,7 +32,7 @@ def main():
     parser.add_argument("--source", choices=["arxiv", "pg19", "pile_of_law", "wiki"], required=True)
     parser.add_argument("--max-docs", type=int, default=10000)
     parser.add_argument("--min-tokens", type=int, default=4096)
-    parser.add_argument("--tokenizer", default="Qwen/Qwen3.5-4B-Instruct")
+    parser.add_argument("--tokenizer", default="Qwen/Qwen3.5-4B")
     parser.add_argument("--out-dir", type=Path, default=PROCESSED_DATA_DIR)
     args = parser.parse_args()
 

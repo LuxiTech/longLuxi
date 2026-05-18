@@ -30,14 +30,39 @@ def apply_yarn_to_config(model_config, rope_params: dict[str, Any]) -> None:
         }
 
 
+def _resolve_attn_impl(requested: str) -> str:
+    """Return the best available attn implementation.
+
+    If flash_attention_2 is requested but flash_attn is not installed,
+    fall back to sdpa (PyTorch scaled-dot-product-attention, available
+    in torch >= 2.0 and H100-compatible).
+    """
+    if requested != "flash_attention_2":
+        return requested
+    try:
+        import flash_attn  # noqa: F401
+        return "flash_attention_2"
+    except ImportError:
+        import warnings
+        warnings.warn(
+            "flash-attn not installed; falling back to attn_implementation='sdpa'. "
+            "Install flash-attn for optimal memory use at long contexts.",
+            stacklevel=3,
+        )
+        return "sdpa"
+
+
 def load_model_and_tokenizer(model_id: str, yarn_path: str | Path | None = None,
                              dtype: str = "bfloat16", attn_impl: str = "flash_attention_2"):
-    """Heavy path: actually load model. Requires torch+transformers+flash-attn.
+    """Heavy path: actually load model. Requires torch+transformers.
 
+    flash-attn is used when available; sdpa is the fallback.
     Returns (model, tokenizer, config).
     """
     import torch
     from transformers import AutoConfig, AutoModelForCausalLM, AutoTokenizer
+
+    resolved_impl = _resolve_attn_impl(attn_impl)
 
     tokenizer = AutoTokenizer.from_pretrained(model_id, trust_remote_code=True)
     config = AutoConfig.from_pretrained(model_id, trust_remote_code=True)
@@ -50,7 +75,7 @@ def load_model_and_tokenizer(model_id: str, yarn_path: str | Path | None = None,
         config=config,
         torch_dtype=torch_dtype,
         device_map="auto",
-        attn_implementation=attn_impl,
+        attn_implementation=resolved_impl,
         trust_remote_code=True,
     )
     model.eval()

@@ -14,7 +14,7 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--sections", required=True, help="jsonl of 512K sections")
     parser.add_argument("--out", required=True)
-    parser.add_argument("--summary-model", default="Qwen/Qwen3.5-4B-Instruct")
+    parser.add_argument("--summary-model", default="Qwen/Qwen3.5-4B")
     parser.add_argument("--height", type=int, default=3)
     parser.add_argument("--branch", type=int, default=8)
     parser.add_argument("--summary-max-tokens", type=int, default=1024)

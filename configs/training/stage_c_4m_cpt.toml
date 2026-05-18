@@ -12,7 +12,7 @@ resume_from = "checkpoints/stage_b_2m/latest"
 go_no_go_required = true
 
 [model]
-base_id = "Qwen/Qwen3.5-4B-Instruct"
+base_id = "Qwen/Qwen3.5-4B"
 yarn_config = "configs/yarn/yarn_4m.json"
 attn_impl = "flash_attention_2"
 dtype = "bfloat16"

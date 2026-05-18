@@ -1,7 +1,7 @@
 # 检索 pipeline —— 见 spec §5.3
 
 query_processing:
-  rewrite: { enabled: true, model: "Qwen/Qwen3.5-4B-Instruct", max_rewrites: 2 }
+  rewrite: { enabled: true, model: "Qwen/Qwen3.5-4B", max_rewrites: 2 }
   decompose: { enabled: false, _note: "MVP 默认关，复杂 query 才开" }
   entity_extract: { enabled: true, mode: "regex+llm_fallback" }
 
@@ -24,7 +24,7 @@ neighbor_expansion:
 
 compression:
   enabled: true
-  model: "Qwen/Qwen3.5-4B-Instruct"   # W7 后可换为 self-trained reader
+  model: "Qwen/Qwen3.5-4B"   # W7 后可换为 self-trained reader
   target_compression_ratio: 4         # raw retrieved / compressed
   format: "structured_evidence_xml"
   include_conflicts: true

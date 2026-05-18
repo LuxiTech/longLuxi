@@ -2,11 +2,11 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Establish reproducible baseline numbers for Qwen3.5-4B-Instruct on NIAH (32K / 128K / 1M) and RULER 128K, with a reusable eval harness in `src/longluxi/eval/` that all later phases extend. Lock in the YaRN config application path. Deliver `BASELINE_W1.md`.
+**Goal:** Establish reproducible baseline numbers for Qwen3.5-4B on NIAH (32K / 128K / 1M) and RULER 128K, with a reusable eval harness in `src/longluxi/eval/` that all later phases extend. Lock in the YaRN config application path. Deliver `BASELINE_W1.md`.
 
 **Architecture:** Refactor the monolithic `scripts/baseline_eval.py` into focused modules (`haystack`, `niah`, `model_loader`, `results`, `runner`) under `src/longluxi/eval/`. Same modules back the production `eval/runners/run_niah.py` and `run_ruler.py`. CLI scripts stay thin. RULER tasks loaded from upstream `NVIDIA/RULER` repo (clone into `external/`). Real-model eval gated behind GPU; everything else unit-tested without GPU.
 
-**Tech Stack:** Python 3.11, PyTorch 2.4+, Transformers (HF), FlashAttention 2, Qwen3.5-4B-Instruct, HF `datasets` (PG-19 haystack), pytest, uv.
+**Tech Stack:** Python 3.11, PyTorch 2.4+, Transformers (HF), FlashAttention 2, Qwen3.5-4B, HF `datasets` (PG-19 haystack), pytest, uv.
 
 ---
 
@@ -848,7 +848,7 @@ def _hash(s: str, n: int = 8) -> str:
 
 def main():
     p = argparse.ArgumentParser()
-    p.add_argument("--model-id", default="Qwen/Qwen3.5-4B-Instruct")
+    p.add_argument("--model-id", default="Qwen/Qwen3.5-4B")
     p.add_argument("--task", choices=["niah"], default="niah")
     p.add_argument("--max-len", type=parse_len, default=131072)
     p.add_argument("--lengths", nargs="+", type=parse_len, default=None)
@@ -926,7 +926,7 @@ Expected: at least one H100. If none, defer Tasks 9–13 to a GPU box and finish
 
 ```bash
 uv run python scripts/baseline_eval.py \
-    --model-id Qwen/Qwen3.5-4B-Instruct \
+    --model-id Qwen/Qwen3.5-4B \
     --task niah \
     --max-len 4096 \
     --depths 50 \
@@ -962,7 +962,7 @@ Expected: `metrics.json`, `predictions.jsonl`, `summary.md` all present. summary
 
 ```bash
 uv run python scripts/baseline_eval.py \
-    --model-id Qwen/Qwen3.5-4B-Instruct \
+    --model-id Qwen/Qwen3.5-4B \
     --task niah \
     --lengths 32768 \
     --depths 10 30 50 70 90 \
@@ -975,7 +975,7 @@ Expected: 10 cells, accuracy near 1.0. Output dir: `eval/_outputs/baseline/<hash
 
 ```bash
 uv run python scripts/baseline_eval.py \
-    --model-id Qwen/Qwen3.5-4B-Instruct \
+    --model-id Qwen/Qwen3.5-4B \
     --task niah \
     --lengths 131072 \
     --depths 10 30 50 70 90 \
@@ -998,7 +998,7 @@ cp eval/_outputs/baseline/*_niah_131072/metrics.json docs/reports/phase1_artifac
 
 ```bash
 git add docs/reports/phase1_artifacts/
-git commit -m "eval(phase1): baseline NIAH @ 32K + 128K native (Qwen3.5-4B-Instruct)"
+git commit -m "eval(phase1): baseline NIAH @ 32K + 128K native (Qwen3.5-4B)"
 ```
 
 ---
@@ -1011,7 +1011,7 @@ git commit -m "eval(phase1): baseline NIAH @ 32K + 128K native (Qwen3.5-4B-Instr
 
 ```bash
 uv run python scripts/baseline_eval.py \
-    --model-id Qwen/Qwen3.5-4B-Instruct \
+    --model-id Qwen/Qwen3.5-4B \
     --task niah \
     --lengths 1048576 \
     --depths 10 30 50 70 90 \
@@ -1316,7 +1316,7 @@ def parse_len(s: str) -> int:
 
 def main():
     p = argparse.ArgumentParser()
-    p.add_argument("--model-id", default="Qwen/Qwen3.5-4B-Instruct")
+    p.add_argument("--model-id", default="Qwen/Qwen3.5-4B")
     p.add_argument("--lengths", nargs="+", type=parse_len, default=[131072])
     p.add_argument("--tasks", nargs="+", default=list(TASK_REGISTRY.keys()))
     p.add_argument("--n-per-task", type=int, default=10)
@@ -1385,7 +1385,7 @@ if __name__ == "__main__":
 - [ ] **Step 6: Verify dry-run**
 
 ```bash
-uv run python eval/runners/run_ruler.py --model-id Qwen/Qwen3.5-4B-Instruct --lengths 131072 --n-per-task 1 --dry-run
+uv run python eval/runners/run_ruler.py --model-id Qwen/Qwen3.5-4B --lengths 131072 --n-per-task 1 --dry-run
 ```
 
 Expected: prints plan JSON, exits 0. Creates `eval/_outputs/ruler/<hash>/plan.json`.
@@ -1415,7 +1415,7 @@ git commit -m "feat(eval): RULER runner with 5-task MVP subset (niah_single/mult
 
 ```bash
 uv run python eval/runners/run_ruler.py \
-    --model-id Qwen/Qwen3.5-4B-Instruct \
+    --model-id Qwen/Qwen3.5-4B \
     --lengths 131072 \
     --tasks niah_single_1 niah_multikey_1 niah_multiquery vt qa_1 \
     --n-per-task 10
@@ -1451,10 +1451,10 @@ git commit -m "eval(phase1): baseline RULER 128K 5-task subset"
 Create `docs/reports/BASELINE_W1.md` with the following structure (fill numeric tables from the actual metrics.json files in `docs/reports/phase1_artifacts/`):
 
 ```markdown
-# W1 Baseline Report — Qwen3.5-4B-Instruct
+# W1 Baseline Report — Qwen3.5-4B
 
 **Date:** 2026-05-XX
-**Model:** Qwen/Qwen3.5-4B-Instruct
+**Model:** Qwen/Qwen3.5-4B
 **Hardware:** 1×H100 80GB (eval-only; CPT/SFT runs in later phases use the full 2×8 IB cluster)
 
 ## Summary

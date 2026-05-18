@@ -18,7 +18,7 @@ cli = "llamafactory-cli"
 generated_yaml = "configs/training/_generated/stage_d_short_sft.lf.yaml"
 
 [model]
-base_id = "Qwen/Qwen3.5-4B-Instruct"
+base_id = "Qwen/Qwen3.5-4B"
 yarn_config = "configs/yarn/yarn_2m.json"   # 跟随 reader stage
 attn_impl = "flash_attention_2"
 dtype = "bfloat16"

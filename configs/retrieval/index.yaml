@@ -28,7 +28,7 @@ dense:
 summary_tree:
   backend: "in_memory"      # MVP，后续可移到 SQLite/PG
   unit_input: "section"     # 512K section 作叶节点
-  summary_model: "Qwen/Qwen3.5-4B-Instruct"
+  summary_model: "Qwen/Qwen3.5-4B"
   summary_max_tokens: 1024
   tree_height: 3
   cluster_method: "kmeans"

@@ -5,7 +5,11 @@
 
 UV ?= uv
 PYTHON ?= $(UV) run python
-MODEL_ID ?= Qwen/Qwen3.5-4B-Instruct
+MODEL_ID ?= Qwen/Qwen3.5-4B
+
+# 实验/测试 GPU 限制：只用 0-3 卡（4-7 留给其它任务/用户）
+# 覆盖：CUDA_VISIBLE_DEVICES=4,5 make baseline-eval
+export CUDA_VISIBLE_DEVICES ?= 0,1,2,3
 
 .PHONY: help
 help:

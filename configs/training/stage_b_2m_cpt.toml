@@ -10,7 +10,7 @@ output_dir = "checkpoints/stage_b_2m"
 resume_from = "checkpoints/stage_a_1m/latest"
 
 [model]
-base_id = "Qwen/Qwen3.5-4B-Instruct"
+base_id = "Qwen/Qwen3.5-4B"
 yarn_config = "configs/yarn/yarn_2m.json"
 attn_impl = "flash_attention_2"
 dtype = "bfloat16"

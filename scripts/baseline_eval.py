@@ -4,8 +4,13 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import os
 import sys
 from pathlib import Path
+
+# Experiment/eval GPU policy: only cards 0-3 (4-7 reserved for other users/jobs).
+# Override by exporting CUDA_VISIBLE_DEVICES before running.
+os.environ.setdefault("CUDA_VISIBLE_DEVICES", "0,1,2,3")
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO_ROOT / "src"))
@@ -29,7 +34,7 @@ def _hash(s: str, n: int = 8) -> str:
 
 def main():
     p = argparse.ArgumentParser()
-    p.add_argument("--model-id", default="Qwen/Qwen3.5-4B-Instruct")
+    p.add_argument("--model-id", default="Qwen/Qwen3.5-4B")
     p.add_argument("--task", choices=["niah"], default="niah")
     p.add_argument("--max-len", type=parse_len, default=131072)
     p.add_argument("--lengths", nargs="+", type=parse_len, default=None)

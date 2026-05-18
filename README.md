@@ -28,7 +28,7 @@ make setup-flame             # 把 fla-org/flame 拉到 external/flame
 # 4. 跑基线评测（W1 第一个交付物）
 make baseline-eval
 # 或：
-uv run python scripts/baseline_eval.py --model-id Qwen/Qwen3.5-4B-Instruct --task niah --max-len 131072 --limit 16
+uv run python scripts/baseline_eval.py --model-id Qwen/Qwen3.5-4B --task niah --max-len 131072 --limit 16
 ```
 
 ---

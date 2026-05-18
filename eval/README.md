@@ -34,5 +34,5 @@ make e2e-eval
 
 ## Baseline
 
-W1 第一个交付物是 `scripts/baseline_eval.py`，跑 Qwen3.5-4B-Instruct 在 NIAH 128K-1M 上的表现，
+W1 第一个交付物是 `scripts/baseline_eval.py`，跑 Qwen3.5-4B 在 NIAH 128K-1M 上的表现，
 给后续 CPT 提供对照。

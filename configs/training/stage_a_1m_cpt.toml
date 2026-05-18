@@ -1,6 +1,6 @@
 # Stage A: 1M dense continued pretraining
 # 周次: W2-3
-# 目标: 把 Qwen3.5-4B-Instruct 从「YaRN static 1M」推到「数据驱动的 1M reader」
+# 目标: 把 Qwen3.5-4B 从「YaRN static 1M」推到「数据驱动的 1M reader」
 # 成功标准: RULER 1M ≥ +10pp over base+static YaRN，短能力退化 ≤ 3%
 
 [run]
@@ -11,7 +11,7 @@ output_dir = "checkpoints/stage_a_1m"
 resume_from = ""  # empty -> from base
 
 [model]
-base_id = "Qwen/Qwen3.5-4B-Instruct"
+base_id = "Qwen/Qwen3.5-4B"
 yarn_config = "configs/yarn/yarn_1m.json"
 attn_impl = "flash_attention_2"  # standard 层；GDN 层走 FLA kernel
 dtype = "bfloat16"

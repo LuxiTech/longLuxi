@@ -25,4 +25,4 @@ boundary_priority:
   code: ["function", "class", "file"]   # 后续 graph retrieval 用，MVP 不启用
 
 # Tokenizer：跟随 Qwen3.5 系列
-tokenizer: "Qwen/Qwen3.5-4B-Instruct"
+tokenizer: "Qwen/Qwen3.5-4B"
