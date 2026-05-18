@@ -19,8 +19,16 @@ DTYPE="${DTYPE:-bfloat16}"
 
 export CUDA_VISIBLE_DEVICES="${CUDA_VISIBLE_DEVICES:-0,1,2,3}"
 
-# YaRN config matches configs/yarn/yarn_1m.json: factor=4.0, original=262144
-ROPE_SCALING='{"rope_type":"yarn","factor":4.0,"original_max_position_embeddings":262144}'
+# Force FlashInfer attention backend: our installed flash-attn wheel is built for
+# torch 2.8+cu12, but current venv torch is 2.11+cu13 (transitive dep of vllm 0.21).
+# FlashInfer is installed and matches torch 2.11+cu13. flash-attn stays in the env
+# for flame training (which is launched separately).
+export VLLM_ATTENTION_BACKEND="${VLLM_ATTENTION_BACKEND:-FLASHINFER}"
+export VLLM_USE_FLASH_ATTN="${VLLM_USE_FLASH_ATTN:-0}"
+
+# YaRN factor=4 (1M ctx) is baked into the local model's config.json under
+# text_config.rope_parameters. Original config preserved at config.json.bak.
+# vLLM 0.21+ no longer accepts --rope-scaling on the CLI; it reads HF config.
 
 echo "[vllm-serve] model=$MODEL port=$PORT tp=$TP max_len=$MAX_LEN gpus=$CUDA_VISIBLE_DEVICES"
 
@@ -31,6 +39,5 @@ exec uv run vllm serve "$MODEL" \
     --gpu-memory-utilization "$GPU_MEM_UTIL" \
     --dtype "$DTYPE" \
     --trust-remote-code \
-    --rope-scaling "$ROPE_SCALING" \
     --enable-chunked-prefill \
-    --disable-log-requests
+    --no-enable-log-requests

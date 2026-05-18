@@ -113,25 +113,48 @@ def main():
     model.config.use_cache = False  # incompatible with grad ckpt
 
     # Qwen3.5 has vocab=250K. Materializing logits [B, T, 250K] in one go would
-    # eat ~8GB+ even at seq=8K. We do CE in chunks across the BT dimension —
-    # FSDP-compatible (no exotic kernels accessing shard-internal storage).
-    def chunked_lm_loss(hidden: torch.Tensor, lm_head_weight: torch.Tensor,
-                         labels: torch.Tensor, chunk_size: int = 2048,
-                         ignore_index: int = -100) -> torch.Tensor:
-        # hidden: [B, T-1, H]; labels: [B, T-1]
-        flat_h = hidden.reshape(-1, hidden.shape[-1])
-        flat_l = labels.reshape(-1)
-        total = flat_h.new_zeros(())
-        n_valid = flat_l.new_zeros((), dtype=torch.long)
-        for i in range(0, flat_h.shape[0], chunk_size):
-            ch_h = flat_h[i:i + chunk_size]
-            ch_l = flat_l[i:i + chunk_size]
-            ch_logits = F.linear(ch_h, lm_head_weight)
+    # eat ~8GB+ even at seq=8K. We monkey-patch the model's forward to compute
+    # CE in chunks across the BT dimension — FSDP-compatible (the patched
+    # forward runs INSIDE the FSDP wrap so all-gather happens automatically).
+    CE_CHUNK = 2048
+    IGNORE_INDEX = -100
+
+    def _patched_causal_lm_forward(self, input_ids=None, labels=None,
+                                    attention_mask=None, position_ids=None,
+                                    past_key_values=None, inputs_embeds=None,
+                                    use_cache=None, output_attentions=None,
+                                    output_hidden_states=None, return_dict=None,
+                                    cache_position=None, **kwargs):
+        outputs = self.model(
+            input_ids=input_ids, attention_mask=attention_mask,
+            position_ids=position_ids, past_key_values=past_key_values,
+            inputs_embeds=inputs_embeds, use_cache=False,
+            output_attentions=False, output_hidden_states=False,
+            return_dict=True, cache_position=cache_position,
+        )
+        hidden = outputs.last_hidden_state
+        if labels is None:
+            logits = self.lm_head(hidden)
+            return type("Out", (object,), {"loss": None, "logits": logits, "hidden_states": None,
+                                            "past_key_values": None, "attentions": None})()
+        shift_h = hidden[:, :-1, :].contiguous().reshape(-1, hidden.shape[-1])
+        shift_l = labels[:, 1:].contiguous().reshape(-1)
+        total = shift_h.new_zeros(())
+        n_valid = shift_l.new_zeros((), dtype=torch.long)
+        for i in range(0, shift_h.shape[0], CE_CHUNK):
+            ch_h = shift_h[i:i + CE_CHUNK]
+            ch_l = shift_l[i:i + CE_CHUNK]
+            ch_logits = self.lm_head(ch_h)  # FSDP auto-gathers lm_head.weight
             ch_loss = F.cross_entropy(ch_logits.float(), ch_l,
-                                       ignore_index=ignore_index, reduction="sum")
+                                       ignore_index=IGNORE_INDEX, reduction="sum")
             total = total + ch_loss
-            n_valid = n_valid + (ch_l != ignore_index).sum()
-        return total / n_valid.clamp(min=1).to(total.dtype)
+            n_valid = n_valid + (ch_l != IGNORE_INDEX).sum()
+        loss = total / n_valid.clamp(min=1).to(total.dtype)
+        return type("Out", (object,), {"loss": loss, "logits": None, "hidden_states": None,
+                                        "past_key_values": None, "attentions": None})()
+
+    import types
+    model.forward = types.MethodType(_patched_causal_lm_forward, model)
 
     # ---- Data: streaming sequences from packed jsonl ----
     class PackedJsonl(IterableDataset):
@@ -201,18 +224,10 @@ def main():
             batch = next(data_iter)
         t0 = time.time()
         with accel.accumulate(model):
-            # Forward to hidden states only — chunked CE handles the huge logits.
-            # Under DDP/FSDP the inner CausalLM is wrapped; unwrap once for clean access.
-            input_ids = batch["input_ids"]
-            labels = batch["labels"]
-            inner = accel.unwrap_model(model)
-            backbone = inner.model  # Qwen3_5Model
-            outputs = backbone(input_ids=input_ids, use_cache=False, output_hidden_states=False)
-            hidden = outputs.last_hidden_state if hasattr(outputs, "last_hidden_state") else outputs[0]
-            shift_hidden = hidden[:, :-1, :].contiguous()
-            shift_labels = labels[:, 1:].contiguous()
-            loss = chunked_lm_loss(shift_hidden, inner.lm_head.weight, shift_labels,
-                                    chunk_size=2048)
+            # Call the wrapped model directly; the patched forward does chunked CE internally.
+            # FSDP gathers / scatters around this whole forward — no manual unwrap needed.
+            out = model(input_ids=batch["input_ids"], labels=batch["labels"])
+            loss = out.loss
             accel.backward(loss)
             if accel.sync_gradients:
                 accel.clip_grad_norm_(model.parameters(), args.grad_clip)
