@@ -35,8 +35,9 @@ adam_eps = 1.0e-8
 max_grad_norm = 1.0
 
 [parallelism]
-# flame / torchtitan 配置
-context_parallel_degree = 16
+# Phase 1 spec assumed 2x8 H100+IB (CP=16). Phase 2 GPU policy = cards 0-3 only.
+# Adjust CP_degree to 4; revisit if more cards become available.
+context_parallel_degree = 4
 context_parallel_rotate_method = "allgather"
 tensor_parallel_degree = 1
 data_parallel_degree = 1
@@ -59,3 +60,10 @@ length_upsampling = "configs/training/length_upsampling.yaml"
 eval_every_steps = 25
 benchmarks = ["niah_128k", "niah_512k", "niah_1m_subset", "ruler_128k_subset"]
 short_eval = ["mmlu_subset"]   # 防短能力退化
+
+[smoke]
+# Phase 2 smoke: 256K context, ~10M tokens (40 steps at 256K)
+context_length = 262144
+max_steps = 40
+learning_rate = 1.0e-5
+save_every_steps = 10
