@@ -18,6 +18,7 @@ help:
 	@echo "  sync-all              install everything"
 	@echo "  setup-flame           clone flame + flash-linear-attention into external/"
 	@echo "  setup-llamafactory    clone hiyouga/LLaMA-Factory into external/"
+	@echo "  setup-ruler           clone NVIDIA/RULER into external/"
 	@echo "  setup-external        clone both"
 	@echo "  baseline-eval         W1: run Qwen3.5-4B baseline NIAH @ 128K"
 	@echo "  smoke-1m              W2: launch 1M CPT smoke run"
@@ -58,14 +59,19 @@ sync-dev:
 
 # ---------------- External setup ----------------
 
-.PHONY: setup-flame setup-llamafactory setup-external
+.PHONY: setup-flame setup-llamafactory setup-ruler setup-external
 setup-flame:
 	bash training/flame_wrapper/setup_flame.sh
 
 setup-llamafactory:
 	bash training/llamafactory_wrapper/setup_llamafactory.sh
 
-setup-external: setup-flame setup-llamafactory
+setup-ruler:
+	mkdir -p external
+	[ -d external/RULER ] || git clone --depth 1 https://github.com/NVIDIA/RULER.git external/RULER
+	cd external/RULER && git pull --ff-only
+
+setup-external: setup-flame setup-llamafactory setup-ruler
 
 # ---------------- Baseline eval (W1) ----------------
 
