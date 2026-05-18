@@ -24,6 +24,8 @@ help:
 	@echo "  setup-llamafactory    clone hiyouga/LLaMA-Factory into external/"
 	@echo "  setup-ruler           clone NVIDIA/RULER into external/"
 	@echo "  setup-external        clone both"
+	@echo "  vllm-serve            launch vLLM TP=4 serving Qwen3.5-4B at 1M ctx"
+	@echo "  vllm-stop             kill running vLLM server"
 	@echo "  baseline-eval         W1: run Qwen3.5-4B baseline NIAH @ 128K"
 	@echo "  smoke-1m              W2: launch 1M CPT smoke run"
 	@echo "  stage-a               W2-3: full 1M CPT"
@@ -76,6 +78,16 @@ setup-ruler:
 	cd external/RULER && git pull --ff-only
 
 setup-external: setup-flame setup-llamafactory setup-ruler
+
+# ---------------- vLLM serving ----------------
+
+.PHONY: vllm-serve vllm-stop
+vllm-serve:
+	bash eval/runners/vllm_server.sh
+
+vllm-stop:
+	-pkill -f "vllm serve" 2>/dev/null || true
+	@echo "[vllm-stop] requested shutdown"
 
 # ---------------- Baseline eval (W1) ----------------
 
