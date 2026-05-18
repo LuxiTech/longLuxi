@@ -1,0 +1,65 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+.eggs/
+build/
+dist/
+
+# Virtual env
+.venv/
+venv/
+.env
+.env.local
+
+# uv
+uv.lock
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swn
+.DS_Store
+
+# Notebooks
+.ipynb_checkpoints/
+
+# Project artifacts (gitignore by default to avoid huge commits)
+checkpoints/
+runs/
+wandb/
+trackio/
+logs/
+*.log
+
+# Data — gitignore raw but keep small samples / scripts
+data/raw/
+data/processed/
+data/cache/
+data/hf_cache/
+data/synthetic/raw/
+!data/samples/
+
+# Index artifacts
+retrieval/indices/
+retrieval/_artifacts/
+
+# Eval outputs
+eval/_outputs/
+eval/_cache/
+
+# External / cloned repos
+external/
+
+# pytest / mypy / ruff cache
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# tmp
+tmp/
+scratch/

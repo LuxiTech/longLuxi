@@ -1,0 +1,19 @@
+{
+  "_comment": "Qwen3.5-4B YaRN config for 4M context (factor=16.0). Stage C stretch boundary.",
+  "_base_native_ctx": 262144,
+  "_target_ctx": 4194304,
+  "_note": "factor=16 时短任务退化风险高；建议 mscale 微调 + ramp 更长。W6 ablation 必做。",
+  "rope_parameters": {
+    "mrope_interleaved": true,
+    "mrope_section": [11, 11, 10],
+    "rope_type": "yarn",
+    "rope_theta": 10000000,
+    "partial_rotary_factor": 0.25,
+    "factor": 16.0,
+    "original_max_position_embeddings": 262144,
+    "beta_fast": 32,
+    "beta_slow": 1,
+    "mscale": 1.1,
+    "mscale_all_dim": 0
+  }
+}

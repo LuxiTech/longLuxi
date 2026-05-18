@@ -1,0 +1,40 @@
+# 索引栈 —— 见 spec §5.2
+
+bm25:
+  backend: "opensearch"
+  host: "http://localhost:9200"
+  index_name: "longluxi_raw_chunks"
+  unit: "raw_chunk"
+  field_mapping:
+    text: { type: "text", analyzer: "standard" }
+    title: { type: "keyword" }
+    doc_id: { type: "keyword" }
+    chunk_id: { type: "keyword" }
+    position: { type: "integer" }
+
+dense:
+  backend: "faiss"
+  index_type: "HNSW"        # M=32, efConstruction=200
+  hnsw_m: 32
+  hnsw_efconstruction: 200
+  hnsw_efsearch: 128
+  embedding_model: "BAAI/bge-m3"   # 中英双语
+  embedding_dim: 1024
+  unit: "raw_chunk"
+  normalize: true
+  metric: "cosine"
+  storage_dir: "retrieval/indices/dense_bge_m3"
+
+summary_tree:
+  backend: "in_memory"      # MVP，后续可移到 SQLite/PG
+  unit_input: "section"     # 512K section 作叶节点
+  summary_model: "Qwen/Qwen3.5-4B-Instruct"
+  summary_max_tokens: 1024
+  tree_height: 3
+  cluster_method: "kmeans"
+  cluster_branch_factor: 8
+
+metadata_store:
+  backend: "postgres"
+  dsn_env: "LONGLUXI_PG_DSN"
+  schema_version: 1

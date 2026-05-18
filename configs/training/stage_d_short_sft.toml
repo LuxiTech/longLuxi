@@ -1,0 +1,52 @@
+# Stage D: Short instruction-recovery SFT
+# 周次: W8
+# 起点: Stage B (2M) 或 C (4M) 的最佳 ckpt
+# 目标: 恢复 CPT 后可能下降的 chat / instruction following 能力
+# 边界: 退化 ≤ 2% on MMLU / GSM8K / HumanEval
+
+[run]
+name = "qwen3.5-4b-short-sft"
+seed = 42
+output_dir = "checkpoints/stage_d_short_sft"
+resume_from = "checkpoints/stage_b_2m/latest"   # 或 stage_c_4m/latest
+
+[model]
+base_id = "Qwen/Qwen3.5-4B-Instruct"
+yarn_config = "configs/yarn/yarn_2m.json"   # 跟随 reader stage
+attn_impl = "flash_attention_2"
+dtype = "bfloat16"
+gradient_checkpointing = true
+
+[training]
+context_length = 32768         # 8K-32K 短序列足够
+micro_batch_size = 4
+global_batch_tokens = 131072   # 4 * 32K
+gradient_accumulation = 1
+max_steps = 500
+learning_rate = 5.0e-6
+lr_scheduler = "linear"
+warmup_ratio = 0.05
+weight_decay = 0.01
+max_grad_norm = 1.0
+
+[parallelism]
+context_parallel_degree = 1
+tensor_parallel_degree = 1
+data_parallel_degree = 16
+
+[checkpoint]
+save_every_steps = 100
+keep_last = 5
+async_save = false   # 短序列 ckpt 小，同步即可
+
+[data]
+mix_file = "data/processed/short_sft_mix.jsonl"
+# 配比: 通用 instruction / math / code / Chinese QA / English QA
+# 比例参考 ttt.md §6.1，但因为时间紧，先用 OpenInstruct-3 + Tulu-3 + MetaMathQA + Magicoder 各取 5-10K
+example_budget = 50000
+shuffle = true
+
+[eval]
+eval_every_steps = 50
+benchmarks = ["mmlu", "gsm8k", "humaneval", "ceval_subset"]
+long_eval_check = ["niah_1m_subset"]   # 验证短 SFT 没破坏长能力

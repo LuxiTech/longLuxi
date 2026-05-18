@@ -1,0 +1,28 @@
+# Chunking 策略 —— 三层粒度
+# 见 spec §5.1
+
+raw_chunk:
+  size_tokens: 8192
+  overlap_tokens: 256
+  unit: "BM25 / dense embedding / rerank 基本单元"
+
+large_chunk:
+  size_tokens: 65536
+  overlap_tokens: 2048
+  unit: "精读 / 邻居展开后的 packing 单元"
+
+section:
+  size_tokens: 524288
+  overlap_tokens: 0
+  unit: "全局定位 / summary tree 叶节点"
+
+# 切分时强制保留: 句子边界 > 段落边界 > 章节边界 (按文档类型)
+boundary_priority:
+  default: ["sentence", "paragraph", "section"]
+  arxiv: ["section", "paragraph", "sentence"]
+  legal: ["paragraph", "sentence"]
+  book: ["chapter", "paragraph", "sentence"]
+  code: ["function", "class", "file"]   # 后续 graph retrieval 用，MVP 不启用
+
+# Tokenizer：跟随 Qwen3.5 系列
+tokenizer: "Qwen/Qwen3.5-4B-Instruct"

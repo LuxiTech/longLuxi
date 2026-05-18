@@ -1,0 +1,54 @@
+# Stage E: Memory-format SFT
+# 周次: W9-10
+# 起点: Stage D 的 ckpt
+# 目标: 让模型学会读 hierarchical retrieval 系统输出的结构化 evidence context
+# 成功标准: evidence citation precision ≥ 80%; missing_information 正确率 ≥ 70%
+
+[run]
+name = "qwen3.5-4b-memory-sft"
+seed = 42
+output_dir = "checkpoints/stage_e_memory_sft"
+resume_from = "checkpoints/stage_d_short_sft/latest"
+
+[model]
+base_id = "Qwen/Qwen3.5-4B-Instruct"
+yarn_config = "configs/yarn/yarn_2m.json"
+attn_impl = "flash_attention_2"
+dtype = "bfloat16"
+gradient_checkpointing = true
+selective_recompute = true
+
+[training]
+context_length = 524288        # 512K，覆盖大多数 evidence-pack 情况
+micro_batch_size = 1
+global_batch_tokens = 524288
+gradient_accumulation = 4      # effective batch = 4 * 512K = 2M tokens
+max_steps = 1000               # ~1000 * 4 examples = 4K example steps, ~20K examples 2 epoch
+learning_rate = 3.0e-6
+lr_scheduler = "cosine_with_warmup"
+warmup_steps = 50
+weight_decay = 0.01
+max_grad_norm = 1.0
+
+[parallelism]
+context_parallel_degree = 16
+context_parallel_rotate_method = "allgather"
+tensor_parallel_degree = 1
+data_parallel_degree = 1
+
+[checkpoint]
+save_every_steps = 100
+keep_last = 5
+async_save = true
+
+[data]
+mix_file = "data/processed/memory_sft_mix.jsonl"
+example_budget = 20000
+# 任务配比 (见 ttt.md §6.2)
+task_mix = { evidence_selection = 0.20, answer_with_citation = 0.30, multi_hop_aggregation = 0.20, contradiction_resolution = 0.10, timeline_qa = 0.10, query_focused_summary = 0.10 }
+loss_targets = ["selected_evidence_ids", "answer", "citations", "confidence", "missing_information"]
+
+[eval]
+eval_every_steps = 100
+benchmarks = ["evidence_grounded_qa_internal", "longbench_v2_subset", "infinitebench_subset", "nocha_subset"]
+short_eval = ["mmlu_subset"]

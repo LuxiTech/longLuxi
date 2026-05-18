@@ -1,0 +1,130 @@
+[project]
+name = "longluxi"
+version = "0.0.1"
+description = "Qwen3.5-4B 超长上下文 (dense 1M-4M reader + 10M hierarchical retrieval) MVP"
+readme = "README.md"
+requires-python = ">=3.11"
+license = { text = "Apache-2.0" }
+authors = [{ name = "tancilon1", email = "tancilon1@gmail.com" }]
+
+# 默认 dependencies 只放轻量、所有人都需要的工具。
+# 重型依赖（torch/vllm/faiss/opensearch）放进 optional-dependencies，按需 `uv sync --extra <name>`。
+dependencies = [
+    "numpy>=1.26",
+    "pyyaml>=6.0",
+    "tomli>=2.0; python_version < '3.11'",
+    "rich>=13",
+    "typer>=0.12",
+    "tqdm>=4.66",
+    "loguru>=0.7",
+    "pydantic>=2.7",
+    "python-dotenv>=1.0",
+    "huggingface-hub>=0.24",
+    "datasets>=2.20",
+    "jsonlines>=4.0",
+]
+
+[project.optional-dependencies]
+# ---- 训练栈：CPT + SFT。安装重，需要 H100/CUDA 节点 ----
+train = [
+    "torch>=2.4",
+    "transformers>=4.45",
+    "accelerate>=0.34",
+    "deepspeed>=0.15",
+    "peft>=0.12",
+    "trl>=0.10",
+    "flash-attn>=2.6 ; sys_platform == 'linux'",
+    "wandb>=0.17",
+    "trackio>=0.1",
+    "einops>=0.8",
+    "sentencepiece>=0.2",
+    "tokenizers>=0.20",
+]
+
+# ---- Retrieval 栈：索引 + reranker + 压缩 ----
+retrieval = [
+    "torch>=2.4",
+    "transformers>=4.45",
+    "sentence-transformers>=3.0",
+    "FlagEmbedding>=1.2",
+    "faiss-cpu>=1.8",
+    "opensearch-py>=2.6",
+    "psycopg[binary]>=3.2",
+    "sqlalchemy>=2.0",
+    "pgvector>=0.3",
+    "rank-bm25>=0.2",
+    "scipy>=1.13",
+    "scikit-learn>=1.5",
+]
+
+# ---- Eval 栈：long-context benchmark runners ----
+eval = [
+    "torch>=2.4",
+    "transformers>=4.45",
+    "datasets>=2.20",
+    "evaluate>=0.4",
+    "scikit-learn>=1.5",
+    "matplotlib>=3.8",
+    "seaborn>=0.13",
+    "pandas>=2.2",
+    "rouge-score>=0.1",
+]
+
+# ---- Inference / serving 栈 ----
+inference = [
+    "vllm>=0.6 ; sys_platform == 'linux'",
+    "sglang>=0.3 ; sys_platform == 'linux'",
+    "uvicorn>=0.30",
+    "fastapi>=0.115",
+    "httpx>=0.27",
+]
+
+# ---- 开发工具 ----
+dev = [
+    "pytest>=8.2",
+    "pytest-asyncio>=0.23",
+    "ruff>=0.6",
+    "mypy>=1.11",
+    "ipython>=8.26",
+    "jupyter>=1.0",
+]
+
+# 一次装齐 = train + retrieval + eval + inference + dev
+all = [
+    "longluxi[train]",
+    "longluxi[retrieval]",
+    "longluxi[eval]",
+    "longluxi[inference]",
+    "longluxi[dev]",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/longluxi"]
+
+# ---- Ruff ----
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+exclude = ["external/", "data/raw/", "checkpoints/"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "B", "UP"]
+ignore = ["E501"]
+
+# ---- Pytest ----
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-ra -q"
+
+# ---- uv ----
+[tool.uv]
+# flame、GatedDeltaNet 这类不走 PyPI 的依赖，记录为 git source；
+# 用户在需要时 `uv sync` 自然会拉。
+[tool.uv.sources]
+# flame = { git = "https://github.com/fla-org/flame", branch = "main" }
+# flash-linear-attention = { git = "https://github.com/fla-org/flash-linear-attention", branch = "main" }
+# 暂时注释；W1 环境验证后再启用，避免 lock 一开始就拉 git。

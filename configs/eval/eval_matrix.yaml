@@ -1,0 +1,63 @@
+# 评测 matrix —— 见 spec §7
+
+reader_single:
+  niah:
+    lengths: [131072, 262144, 524288, 1048576, 2097152, 4194304]
+    n_samples_per_length: 32
+    depth_percentages: [10, 30, 50, 70, 90]
+
+  ruler:
+    lengths: [131072, 262144, 524288, 1048576, 2097152]
+    tasks: ["niah_single_1", "niah_multikey_1", "niah_multivalue", "niah_multiquery", "vt", "cwe", "fwe", "qa_1", "qa_2"]
+    n_samples_per_task: 50
+
+  longbench_v2:
+    enabled: true
+    subsets: ["all"]
+
+  infinitebench:
+    enabled: true
+    subsets: ["passkey", "kv_retrieval", "longbook_qa_eng", "longdialogue_qa_eng", "code_debug", "math_calc"]
+
+  nocha:
+    enabled: true
+    n_books: 30   # subset, 全量太重
+
+  lv_eval:
+    enabled: true
+    _note: "中文 sanity"
+    subsets: ["all"]
+
+  short_benchmarks:
+    mmlu: { n_samples: 1000 }
+    gsm8k: { n_samples: 500 }
+    humaneval: { n_samples: "all" }
+    ceval: { n_samples: 500 }
+
+# 10M 系统端到端
+system_e2e:
+  total_instances: 200
+  task_distribution:
+    passkey_10m: 50
+    multi_needle_aggregation: 50
+    contradiction_detection: 30
+    timeline_qa: 30
+    query_focused_summary: 20
+    multi_hop_qa: 20
+  context_assembly: "concat_real_docs_with_distractors"
+
+# Ablation 对比系统 —— 见 spec §7.3
+ablation_systems:
+  - { name: "A_vanilla_rag", reader_ctx: 32768, retrieval: "bm25_only" }
+  - { name: "B_hybrid_rag", reader_ctx: 65536, retrieval: "hybrid" }
+  - { name: "C_longrag", reader_ctx: 262144, retrieval: "hybrid_long_chunk" }
+  - { name: "D_hierarchical_1m", reader_ctx: 1048576, retrieval: "full_pipeline" }
+  - { name: "D_hierarchical_2m", reader_ctx: 2097152, retrieval: "full_pipeline" }
+  - { name: "D_hierarchical_4m", reader_ctx: 4194304, retrieval: "full_pipeline" }
+  - { name: "E_direct_dense_1m", reader_ctx: 1048576, retrieval: "truncate_to_ctx" }
+  - { name: "E_direct_dense_2m", reader_ctx: 2097152, retrieval: "truncate_to_ctx" }
+
+# 度量
+metrics:
+  primary: ["accuracy", "f1", "evidence_recall", "citation_precision"]
+  secondary: ["latency_p50", "latency_p95", "tokens_in_reader", "compression_ratio"]

@@ -1,0 +1,37 @@
+# 检索 pipeline —— 见 spec §5.3
+
+query_processing:
+  rewrite: { enabled: true, model: "Qwen/Qwen3.5-4B-Instruct", max_rewrites: 2 }
+  decompose: { enabled: false, _note: "MVP 默认关，复杂 query 才开" }
+  entity_extract: { enabled: true, mode: "regex+llm_fallback" }
+
+recall:
+  bm25_top_k: 200
+  dense_top_k: 200
+  summary_tree_top_k: 100
+  dedupe_after_union: true
+
+rerank:
+  enabled: true
+  model: "BAAI/bge-reranker-v2-m3"
+  top_k_out: 40
+  max_pair_input_tokens: 8192
+
+neighbor_expansion:
+  prev_next_chunks: 1
+  include_section_summary: true
+  graph_neighbors: { enabled: false, _note: "graph 二期" }
+
+compression:
+  enabled: true
+  model: "Qwen/Qwen3.5-4B-Instruct"   # W7 后可换为 self-trained reader
+  target_compression_ratio: 4         # raw retrieved / compressed
+  format: "structured_evidence_xml"
+  include_conflicts: true
+
+packing:
+  order: "original"   # original | relevance | time | section
+  separator: "<source id=\"{id}\" doc=\"{doc}\" pos=\"{start}-{end}\">"
+  add_global_summary: true
+  add_section_summaries: true
+  reader_input_budget_tokens: 1048576   # 1M for stage A reader; 调到 2M/4M for B/C

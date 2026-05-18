@@ -1,0 +1,14 @@
+{
+  "_comment": "Qwen3.5-4B YaRN config for 1M context (factor=4.0). 这是 Qwen3.5 官方建议的 1M 配置。",
+  "_base_native_ctx": 262144,
+  "_target_ctx": 1048576,
+  "rope_parameters": {
+    "mrope_interleaved": true,
+    "mrope_section": [11, 11, 10],
+    "rope_type": "yarn",
+    "rope_theta": 10000000,
+    "partial_rotary_factor": 0.25,
+    "factor": 4.0,
+    "original_max_position_embeddings": 262144
+  }
+}
