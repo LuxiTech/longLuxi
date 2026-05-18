@@ -86,6 +86,12 @@ longluxi/
 
 ---
 
+## 评测报告
+
+- [`docs/reports/BASELINE_W1.md`](docs/reports/BASELINE_W1.md) —— Phase 1 基线
+  （Qwen3.5-4B 在 NIAH 32K/128K/512K-YaRN 与 RULER 128K 上的表现；
+  headline weakness = RULER `vt` 20% @ 128K；1M 受限于单卡内存）。Tag `phase1-baseline`.
+
 ## 关键设计取舍
 
 - **不靠纯 retrieval 假装 10M**：reader 自身必须 dense 推到 2M-4M
