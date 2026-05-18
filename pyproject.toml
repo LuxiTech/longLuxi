@@ -27,13 +27,15 @@ dependencies = [
 [project.optional-dependencies]
 # ---- 训练栈：CPT + SFT。安装重，需要 H100/CUDA 节点 ----
 train = [
-    "torch>=2.4",
+    "torch>=2.8,<2.9",
     "transformers>=4.45",
     "accelerate>=0.34",
     "deepspeed>=0.15",
     "peft>=0.12",
     "trl>=0.10",
-    "flash-attn>=2.6 ; sys_platform == 'linux'",
+    # flash-attn is NOT auto-installed (PyPI version fails to build for our torch+cu combo).
+    # Install via scripts/install_flash_attn_local.sh which uses the prebuilt wheel at
+    # /home/user01/Minko/flash_attn-2.8.3+cu12torch2.8cxx11abiFALSE-cp311-cp311-linux_x86_64.whl
     "wandb>=0.17",
     "trackio>=0.1",
     "einops>=0.8",
@@ -43,7 +45,7 @@ train = [
 
 # ---- Retrieval 栈：索引 + reranker + 压缩 ----
 retrieval = [
-    "torch>=2.4",
+    "torch>=2.8,<2.9",
     "transformers>=4.45",
     "sentence-transformers>=3.0",
     "FlagEmbedding>=1.2",
@@ -59,7 +61,7 @@ retrieval = [
 
 # ---- Eval 栈：long-context benchmark runners ----
 eval = [
-    "torch>=2.4",
+    "torch>=2.8,<2.9",
     "transformers>=4.45",
     "datasets>=2.20",
     "evaluate>=0.4",
