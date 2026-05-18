@@ -55,7 +55,11 @@ def main():
         (out_dir / "plan.json").write_text(json.dumps(plan, indent=2, ensure_ascii=False))
         return
 
-    yarn_path = (REPO_ROOT / args.yarn_config) if (args.yarn_config and not Path(args.yarn_config).is_absolute()) else args.yarn_config
+    if args.yarn_config:
+        yp = Path(args.yarn_config)
+        yarn_path: Path | None = yp if yp.is_absolute() else (REPO_ROOT / yp)
+    else:
+        yarn_path = None
 
     from longluxi.eval.runner import run_niah
     metrics = run_niah(

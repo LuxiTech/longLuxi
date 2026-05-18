@@ -2,7 +2,6 @@
 from __future__ import annotations
 
 import random
-from dataclasses import asdict
 from pathlib import Path
 from typing import Any
 
@@ -20,7 +19,7 @@ def build_grid(lengths: list[int], depths: list[int], n_per_cell: int,
         for d in depths:
             for _ in range(n_per_cell):
                 cells.append(build_cell(hay, L, d, tokenizer, rng))
-            if max_cells and len(cells) >= max_cells:
+            if max_cells is not None and len(cells) >= max_cells:
                 return cells[:max_cells]
     return cells
 
@@ -53,7 +52,7 @@ def evaluate_cells(cells: list[NiahCell], model, tokenizer, max_new_tokens: int 
 
 
 def run_niah(model_id: str, lengths: list[int], depths: list[int], n_per_cell: int,
-             out_dir: Path, yarn_path: str | None = None, seed: int = 42,
+             out_dir: Path, yarn_path: str | Path | None = None, seed: int = 42,
              max_cells: int | None = None) -> dict[str, Any]:
     from longluxi.eval.model_loader import load_model_and_tokenizer
 
