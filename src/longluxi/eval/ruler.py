@@ -56,6 +56,7 @@ def _build_niah_multikey(length_tokens, tokenizer, rng):
     target = max(length_tokens - 300, 64)
     if len(hay_ids) < target:
         hay_ids = (hay_ids * ((target // len(hay_ids)) + 1))[:target]
+    hay_ids = hay_ids[:target]
     positions = sorted([int(target * p) for p in (0.2, 0.4, 0.6, 0.8)])
     inserts = list(zip(positions, distract_ids + [real_ids], strict=False))
     out_ids: list = []
@@ -87,6 +88,7 @@ def _build_niah_multiquery(length_tokens, tokenizer, rng):
     target = max(length_tokens - 400, 64)
     if len(hay_ids) < target:
         hay_ids = (hay_ids * ((target // len(hay_ids)) + 1))[:target]
+    hay_ids = hay_ids[:target]
     positions = sorted([int(target * p) for p in (0.15, 0.35, 0.55, 0.85)])
     out_ids: list = []
     last = 0
@@ -159,6 +161,7 @@ def _build_qa_1(length_tokens, tokenizer, rng):
     target = max(length_tokens - len(fact_ids) - 50, 64)
     if len(hay_ids) < target:
         hay_ids = (hay_ids * ((target // len(hay_ids)) + 1))[:target]
+    hay_ids = hay_ids[:target]
     pos = int(len(hay_ids) * rng.choice([0.3, 0.6, 0.85]))
     out_ids = hay_ids[:pos] + fact_ids + hay_ids[pos:]
     text = tokenizer.decode(out_ids)
