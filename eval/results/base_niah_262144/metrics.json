@@ -1,0 +1,9 @@
+{
+  "model_id": "/home/user01/Minko/models/Qwen3.5-4B",
+  "yarn_config": "yarn_1m@vllm-server",
+  "n_cells": 10,
+  "accuracy": 1.0,
+  "by_length": {
+    "262144": 1.0
+  }
+}
