@@ -48,12 +48,19 @@ uv pip install /home/user01/Minko/flash_attn-2.8.3+cu12torch2.8cxx11abiFALSE-cp3
 #       with Triton >= 3.4.0 (numerical bug, fla #640) and requires tilelang instead.
 uv pip install "flash-linear-attention>=0.4.1" liger-kernel tilelang
 
-# 6) Manual patch (NOT done by this script — apply once per fresh venv):
-#   transformers 5.6.0's integrations/flash_attention.py:84 unconditionally calls
-#   `s_aux.to(query.dtype)` but Qwen3.5 doesn't pass an `s_aux` (learnable attention sink),
-#   so first forward hits AttributeError on None. Patch in-place:
-#     sed -i 's|s_aux=s_aux.to(query.dtype),|s_aux=s_aux.to(query.dtype) if s_aux is not None else None,|' \
-#       "$VIRTUAL_ENV/lib/python3.11/site-packages/transformers/integrations/flash_attention.py"
+# 6) Patch transformers 5.6.0 integrations/flash_attention.py:
+#   Upstream unconditionally calls `s_aux.to(query.dtype)` but Qwen3.5 doesn't pass an
+#   `s_aux` (learnable attention sink) — first forward AttributeError's on None.
+#   Idempotent: re-running this script after a transformers reinstall re-applies.
+FA_FILE="$VIRTUAL_ENV/lib/python3.11/site-packages/transformers/integrations/flash_attention.py"
+if grep -q 's_aux=s_aux.to(query.dtype) if s_aux is not None else None' "$FA_FILE"; then
+    echo "[install_lf] flash_attention.py s_aux None-guard already applied"
+else
+    sed -i 's|s_aux=s_aux.to(query.dtype),|s_aux=s_aux.to(query.dtype) if s_aux is not None else None,|' "$FA_FILE"
+    grep -q 's_aux=s_aux.to(query.dtype) if s_aux is not None else None' "$FA_FILE" \
+        || { echo "[install_lf] FATAL: s_aux patch did not apply to $FA_FILE"; exit 1; }
+    echo "[install_lf] flash_attention.py s_aux None-guard applied"
+fi
 
 # 7) Smoke imports. Use the venv's python explicitly — uv sets VIRTUAL_ENV but doesn't
 # automatically put .venv-lf/bin on PATH, so a bare `python` would resolve to whatever
