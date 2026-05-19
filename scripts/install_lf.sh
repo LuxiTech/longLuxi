@@ -46,7 +46,8 @@ uv pip install /home/user01/Minko/flash_attn-2.8.3+cu12torch2.8cxx11abiFALSE-cp3
 #       Enabled per-config via `enable_liger_kernel: true`.
 #   - tilelang: fla's gated-chunk backward (`chunk_bwd_dqkwg`) refuses to run on Hopper
 #       with Triton >= 3.4.0 (numerical bug, fla #640) and requires tilelang instead.
-uv pip install "flash-linear-attention>=0.4.1" liger-kernel tilelang
+uv pip install "flash-linear-attention>=0.4.1" liger-kernel tilelang \
+    "deepspeed>=0.16,<=0.18.4"   # DS ZeRO-3 path for ultra-long-ctx CPT
 
 # 6) Patch transformers 5.6.0 integrations/flash_attention.py:
 #   Upstream unconditionally calls `s_aux.to(query.dtype)` but Qwen3.5 doesn't pass an

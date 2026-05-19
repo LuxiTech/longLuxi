@@ -1,0 +1,31 @@
+{
+  "_comment": "DeepSpeed ZeRO-3 with CPU offload for ultra-long-ctx CPT on 4 H100s (cards 0-3). Adapted from LF ds_z3_offload_config.json. Trades training speed for memory: opt state and params live on CPU, get gathered to GPU on demand. Sufficient to fit Qwen3.5-4B @ 256K on 80 GB cards where FSDP2+offload OOMed.",
+  "train_batch_size": "auto",
+  "train_micro_batch_size_per_gpu": "auto",
+  "gradient_accumulation_steps": "auto",
+  "gradient_clipping": "auto",
+  "zero_allow_untested_optimizer": true,
+  "bf16": {
+    "enabled": "auto"
+  },
+  "zero_optimization": {
+    "stage": 3,
+    "offload_optimizer": {
+      "device": "cpu",
+      "pin_memory": true
+    },
+    "offload_param": {
+      "device": "cpu",
+      "pin_memory": true
+    },
+    "overlap_comm": true,
+    "contiguous_gradients": true,
+    "sub_group_size": 1e9,
+    "reduce_bucket_size": "auto",
+    "stage3_prefetch_bucket_size": "auto",
+    "stage3_param_persistence_threshold": "auto",
+    "stage3_max_live_parameters": 1e9,
+    "stage3_max_reuse_distance": 1e9,
+    "stage3_gather_16bit_weights_on_model_save": true
+  }
+}
