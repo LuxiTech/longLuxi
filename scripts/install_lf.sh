@@ -37,7 +37,25 @@ uv pip install \
 # 4) Flash-attn local wheel (must come AFTER torch is pinned).
 uv pip install /home/user01/Minko/flash_attn-2.8.3+cu12torch2.8cxx11abiFALSE-cp311-cp311-linux_x86_64.whl --no-deps
 
-# 5) Smoke imports. Use the venv's python explicitly — uv sets VIRTUAL_ENV but doesn't
+# 5) Qwen3.5-specific runtime deps, discovered during the Task 6 32K smoke:
+#   - flash-linear-attention: LF's patcher.py:_check_fla_dependencies hard-fails Qwen3.5
+#       packing-seq forward without `fla.modules.convolution.causal_conv1d` and
+#       `fla.ops.gated_delta_rule.{chunk,fused_recurrent}_gated_delta_rule`. Needs >= 0.4.1.
+#   - liger-kernel: provides fused linear+cross_entropy for Qwen3.5; without it the
+#       32K x 248320-vocab fp32 logits tensor (~30 GiB) blows out a 79 GiB H100 even with FSDP2.
+#       Enabled per-config via `enable_liger_kernel: true`.
+#   - tilelang: fla's gated-chunk backward (`chunk_bwd_dqkwg`) refuses to run on Hopper
+#       with Triton >= 3.4.0 (numerical bug, fla #640) and requires tilelang instead.
+uv pip install "flash-linear-attention>=0.4.1" liger-kernel tilelang
+
+# 6) Manual patch (NOT done by this script — apply once per fresh venv):
+#   transformers 5.6.0's integrations/flash_attention.py:84 unconditionally calls
+#   `s_aux.to(query.dtype)` but Qwen3.5 doesn't pass an `s_aux` (learnable attention sink),
+#   so first forward hits AttributeError on None. Patch in-place:
+#     sed -i 's|s_aux=s_aux.to(query.dtype),|s_aux=s_aux.to(query.dtype) if s_aux is not None else None,|' \
+#       "$VIRTUAL_ENV/lib/python3.11/site-packages/transformers/integrations/flash_attention.py"
+
+# 7) Smoke imports. Use the venv's python explicitly — uv sets VIRTUAL_ENV but doesn't
 # automatically put .venv-lf/bin on PATH, so a bare `python` would resolve to whatever
 # is on PATH (typically the main .venv/ python, which lacks llamafactory).
 "$VIRTUAL_ENV/bin/python" -c "
