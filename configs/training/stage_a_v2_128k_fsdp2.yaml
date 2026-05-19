@@ -1,0 +1,46 @@
+### Stage A CPT @ 128K with FSDP2 (proven stack from Phase 3a).
+### Targets RULER vt + LongBench-v2 long via mixed real-long-doc + synthetic
+### reasoning training data (packed_v2.jsonl built by data/scripts/pack_v2.py).
+
+### model
+model_name_or_path: /home/user01/Minko/models/Qwen3.5-4B
+trust_remote_code: true
+flash_attn: fa2
+enable_liger_kernel: true   # required to avoid 248K-vocab logits OOM at >=32K
+
+### method
+stage: pt
+do_train: true
+finetuning_type: full
+
+### dataset
+dataset: longluxi_packed_v2_128k
+dataset_dir: external/LLaMA-Factory/data
+template: empty
+cutoff_len: 131072
+max_samples: 0              # use full dataset
+preprocessing_num_workers: 8
+dataloader_num_workers: 2
+packing: false              # already packed upstream
+neat_packing: false
+
+### output
+output_dir: checkpoints/stage_a_v2_128k
+logging_steps: 1
+save_steps: 50
+save_total_limit: 3
+plot_loss: true
+overwrite_output_dir: true
+save_only_model: true
+report_to: none
+
+### train
+per_device_train_batch_size: 1
+gradient_accumulation_steps: 4    # effective batch = 4 × 4 cards = 16 seqs/step
+max_steps: 500                    # initial budget; extend as needed
+learning_rate: 3.0e-5             # UltraLong's CPT LR
+warmup_ratio: 0.05
+lr_scheduler_type: cosine
+bf16: true
+gradient_checkpointing: true
+ddp_timeout: 180000000
