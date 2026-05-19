@@ -1,0 +1,17 @@
+{
+  "model_id": "/home/user01/Minko/models/Qwen3.5-4B",
+  "task": "longbook_choice_eng",
+  "n_attempted": 225,
+  "n_skipped_too_long": 4,
+  "accuracy": 0.8044444444444444,
+  "by_bucket": {
+    "180k_500k": 0.7674418604651163,
+    "50k_180k": 0.816793893129771,
+    "gt_500k": 1.0
+  },
+  "n_by_bucket": {
+    "180k_500k": 86,
+    "50k_180k": 131,
+    "gt_500k": 8
+  }
+}

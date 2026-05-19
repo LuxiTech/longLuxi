@@ -1,0 +1,29 @@
+{
+  "model_id": "/home/user01/Minko/models/Qwen3.5-4B",
+  "bucket": "long",
+  "n_attempted": 71,
+  "n_skipped_too_long": 28,
+  "accuracy": 0.2535211267605634,
+  "by_domain": {
+    "Long In-context Learning": 0.2777777777777778,
+    "Multi-Document QA": 0.23809523809523808,
+    "Code Repository Understanding": 0.5714285714285714,
+    "Single-Document QA": 0.08695652173913043,
+    "Long Structured Data Understanding": 1.0
+  },
+  "by_difficulty": {
+    "hard": 0.2972972972972973,
+    "easy": 0.20588235294117646
+  },
+  "n_by_domain": {
+    "Long In-context Learning": 18,
+    "Multi-Document QA": 21,
+    "Code Repository Understanding": 7,
+    "Single-Document QA": 23,
+    "Long Structured Data Understanding": 2
+  },
+  "n_by_difficulty": {
+    "hard": 37,
+    "easy": 34
+  }
+}

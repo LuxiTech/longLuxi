@@ -1,0 +1,225 @@
+{"id": 0, "ctx_chars": 1116721, "answer": ["Walking Georgie"], "pred_raw": "(C) Working in the dairy", "pred_extracted": "C", "ok": false}
+{"id": 1, "ctx_chars": 1116721, "answer": ["Snowfield"], "pred_raw": "(C)", "pred_extracted": "C", "ok": true}
+{"id": 2, "ctx_chars": 1116721, "answer": ["At the Mauras"], "pred_raw": "(D) At the Mauras", "pred_extracted": "D", "ok": true}
+{"id": 3, "ctx_chars": 1116721, "answer": ["Methodist"], "pred_raw": "A", "pred_extracted": "A", "ok": true}
+{"id": 4, "ctx_chars": 376298, "answer": ["That Italy inherit the Latins' name and language and not the Trojans'"], "pred_raw": "D", "pred_extracted": "D", "ok": true}
+{"id": 5, "ctx_chars": 376298, "answer": ["12 days"], "pred_raw": "A", "pred_extracted": "A", "ok": true}
+{"id": 6, "ctx_chars": 376298, "answer": ["Carley"], "pred_raw": "(D)", "pred_extracted": "D", "ok": true}
+{"id": 7, "ctx_chars": 376298, "answer": ["Jaelynn"], "pred_raw": "B", "pred_extracted": "B", "ok": true}
+{"id": 12, "ctx_chars": 1957500, "answer": ["The Serbian war"], "pred_raw": "(B) The Serbian war", "pred_extracted": "B", "ok": true}
+{"id": 13, "ctx_chars": 1957500, "answer": ["Mitya"], "pred_raw": "A", "pred_extracted": "A", "ok": true}
+{"id": 14, "ctx_chars": 1957500, "answer": ["The death of Clarisse's horse"], "pred_raw": "(B) The death of Clarisse's", "pred_extracted": "B", "ok": true}
+{"id": 15, "ctx_chars": 1957500, "answer": ["At the opera"], "pred_raw": "(C) At the opera", "pred_extracted": "C", "ok": true}
+{"id": 16, "ctx_chars": 564719, "answer": ["Puffed sleeves"], "pred_raw": "(D)", "pred_extracted": "D", "ok": true}
+{"id": 17, "ctx_chars": 564719, "answer": ["Avonlea"], "pred_raw": "(D)", "pred_extracted": "D", "ok": false}
+{"id": 18, "ctx_chars": 564719, "answer": ["Losing Hattie's brooch"], "pred_raw": "A", "pred_extracted": "A", "ok": true}
+{"id": 19, "ctx_chars": 564719, "answer": ["Clinging to a bridge pile"], "pred_raw": "D", "pred_extracted": "D", "ok": true}
+{"id": 24, "ctx_chars": 690387, "answer": ["All of the above"], "pred_raw": "(D)", "pred_extracted": "D", "ok": true}
+{"id": 25, "ctx_chars": 690387, "answer": ["Lorelei doesn't approve of early marriages and he wishes Colleen would finish college, but he supports Colleen's right to live his life on his own terms."], "pred_raw": "A", "pred_extracted": "A", "ok": true}
+{"id": 26, "ctx_chars": 690387, "answer": ["He became engaged to her almost by accident, and he didn't have the courage to break it off"], "pred_raw": "B", "pred_extracted": "B", "ok": true}
+{"id": 27, "ctx_chars": 690387, "answer": ["Religion is heavily influenced by materialism and competition for social status."], "pred_raw": "(B)", "pred_extracted": "B", "ok": true}
+{"id": 28, "ctx_chars": 661882, "answer": ["A kiss"], "pred_raw": "D", "pred_extracted": "D", "ok": true}
+{"id": 29, "ctx_chars": 661882, "answer": ["Haunted by humans"], "pred_raw": "C", "pred_extracted": "C", "ok": true}
+{"id": 30, "ctx_chars": 661882, "answer": ["He'll die and they'll have to get rid of his body"], "pred_raw": "D", "pred_extracted": "D", "ok": true}
+{"id": 31, "ctx_chars": 661882, "answer": ["Candace can write her own story"], "pred_raw": "B", "pred_extracted": "B", "ok": true}
+{"id": 40, "ctx_chars": 1115791, "answer": ["The dream in which Dulce Kitty is beating Aiden's landlady"], "pred_raw": "(D) The dream in which a plague", "pred_extracted": "D", "ok": false}
+{"id": 41, "ctx_chars": 1115791, "answer": ["The Crystal Palace"], "pred_raw": "D", "pred_extracted": "D", "ok": true}
+{"id": 42, "ctx_chars": 1115791, "answer": ["The caretaker"], "pred_raw": "(B) The caretaker", "pred_extracted": "B", "ok": true}
+{"id": 43, "ctx_chars": 1115791, "answer": ["She wants to invite him to the memorial dinner for her father"], "pred_raw": "D", "pred_extracted": "D", "ok": false}
+{"id": 48, "ctx_chars": 879954, "answer": ["Clementine is Miss Leo's niece."], "pred_raw": "B", "pred_extracted": "B", "ok": true}
+{"id": 49, "ctx_chars": 879954, "answer": ["Mr. Deirdre"], "pred_raw": "A", "pred_extracted": "A", "ok": false}
+{"id": 50, "ctx_chars": 879954, "answer": ["Gypsies"], "pred_raw": "A", "pred_extracted": "A", "ok": true}
+{"id": 51, "ctx_chars": 879954, "answer": ["Mr. Martha"], "pred_raw": "C", "pred_extracted": "C", "ok": true}
+{"id": 52, "ctx_chars": 383366, "answer": ["He misunderstands the monster's warning."], "pred_raw": "(C)", "pred_extracted": "C", "ok": true}
+{"id": 53, "ctx_chars": 383366, "answer": ["Allyson Kalia"], "pred_raw": "(C)", "pred_extracted": "C", "ok": true}
+{"id": 54, "ctx_chars": 383366, "answer": ["Lack of desire to marry Raiden"], "pred_raw": "B", "pred_extracted": "B", "ok": false}
+{"id": 55, "ctx_chars": 383366, "answer": ["By listening to Felix teach Safie his language"], "pred_raw": "A", "pred_extracted": "A", "ok": true}
+{"id": 58, "ctx_chars": 958222, "answer": ["A coroner's Owenfice"], "pred_raw": "(D) By the banks Owen a stream", "pred_extracted": "D", "ok": false}
+{"id": 59, "ctx_chars": 958222, "answer": ["Genesis Savannah"], "pred_raw": "A", "pred_extracted": "A", "ok": false}
+{"id": 60, "ctx_chars": 958222, "answer": ["Preacher"], "pred_raw": "B", "pred_extracted": "B", "ok": true}
+{"id": 61, "ctx_chars": 958222, "answer": ["Gum"], "pred_raw": "C", "pred_extracted": "C", "ok": true}
+{"id": 74, "ctx_chars": 507228, "answer": ["Human and bear"], "pred_raw": "D", "pred_extracted": "D", "ok": true}
+{"id": 75, "ctx_chars": 507228, "answer": ["Riddle-solving"], "pred_raw": "(C)", "pred_extracted": "C", "ok": true}
+{"id": 76, "ctx_chars": 507228, "answer": ["His old home at Hobbiton"], "pred_raw": "(D)", "pred_extracted": "D", "ok": true}
+{"id": 77, "ctx_chars": 507228, "answer": ["Eoin and Took"], "pred_raw": "C", "pred_extracted": "C", "ok": true}
+{"id": 78, "ctx_chars": 315800, "answer": ["The garbage"], "pred_raw": "(D)", "pred_extracted": "D", "ok": false}
+{"id": 79, "ctx_chars": 315800, "answer": ["Sir Blossom Horatio"], "pred_raw": "A", "pred_extracted": "A", "ok": true}
+{"id": 80, "ctx_chars": 315800, "answer": ["Because he was wearing Sir Dilan's suit"], "pred_raw": "(D) Because he attacked Angelo", "pred_extracted": "D", "ok": false}
+{"id": 81, "ctx_chars": 315800, "answer": ["Phosphorous"], "pred_raw": "D", "pred_extracted": "D", "ok": true}
+{"id": 82, "ctx_chars": 550189, "answer": ["Prison"], "pred_raw": "(C)", "pred_extracted": "C", "ok": false}
+{"id": 83, "ctx_chars": 550189, "answer": ["Have him sent to the asylum"], "pred_raw": "(B)", "pred_extracted": "B", "ok": true}
+{"id": 84, "ctx_chars": 550189, "answer": ["Judge Drake"], "pred_raw": "D", "pred_extracted": "D", "ok": true}
+{"id": 85, "ctx_chars": 550189, "answer": ["Witchcraft"], "pred_raw": "(D)", "pred_extracted": "D", "ok": true}
+{"id": 86, "ctx_chars": 1002430, "answer": ["Cedric does not die in the novel."], "pred_raw": "(D)", "pred_extracted": "D", "ok": true}
+{"id": 87, "ctx_chars": 1002430, "answer": ["A side Morgana bacon"], "pred_raw": "D", "pred_extracted": "D", "ok": false}
+{"id": 88, "ctx_chars": 1002430, "answer": ["One"], "pred_raw": "B", "pred_extracted": "B", "ok": true}
+{"id": 89, "ctx_chars": 1002430, "answer": ["Bailey"], "pred_raw": "(C)", "pred_extracted": "C", "ok": true}
+{"id": 90, "ctx_chars": 931239, "answer": ["He has her naturally curly hair cut short so as to make it lie straight."], "pred_raw": "B", "pred_extracted": "B", "ok": true}
+{"id": 91, "ctx_chars": 931239, "answer": ["Hannah"], "pred_raw": "C", "pred_extracted": "C", "ok": true}
+{"id": 92, "ctx_chars": 931239, "answer": ["St. Spencer"], "pred_raw": "A", "pred_extracted": "A", "ok": true}
+{"id": 93, "ctx_chars": 931239, "answer": ["Mila Kirsten"], "pred_raw": "(B)", "pred_extracted": "B", "ok": true}
+{"id": 94, "ctx_chars": 747078, "answer": ["He freezes, realizing that the dinosaur cannot see him if he does not move"], "pred_raw": "A", "pred_extracted": "A", "ok": true}
+{"id": 95, "ctx_chars": 747078, "answer": ["Velociraptor"], "pred_raw": "A", "pred_extracted": "A", "ok": false}
+{"id": 96, "ctx_chars": 747078, "answer": ["He wants to put the moves on Dr. Christie"], "pred_raw": "D", "pred_extracted": "D", "ok": true}
+{"id": 97, "ctx_chars": 747078, "answer": ["Fifteen"], "pred_raw": "C", "pred_extracted": "C", "ok": true}
+{"id": 98, "ctx_chars": 411609, "answer": ["Edinburgh"], "pred_raw": "B", "pred_extracted": "B", "ok": true}
+{"id": 99, "ctx_chars": 411609, "answer": ["Isobel"], "pred_raw": "A", "pred_extracted": "A", "ok": true}
+{"id": 100, "ctx_chars": 411609, "answer": ["A silver button from his jacket"], "pred_raw": "D", "pred_extracted": "D", "ok": true}
+{"id": 101, "ctx_chars": 411609, "answer": ["Ciaran of the Dior"], "pred_raw": "(C)", "pred_extracted": "C", "ok": true}
+{"id": 102, "ctx_chars": 833688, "answer": ["Hurons"], "pred_raw": "C", "pred_extracted": "C", "ok": true}
+{"id": 103, "ctx_chars": 833688, "answer": ["Theo"], "pred_raw": "(A)", "pred_extracted": "A", "ok": true}
+{"id": 104, "ctx_chars": 833688, "answer": ["Cael"], "pred_raw": "(D)", "pred_extracted": "D", "ok": false}
+{"id": 105, "ctx_chars": 833688, "answer": ["A doctor"], "pred_raw": "(C)", "pred_extracted": "C", "ok": true}
+{"id": 110, "ctx_chars": 1023032, "answer": ["Plumfield"], "pred_raw": "A", "pred_extracted": "A", "ok": true}
+{"id": 111, "ctx_chars": 1023032, "answer": ["Sing"], "pred_raw": "D", "pred_extracted": "D", "ok": true}
+{"id": 112, "ctx_chars": 1023032, "answer": ["Germany"], "pred_raw": "(C)", "pred_extracted": "C", "ok": true}
+{"id": 113, "ctx_chars": 1023032, "answer": ["Chocolate drops"], "pred_raw": "(C) Chocolate drops", "pred_extracted": "C", "ok": true}
+{"id": 114, "ctx_chars": 434156, "answer": ["Talent"], "pred_raw": "(C)", "pred_extracted": "C", "ok": true}
+{"id": 115, "ctx_chars": 434156, "answer": ["It is structured like an army."], "pred_raw": "(C)", "pred_extracted": "C", "ok": true}
+{"id": 116, "ctx_chars": 434156, "answer": ["They felt that there was nothing that could be done about it."], "pred_raw": "A", "pred_extracted": "A", "ok": true}
+{"id": 117, "ctx_chars": 434156, "answer": ["All of the above"], "pred_raw": "D", "pred_extracted": "D", "ok": true}
+{"id": 118, "ctx_chars": 642385, "answer": ["Kelly repairs Richie's father's broken leg"], "pred_raw": "D", "pred_extracted": "D", "ok": true}
+{"id": 119, "ctx_chars": 642385, "answer": ["A power of attorney"], "pred_raw": "D", "pred_extracted": "D", "ok": true}
+{"id": 120, "ctx_chars": 642385, "answer": ["In the woods"], "pred_raw": "(C)", "pred_extracted": "C", "ok": true}
+{"id": 121, "ctx_chars": 642385, "answer": ["He once slept with Marie Antoinette"], "pred_raw": "B", "pred_extracted": "B", "ok": true}
+{"id": 126, "ctx_chars": 906064, "answer": ["Nobel Prize for Literature"], "pred_raw": "A", "pred_extracted": "A", "ok": false}
+{"id": 127, "ctx_chars": 906064, "answer": ["Sauk Centre, Minnesota"], "pred_raw": "B", "pred_extracted": "B", "ok": false}
+{"id": 128, "ctx_chars": 906064, "answer": ["Doctor"], "pred_raw": "(C)", "pred_extracted": "C", "ok": true}
+{"id": 129, "ctx_chars": 906064, "answer": ["Himself"], "pred_raw": "B", "pred_extracted": "B", "ok": true}
+{"id": 130, "ctx_chars": 884417, "answer": ["Horseback riding"], "pred_raw": "C", "pred_extracted": "C", "ok": true}
+{"id": 131, "ctx_chars": 884417, "answer": ["Everingham"], "pred_raw": "A", "pred_extracted": "A", "ok": true}
+{"id": 132, "ctx_chars": 884417, "answer": ["Thrush"], "pred_raw": "(C)", "pred_extracted": "C", "ok": true}
+{"id": 133, "ctx_chars": 884417, "answer": ["Sailor"], "pred_raw": "(D)", "pred_extracted": "D", "ok": false}
+{"id": 134, "ctx_chars": 1114815, "answer": ["All-American"], "pred_raw": "(B)", "pred_extracted": "B", "ok": true}
+{"id": 135, "ctx_chars": 1114815, "answer": ["Takes to her bed"], "pred_raw": "D", "pred_extracted": "D", "ok": true}
+{"id": 136, "ctx_chars": 1114815, "answer": ["English class"], "pred_raw": "(C) English class", "pred_extracted": "C", "ok": true}
+{"id": 137, "ctx_chars": 1114815, "answer": ["A thermometer"], "pred_raw": "B", "pred_extracted": "B", "ok": true}
+{"id": 138, "ctx_chars": 1109076, "answer": ["Because Amy does not play fairly"], "pred_raw": "C", "pred_extracted": "C", "ok": true}
+{"id": 139, "ctx_chars": 1109076, "answer": ["Through an entrepreneurial scheme with Amy Helina"], "pred_raw": "B", "pred_extracted": "B", "ok": true}
+{"id": 140, "ctx_chars": 1109076, "answer": ["Because he thinks of Castiel dependent upon Clea after his own death"], "pred_raw": "A", "pred_extracted": "A", "ok": true}
+{"id": 141, "ctx_chars": 1109076, "answer": ["Mrs. Roberta's visit to him"], "pred_raw": "B", "pred_extracted": "B", "ok": true}
+{"id": 146, "ctx_chars": 430884, "answer": ["Laundry bills"], "pred_raw": "A", "pred_extracted": "A", "ok": true}
+{"id": 147, "ctx_chars": 430884, "answer": ["Aaliyah Hugo"], "pred_raw": "(C)", "pred_extracted": "C", "ok": true}
+{"id": 148, "ctx_chars": 430884, "answer": ["Free indirect discourse"], "pred_raw": "D", "pred_extracted": "D", "ok": true}
+{"id": 149, "ctx_chars": 430884, "answer": ["During a dance in the Lower Rooms"], "pred_raw": "(C)", "pred_extracted": "C", "ok": false}
+{"id": 150, "ctx_chars": 298903, "answer": ["Alaska"], "pred_raw": "C", "pred_extracted": "C", "ok": true}
+{"id": 151, "ctx_chars": 298903, "answer": ["Engraving"], "pred_raw": "A", "pred_extracted": "A", "ok": true}
+{"id": 152, "ctx_chars": 298903, "answer": ["Saint-Agnes"], "pred_raw": "(D)", "pred_extracted": "D", "ok": true}
+{"id": 153, "ctx_chars": 298903, "answer": ["Albert Tovesky"], "pred_raw": "(D)", "pred_extracted": "D", "ok": true}
+{"id": 154, "ctx_chars": 891974, "answer": ["Undertaker"], "pred_raw": "A", "pred_extracted": "A", "ok": true}
+{"id": 155, "ctx_chars": 891974, "answer": ["Chimney sweep"], "pred_raw": "(D)", "pred_extracted": "D", "ok": true}
+{"id": 156, "ctx_chars": 891974, "answer": ["He wants her money"], "pred_raw": "(D)", "pred_extracted": "D", "ok": true}
+{"id": 157, "ctx_chars": 891974, "answer": ["Because she does not want to stCici in the way of his ambition"], "pred_raw": "B", "pred_extracted": "B", "ok": true}
+{"id": 158, "ctx_chars": 456621, "answer": ["Mrs. Angeline"], "pred_raw": "A", "pred_extracted": "A", "ok": true}
+{"id": 159, "ctx_chars": 456621, "answer": ["Arjun"], "pred_raw": "B", "pred_extracted": "B", "ok": true}
+{"id": 160, "ctx_chars": 456621, "answer": ["She thinks Mrs. Delanie might have romantic designs on Sir Dan"], "pred_raw": "D", "pred_extracted": "D", "ok": true}
+{"id": 161, "ctx_chars": 456621, "answer": ["Randy Ayanna"], "pred_raw": "(C)", "pred_extracted": "C", "ok": true}
+{"id": 162, "ctx_chars": 1229657, "answer": ["Mohammed"], "pred_raw": "(C)", "pred_extracted": "C", "ok": true}
+{"id": 163, "ctx_chars": 1229657, "answer": ["He wants to be closer to Zelda."], "pred_raw": "(B) He wants to be closer to", "pred_extracted": "B", "ok": true}
+{"id": 164, "ctx_chars": 1229657, "answer": ["Madame Elspeth"], "pred_raw": "(C) Chelsea Madisyn's first", "pred_extracted": "C", "ok": false}
+{"id": 165, "ctx_chars": 1229657, "answer": ["Mr. Tate"], "pred_raw": "(D)", "pred_extracted": "D", "ok": true}
+{"id": 166, "ctx_chars": 632149, "answer": ["Marry Mya"], "pred_raw": "C", "pred_extracted": "C", "ok": true}
+{"id": 167, "ctx_chars": 632149, "answer": ["Sends her a letter explaining his actions"], "pred_raw": "A", "pred_extracted": "A", "ok": true}
+{"id": 168, "ctx_chars": 632149, "answer": ["She gets soaked in a rainstorm and becomes ill."], "pred_raw": "(C)", "pred_extracted": "C", "ok": false}
+{"id": 169, "ctx_chars": 632149, "answer": ["Abrianna"], "pred_raw": "A", "pred_extracted": "A", "ok": true}
+{"id": 177, "ctx_chars": 775562, "answer": ["\"St. George\""], "pred_raw": "(D)", "pred_extracted": "D", "ok": true}
+{"id": 178, "ctx_chars": 775562, "answer": ["He was a captain"], "pred_raw": "A", "pred_extracted": "A", "ok": true}
+{"id": 179, "ctx_chars": 775562, "answer": ["Rocky"], "pred_raw": "A", "pred_extracted": "A", "ok": true}
+{"id": 180, "ctx_chars": 775562, "answer": ["A dye used for marking sheep"], "pred_raw": "D", "pred_extracted": "D", "ok": true}
+{"id": 181, "ctx_chars": 620388, "answer": ["A North African territory"], "pred_raw": "B", "pred_extracted": "B", "ok": true}
+{"id": 182, "ctx_chars": 620388, "answer": ["Experiences a religious illumination"], "pred_raw": "(D) Experiences a religious illumination", "pred_extracted": "D", "ok": true}
+{"id": 183, "ctx_chars": 620388, "answer": ["Sebastianne's god"], "pred_raw": "(D) Sebastianne's god", "pred_extracted": "D", "ok": true}
+{"id": 184, "ctx_chars": 620388, "answer": ["A goat's"], "pred_raw": "(D) The captain's", "pred_extracted": "D", "ok": false}
+{"id": 185, "ctx_chars": 397153, "answer": ["She inherits Troy's estate and marries a nobleman."], "pred_raw": "C", "pred_extracted": "C", "ok": true}
+{"id": 186, "ctx_chars": 397153, "answer": ["She is executed publicly as a witch."], "pred_raw": "C", "pred_extracted": "C", "ok": true}
+{"id": 187, "ctx_chars": 397153, "answer": ["A meteor"], "pred_raw": "(B)", "pred_extracted": "B", "ok": true}
+{"id": 188, "ctx_chars": 661111, "answer": ["Dayton Morton"], "pred_raw": "(C)", "pred_extracted": "C", "ok": false}
+{"id": 189, "ctx_chars": 661111, "answer": ["Mr. Pratt"], "pred_raw": "(D) Mr. Pratt", "pred_extracted": "D", "ok": true}
+{"id": 190, "ctx_chars": 661111, "answer": ["Return each other's letters"], "pred_raw": "A", "pred_extracted": "A", "ok": true}
+{"id": 191, "ctx_chars": 661111, "answer": ["Kristi Finn"], "pred_raw": "(C)", "pred_extracted": "C", "ok": false}
+{"id": 196, "ctx_chars": 360035, "answer": ["Kallie"], "pred_raw": "(C) They never fight", "pred_extracted": "C", "ok": false}
+{"id": 197, "ctx_chars": 360035, "answer": ["Perla"], "pred_raw": "D", "pred_extracted": "D", "ok": true}
+{"id": 198, "ctx_chars": 360035, "answer": ["It makes him sick"], "pred_raw": "D", "pred_extracted": "D", "ok": true}
+{"id": 199, "ctx_chars": 360035, "answer": ["He wants to wait for Katniss"], "pred_raw": "C", "pred_extracted": "C", "ok": true}
+{"id": 200, "ctx_chars": 759348, "answer": ["Miss Dave' brother, Solomon"], "pred_raw": "(A)", "pred_extracted": "A", "ok": true}
+{"id": 201, "ctx_chars": 759348, "answer": ["Madame Royce"], "pred_raw": "A", "pred_extracted": "A", "ok": true}
+{"id": 210, "ctx_chars": 538051, "answer": ["Mississippi"], "pred_raw": "(B)", "pred_extracted": "B", "ok": true}
+{"id": 211, "ctx_chars": 538051, "answer": ["Chewing gum"], "pred_raw": "(D)", "pred_extracted": "D", "ok": true}
+{"id": 212, "ctx_chars": 538051, "answer": ["9 "], "pred_raw": "A", "pred_extracted": "A", "ok": false}
+{"id": 213, "ctx_chars": 538051, "answer": ["Gia Leena"], "pred_raw": "C", "pred_extracted": "C", "ok": false}
+{"id": 214, "ctx_chars": 381748, "answer": ["The Bloomsbury Group"], "pred_raw": "A", "pred_extracted": "A", "ok": true}
+{"id": 215, "ctx_chars": 381748, "answer": ["She drowned herself"], "pred_raw": "B", "pred_extracted": "B", "ok": false}
+{"id": 216, "ctx_chars": 381748, "answer": ["Mrs. Deandra"], "pred_raw": "C", "pred_extracted": "C", "ok": true}
+{"id": 217, "ctx_chars": 381748, "answer": ["“The Charge of the Light Brigade”"], "pred_raw": "D", "pred_extracted": "D", "ok": false}
+{"id": 218, "ctx_chars": 362678, "answer": ["He is an innkeeper"], "pred_raw": "C", "pred_extracted": "C", "ok": true}
+{"id": 219, "ctx_chars": 362678, "answer": ["To make a truce"], "pred_raw": "A", "pred_extracted": "A", "ok": true}
+{"id": 220, "ctx_chars": 362678, "answer": ["That Ace has been deposed"], "pred_raw": "B", "pred_extracted": "B", "ok": true}
+{"id": 221, "ctx_chars": 362678, "answer": ["A boat"], "pred_raw": "D", "pred_extracted": "D", "ok": true}
+{"id": 226, "ctx_chars": 595684, "answer": ["A native rescues him at the seashore"], "pred_raw": "C", "pred_extracted": "C", "ok": true}
+{"id": 227, "ctx_chars": 595684, "answer": ["The main Typee dish made of breadfruit"], "pred_raw": "A", "pred_extracted": "A", "ok": true}
+{"id": 228, "ctx_chars": 595684, "answer": ["France"], "pred_raw": "(B)", "pred_extracted": "B", "ok": true}
+{"id": 229, "ctx_chars": 595684, "answer": ["Get a tattoo"], "pred_raw": "(C) Get a tattoo", "pred_extracted": "C", "ok": true}
+{"id": 230, "ctx_chars": 1505609, "answer": ["Antagonistic"], "pred_raw": "(D) Optimistic", "pred_extracted": "D", "ok": false}
+{"id": 231, "ctx_chars": 1505609, "answer": ["Gertie Marcella"], "pred_raw": "(D) Gertie Marcella", "pred_extracted": "D", "ok": true}
+{"id": 232, "ctx_chars": 1505609, "answer": ["Usurper"], "pred_raw": "(D) Usurper", "pred_extracted": "D", "ok": true}
+{"id": 233, "ctx_chars": 1505609, "answer": ["His mother"], "pred_raw": "(D) Aurelio", "pred_extracted": "D", "ok": false}
+{"id": 238, "ctx_chars": 578969, "answer": ["Both A and B"], "pred_raw": "D", "pred_extracted": "D", "ok": true}
+{"id": 239, "ctx_chars": 578969, "answer": ["All of the above"], "pred_raw": "D", "pred_extracted": "D", "ok": true}
+{"id": 240, "ctx_chars": 578969, "answer": ["All of the above"], "pred_raw": "D", "pred_extracted": "D", "ok": true}
+{"id": 241, "ctx_chars": 578969, "answer": ["He feels she has been unfairly shunned by some of the best families in New York"], "pred_raw": "D", "pred_extracted": "D", "ok": false}
+{"id": 242, "ctx_chars": 1360179, "answer": ["Woollett, Massachusetts"], "pred_raw": "D", "pred_extracted": "D", "ok": false}
+{"id": 243, "ctx_chars": 1360179, "answer": ["To talk to Miss Gostrey"], "pred_raw": "D", "pred_extracted": "D", "ok": false}
+{"id": 244, "ctx_chars": 1360179, "answer": ["Sculptor"], "pred_raw": "B", "pred_extracted": "B", "ok": false}
+{"id": 245, "ctx_chars": 1360179, "answer": ["One"], "pred_raw": "D", "pred_extracted": "D", "ok": false}
+{"id": 246, "ctx_chars": 1926398, "answer": ["Mr. Yestin"], "pred_raw": "A", "pred_extracted": "A", "ok": true}
+{"id": 247, "ctx_chars": 1926398, "answer": ["Godfrey Wayne"], "pred_raw": "(D)", "pred_extracted": "D", "ok": true}
+{"id": 248, "ctx_chars": 1926398, "answer": ["Both B and C"], "pred_raw": "(D)", "pred_extracted": "D", "ok": true}
+{"id": 249, "ctx_chars": 1926398, "answer": ["Dancing"], "pred_raw": "A", "pred_extracted": "A", "ok": true}
+{"id": 250, "ctx_chars": 377030, "answer": ["He writes a poem about solitude."], "pred_raw": "B", "pred_extracted": "B", "ok": false}
+{"id": 251, "ctx_chars": 377030, "answer": ["By sounding alarms and shocking the children when they approach books or flowers"], "pred_raw": "D", "pred_extracted": "D", "ok": true}
+{"id": 252, "ctx_chars": 377030, "answer": ["To bring rain"], "pred_raw": "B", "pred_extracted": "B", "ok": false}
+{"id": 253, "ctx_chars": 377030, "answer": ["A society of Alphas is unworkable."], "pred_raw": "A", "pred_extracted": "A", "ok": true}
+{"id": 262, "ctx_chars": 369324, "answer": ["Playing cards"], "pred_raw": "B", "pred_extracted": "B", "ok": true}
+{"id": 263, "ctx_chars": 369324, "answer": ["A street organ"], "pred_raw": "C", "pred_extracted": "C", "ok": true}
+{"id": 264, "ctx_chars": 369324, "answer": ["Two lovers"], "pred_raw": "C", "pred_extracted": "C", "ok": true}
+{"id": 265, "ctx_chars": 369324, "answer": ["A chalice"], "pred_raw": "C", "pred_extracted": "C", "ok": true}
+{"id": 274, "ctx_chars": 445452, "answer": ["Move quickly, since more players are entering the game."], "pred_raw": "D", "pred_extracted": "D", "ok": false}
+{"id": 275, "ctx_chars": 445452, "answer": ["A lens"], "pred_raw": "D", "pred_extracted": "D", "ok": false}
+{"id": 276, "ctx_chars": 445452, "answer": ["Ser Hugh, a former squire"], "pred_raw": "D", "pred_extracted": "D", "ok": false}
+{"id": 277, "ctx_chars": 445452, "answer": ["Accept Joff as king instead of naming Stannis."], "pred_raw": "D", "pred_extracted": "D", "ok": false}
+{"id": 278, "ctx_chars": 940303, "answer": ["She is afraid of the desolate land because there is nothing to hide behind"], "pred_raw": "B", "pred_extracted": "B", "ok": true}
+{"id": 279, "ctx_chars": 940303, "answer": ["She hides in her emigrant chest"], "pred_raw": "D", "pred_extracted": "D", "ok": true}
+{"id": 280, "ctx_chars": 940303, "answer": ["Rosie"], "pred_raw": "A", "pred_extracted": "A", "ok": true}
+{"id": 281, "ctx_chars": 940303, "answer": ["His wife, Felicity"], "pred_raw": "A", "pred_extracted": "A", "ok": true}
+{"id": 282, "ctx_chars": 453541, "answer": ["\"Saints\""], "pred_raw": "D", "pred_extracted": "D", "ok": true}
+{"id": 283, "ctx_chars": 453541, "answer": ["Morning"], "pred_raw": "A", "pred_extracted": "A", "ok": true}
+{"id": 284, "ctx_chars": 453541, "answer": ["His father strikes his mother."], "pred_raw": "A", "pred_extracted": "A", "ok": true}
+{"id": 285, "ctx_chars": 453541, "answer": ["A kiss on the forehead"], "pred_raw": "D", "pred_extracted": "D", "ok": true}
+{"id": 286, "ctx_chars": 571553, "answer": ["Kailey"], "pred_raw": "(D)", "pred_extracted": "D", "ok": true}
+{"id": 287, "ctx_chars": 571553, "answer": ["Kailey"], "pred_raw": "(D)", "pred_extracted": "D", "ok": true}
+{"id": 288, "ctx_chars": 571553, "answer": ["Her father's house"], "pred_raw": "(B)", "pred_extracted": "B", "ok": true}
+{"id": 289, "ctx_chars": 571553, "answer": ["Boredom"], "pred_raw": "B", "pred_extracted": "B", "ok": true}
+{"id": 290, "ctx_chars": 1344317, "answer": ["He is distantly related to the Han's wife"], "pred_raw": "(D) He is distantly related to", "pred_extracted": "D", "ok": true}
+{"id": 291, "ctx_chars": 1344317, "answer": ["Having the prince join them avoids a scandal in the family"], "pred_raw": "B", "pred_extracted": "B", "ok": false}
+{"id": 292, "ctx_chars": 1344317, "answer": ["A painting of a Christ who has just been taken off the cross"], "pred_raw": "(B) A painting of a Christ who", "pred_extracted": "B", "ok": true}
+{"id": 293, "ctx_chars": 1344317, "answer": ["A hedgehog"], "pred_raw": "(B) A hedgehog", "pred_extracted": "B", "ok": true}
+{"id": 294, "ctx_chars": 649681, "answer": ["Richard Cormac"], "pred_raw": "D", "pred_extracted": "D", "ok": true}
+{"id": 295, "ctx_chars": 649681, "answer": ["A skimmity-ride"], "pred_raw": "(B)", "pred_extracted": "B", "ok": true}
+{"id": 296, "ctx_chars": 649681, "answer": ["Hay-trusser"], "pred_raw": "(D)", "pred_extracted": "D", "ok": true}
+{"id": 297, "ctx_chars": 649681, "answer": ["He worries that he is too young for the position"], "pred_raw": "(D) He worries that he is too", "pred_extracted": "D", "ok": true}
+{"id": 298, "ctx_chars": 1193777, "answer": ["A gold coin"], "pred_raw": "A", "pred_extracted": "A", "ok": true}
+{"id": 299, "ctx_chars": 1193777, "answer": ["Alen and Zola"], "pred_raw": "(D)", "pred_extracted": "D", "ok": true}
+{"id": 300, "ctx_chars": 1193777, "answer": ["A coffin"], "pred_raw": "A", "pred_extracted": "A", "ok": true}
+{"id": 301, "ctx_chars": 1193777, "answer": ["His harpoon"], "pred_raw": "(B)", "pred_extracted": "B", "ok": true}
+{"id": 302, "ctx_chars": 572855, "answer": ["Her tone of voice does not indicate that the young man is Indian"], "pred_raw": "(C) Her tone of voice does not", "pred_extracted": "C", "ok": true}
+{"id": 303, "ctx_chars": 572855, "answer": ["Because she wants to see the real India"], "pred_raw": "B", "pred_extracted": "B", "ok": true}
+{"id": 304, "ctx_chars": 572855, "answer": ["She speaks frankly about her dislike for Mrs. Jaya"], "pred_raw": "D", "pred_extracted": "D", "ok": true}
+{"id": 305, "ctx_chars": 572855, "answer": ["He does not stand when Cerys enters"], "pred_raw": "D", "pred_extracted": "D", "ok": true}
+{"id": 310, "ctx_chars": 449693, "answer": ["dog"], "pred_raw": "C", "pred_extracted": "C", "ok": true}
+{"id": 311, "ctx_chars": 449693, "answer": ["F.B."], "pred_raw": "D", "pred_extracted": "D", "ok": true}
+{"id": 312, "ctx_chars": 449693, "answer": ["An Italian client"], "pred_raw": "B", "pred_extracted": "B", "ok": true}
+{"id": 313, "ctx_chars": 449693, "answer": ["bow-legged"], "pred_raw": "B", "pred_extracted": "B", "ok": false}
+{"id": 318, "ctx_chars": 632560, "answer": ["Thirty"], "pred_raw": "(D)", "pred_extracted": "D", "ok": true}
+{"id": 319, "ctx_chars": 632560, "answer": ["Amos Bronson Alcott"], "pred_raw": "C", "pred_extracted": "C", "ok": false}
+{"id": 320, "ctx_chars": 632560, "answer": ["A Week on the Merrimack and Concord Rivers "], "pred_raw": "A", "pred_extracted": "A", "ok": true}
+{"id": 321, "ctx_chars": 632560, "answer": ["A morning star"], "pred_raw": "B", "pred_extracted": "B", "ok": true}

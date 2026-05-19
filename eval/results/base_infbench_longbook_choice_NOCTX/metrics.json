@@ -1,0 +1,6 @@
+{
+  "model_id": "/home/user01/Minko/models/Qwen3.5-4B",
+  "task": "longbook_choice_eng_NO_CONTEXT",
+  "n_attempted": 229,
+  "accuracy": 0.3537117903930131
+}

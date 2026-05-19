@@ -1,0 +1,229 @@
+{"id": 0, "answer": "Walking Georgie", "gold_letter": "A", "pred_raw": "A", "pred_letter": "A", "ok": true}
+{"id": 1, "answer": "Snowfield", "gold_letter": "C", "pred_raw": "A", "pred_letter": "A", "ok": false}
+{"id": 2, "answer": "At the Mauras", "gold_letter": "D", "pred_raw": "B", "pred_letter": "B", "ok": false}
+{"id": 3, "answer": "Methodist", "gold_letter": "A", "pred_raw": "B", "pred_letter": "B", "ok": false}
+{"id": 4, "answer": "That Italy inherit the Latins' name and language and not the Trojans'", "gold_letter": "D", "pred_raw": "D", "pred_letter": "D", "ok": true}
+{"id": 5, "answer": "12 days", "gold_letter": "A", "pred_raw": "D", "pred_letter": "D", "ok": false}
+{"id": 6, "answer": "Carley", "gold_letter": "D", "pred_raw": "D", "pred_letter": "D", "ok": true}
+{"id": 7, "answer": "Jaelynn", "gold_letter": "B", "pred_raw": "A", "pred_letter": "A", "ok": false}
+{"id": 12, "answer": "The Serbian war", "gold_letter": "B", "pred_raw": "A", "pred_letter": "A", "ok": false}
+{"id": 13, "answer": "Mitya", "gold_letter": "A", "pred_raw": "B", "pred_letter": "B", "ok": false}
+{"id": 14, "answer": "The death of Clarisse's horse", "gold_letter": "B", "pred_raw": "B", "pred_letter": "B", "ok": true}
+{"id": 15, "answer": "At the opera", "gold_letter": "C", "pred_raw": "B", "pred_letter": "B", "ok": false}
+{"id": 16, "answer": "Puffed sleeves", "gold_letter": "D", "pred_raw": "D", "pred_letter": "D", "ok": true}
+{"id": 17, "answer": "Avonlea", "gold_letter": "A", "pred_raw": "D", "pred_letter": "D", "ok": false}
+{"id": 18, "answer": "Losing Hattie's brooch", "gold_letter": "A", "pred_raw": "C", "pred_letter": "C", "ok": false}
+{"id": 19, "answer": "Clinging to a bridge pile", "gold_letter": "D", "pred_raw": "D", "pred_letter": "D", "ok": true}
+{"id": 24, "answer": "All of the above", "gold_letter": "D", "pred_raw": "D", "pred_letter": "D", "ok": true}
+{"id": 25, "answer": "Lorelei doesn't approve of early marriages and he wishes Colleen would finish college, but he supports Colleen's right to live his life on his own terms.", "gold_letter": "A", "pred_raw": "A", "pred_letter": "A", "ok": true}
+{"id": 26, "answer": "He became engaged to her almost by accident, and he didn't have the courage to break it off", "gold_letter": "B", "pred_raw": "B", "pred_letter": "B", "ok": true}
+{"id": 27, "answer": "Religion is heavily influenced by materialism and competition for social status.", "gold_letter": "B", "pred_raw": "C", "pred_letter": "C", "ok": false}
+{"id": 28, "answer": "A kiss", "gold_letter": "D", "pred_raw": "D", "pred_letter": "D", "ok": true}
+{"id": 29, "answer": "Haunted by humans", "gold_letter": "C", "pred_raw": "A", "pred_letter": "A", "ok": false}
+{"id": 30, "answer": "He'll die and they'll have to get rid of his body", "gold_letter": "D", "pred_raw": "B", "pred_letter": "B", "ok": false}
+{"id": 31, "answer": "Candace can write her own story", "gold_letter": "B", "pred_raw": "B", "pred_letter": "B", "ok": true}
+{"id": 40, "answer": "The dream in which Dulce Kitty is beating Aiden's landlady", "gold_letter": "B", "pred_raw": "C", "pred_letter": "C", "ok": false}
+{"id": 41, "answer": "The Crystal Palace", "gold_letter": "D", "pred_raw": "B", "pred_letter": "B", "ok": false}
+{"id": 42, "answer": "The caretaker", "gold_letter": "B", "pred_raw": "C", "pred_letter": "C", "ok": false}
+{"id": 43, "answer": "She wants to invite him to the memorial dinner for her father", "gold_letter": "C", "pred_raw": "B", "pred_letter": "B", "ok": false}
+{"id": 48, "answer": "Clementine is Miss Leo's niece.", "gold_letter": "B", "pred_raw": "A", "pred_letter": "A", "ok": false}
+{"id": 49, "answer": "Mr. Deirdre", "gold_letter": "D", "pred_raw": "C", "pred_letter": "C", "ok": false}
+{"id": 50, "answer": "Gypsies", "gold_letter": "A", "pred_raw": "B", "pred_letter": "B", "ok": false}
+{"id": 51, "answer": "Mr. Martha", "gold_letter": "C", "pred_raw": "B", "pred_letter": "B", "ok": false}
+{"id": 52, "answer": "He misunderstands the monster's warning.", "gold_letter": "C", "pred_raw": "C", "pred_letter": "C", "ok": true}
+{"id": 53, "answer": "Allyson Kalia", "gold_letter": "C", "pred_raw": "A", "pred_letter": "A", "ok": false}
+{"id": 54, "answer": "Lack of desire to marry Raiden", "gold_letter": "D", "pred_raw": "B", "pred_letter": "B", "ok": false}
+{"id": 55, "answer": "By listening to Felix teach Safie his language", "gold_letter": "A", "pred_raw": "A", "pred_letter": "A", "ok": true}
+{"id": 58, "answer": "A coroner's Owenfice", "gold_letter": "A", "pred_raw": "C", "pred_letter": "C", "ok": false}
+{"id": 59, "answer": "Genesis Savannah", "gold_letter": "D", "pred_raw": "C", "pred_letter": "C", "ok": false}
+{"id": 60, "answer": "Preacher", "gold_letter": "B", "pred_raw": "D", "pred_letter": "D", "ok": false}
+{"id": 61, "answer": "Gum", "gold_letter": "C", "pred_raw": "D", "pred_letter": "D", "ok": false}
+{"id": 74, "answer": "Human and bear", "gold_letter": "D", "pred_raw": "D", "pred_letter": "D", "ok": true}
+{"id": 75, "answer": "Riddle-solving", "gold_letter": "C", "pred_raw": "A", "pred_letter": "A", "ok": false}
+{"id": 76, "answer": "His old home at Hobbiton", "gold_letter": "D", "pred_raw": "D", "pred_letter": "D", "ok": true}
+{"id": 77, "answer": "Eoin and Took", "gold_letter": "C", "pred_raw": "B", "pred_letter": "B", "ok": false}
+{"id": 78, "answer": "The garbage", "gold_letter": "B", "pred_raw": "B", "pred_letter": "B", "ok": true}
+{"id": 79, "answer": "Sir Blossom Horatio", "gold_letter": "A", "pred_raw": "D", "pred_letter": "D", "ok": false}
+{"id": 80, "answer": "Because he was wearing Sir Dilan's suit", "gold_letter": "B", "pred_raw": "B", "pred_letter": "B", "ok": true}
+{"id": 81, "answer": "Phosphorous", "gold_letter": "D", "pred_raw": "C", "pred_letter": "C", "ok": false}
+{"id": 82, "answer": "Prison", "gold_letter": "B", "pred_raw": "B", "pred_letter": "B", "ok": true}
+{"id": 83, "answer": "Have him sent to the asylum", "gold_letter": "B", "pred_raw": "B", "pred_letter": "B", "ok": true}
+{"id": 84, "answer": "Judge Drake", "gold_letter": "D", "pred_raw": "B", "pred_letter": "B", "ok": false}
+{"id": 85, "answer": "Witchcraft", "gold_letter": "D", "pred_raw": "D", "pred_letter": "D", "ok": true}
+{"id": 86, "answer": "Cedric does not die in the novel.", "gold_letter": "D", "pred_raw": "B", "pred_letter": "B", "ok": false}
+{"id": 87, "answer": "A side Morgana bacon", "gold_letter": "A", "pred_raw": "B", "pred_letter": "B", "ok": false}
+{"id": 88, "answer": "One", "gold_letter": "B", "pred_raw": "B", "pred_letter": "B", "ok": true}
+{"id": 89, "answer": "Bailey", "gold_letter": "C", "pred_raw": "C", "pred_letter": "C", "ok": true}
+{"id": 90, "answer": "He has her naturally curly hair cut short so as to make it lie straight.", "gold_letter": "B", "pred_raw": "B", "pred_letter": "B", "ok": true}
+{"id": 91, "answer": "Hannah", "gold_letter": "C", "pred_raw": "D", "pred_letter": "D", "ok": false}
+{"id": 92, "answer": "St. Spencer", "gold_letter": "A", "pred_raw": "B", "pred_letter": "B", "ok": false}
+{"id": 93, "answer": "Mila Kirsten", "gold_letter": "B", "pred_raw": "A", "pred_letter": "A", "ok": false}
+{"id": 94, "answer": "He freezes, realizing that the dinosaur cannot see him if he does not move", "gold_letter": "A", "pred_raw": "C", "pred_letter": "C", "ok": false}
+{"id": 95, "answer": "Velociraptor", "gold_letter": "C", "pred_raw": "B", "pred_letter": "B", "ok": false}
+{"id": 96, "answer": "He wants to put the moves on Dr. Christie", "gold_letter": "D", "pred_raw": "B", "pred_letter": "B", "ok": false}
+{"id": 97, "answer": "Fifteen", "gold_letter": "C", "pred_raw": "A", "pred_letter": "A", "ok": false}
+{"id": 98, "answer": "Edinburgh", "gold_letter": "B", "pred_raw": "D", "pred_letter": "D", "ok": false}
+{"id": 99, "answer": "Isobel", "gold_letter": "A", "pred_raw": "D", "pred_letter": "D", "ok": false}
+{"id": 100, "answer": "A silver button from his jacket", "gold_letter": "D", "pred_raw": "D", "pred_letter": "D", "ok": true}
+{"id": 101, "answer": "Ciaran of the Dior", "gold_letter": "C", "pred_raw": "D", "pred_letter": "D", "ok": false}
+{"id": 102, "answer": "Hurons", "gold_letter": "C", "pred_raw": "A", "pred_letter": "A", "ok": false}
+{"id": 103, "answer": "Theo", "gold_letter": "A", "pred_raw": "B", "pred_letter": "B", "ok": false}
+{"id": 104, "answer": "Cael", "gold_letter": "A", "pred_raw": "A", "pred_letter": "A", "ok": true}
+{"id": 105, "answer": "A doctor", "gold_letter": "C", "pred_raw": "C", "pred_letter": "C", "ok": true}
+{"id": 106, "answer": "He is just another mouth to feed", "gold_letter": "C", "pred_raw": "C", "pred_letter": "C", "ok": true}
+{"id": 107, "answer": "He wants to treat his fellow man with kindness and respect", "gold_letter": "C", "pred_raw": "B", "pred_letter": "B", "ok": false}
+{"id": 108, "answer": "She dies from shock", "gold_letter": "C", "pred_raw": "C", "pred_letter": "C", "ok": true}
+{"id": 109, "answer": "He does so by accident", "gold_letter": "B", "pred_raw": "C", "pred_letter": "C", "ok": false}
+{"id": 110, "answer": "Plumfield", "gold_letter": "A", "pred_raw": "A", "pred_letter": "A", "ok": true}
+{"id": 111, "answer": "Sing", "gold_letter": "D", "pred_raw": "A", "pred_letter": "A", "ok": false}
+{"id": 112, "answer": "Germany", "gold_letter": "C", "pred_raw": "D", "pred_letter": "D", "ok": false}
+{"id": 113, "answer": "Chocolate drops", "gold_letter": "C", "pred_raw": "A", "pred_letter": "A", "ok": false}
+{"id": 114, "answer": "Talent", "gold_letter": "C", "pred_raw": "C", "pred_letter": "C", "ok": true}
+{"id": 115, "answer": "It is structured like an army.", "gold_letter": "C", "pred_raw": "B", "pred_letter": "B", "ok": false}
+{"id": 116, "answer": "They felt that there was nothing that could be done about it.", "gold_letter": "A", "pred_raw": "C", "pred_letter": "C", "ok": false}
+{"id": 117, "answer": "All of the above", "gold_letter": "D", "pred_raw": "D", "pred_letter": "D", "ok": true}
+{"id": 118, "answer": "Kelly repairs Richie's father's broken leg", "gold_letter": "D", "pred_raw": "D", "pred_letter": "D", "ok": true}
+{"id": 119, "answer": "A power of attorney", "gold_letter": "D", "pred_raw": "A", "pred_letter": "A", "ok": false}
+{"id": 120, "answer": "In the woods", "gold_letter": "C", "pred_raw": "D", "pred_letter": "D", "ok": false}
+{"id": 121, "answer": "He once slept with Marie Antoinette", "gold_letter": "B", "pred_raw": "C", "pred_letter": "C", "ok": false}
+{"id": 126, "answer": "Nobel Prize for Literature", "gold_letter": "D", "pred_raw": "D", "pred_letter": "D", "ok": true}
+{"id": 127, "answer": "Sauk Centre, Minnesota", "gold_letter": "C", "pred_raw": "C", "pred_letter": "C", "ok": true}
+{"id": 128, "answer": "Doctor", "gold_letter": "C", "pred_raw": "A", "pred_letter": "A", "ok": false}
+{"id": 129, "answer": "Himself", "gold_letter": "B", "pred_raw": "B", "pred_letter": "B", "ok": true}
+{"id": 130, "answer": "Horseback riding", "gold_letter": "C", "pred_raw": "C", "pred_letter": "C", "ok": true}
+{"id": 131, "answer": "Everingham", "gold_letter": "A", "pred_raw": "A", "pred_letter": "A", "ok": true}
+{"id": 132, "answer": "Thrush", "gold_letter": "C", "pred_raw": "B", "pred_letter": "B", "ok": false}
+{"id": 133, "answer": "Sailor", "gold_letter": "A", "pred_raw": "A", "pred_letter": "A", "ok": true}
+{"id": 134, "answer": "All-American", "gold_letter": "B", "pred_raw": "C", "pred_letter": "C", "ok": false}
+{"id": 135, "answer": "Takes to her bed", "gold_letter": "D", "pred_raw": "B", "pred_letter": "B", "ok": false}
+{"id": 136, "answer": "English class", "gold_letter": "C", "pred_raw": "A", "pred_letter": "A", "ok": false}
+{"id": 137, "answer": "A thermometer", "gold_letter": "B", "pred_raw": "B", "pred_letter": "B", "ok": true}
+{"id": 138, "answer": "Because Amy does not play fairly", "gold_letter": "C", "pred_raw": "D", "pred_letter": "D", "ok": false}
+{"id": 139, "answer": "Through an entrepreneurial scheme with Amy Helina", "gold_letter": "B", "pred_raw": "B", "pred_letter": "B", "ok": true}
+{"id": 140, "answer": "Because he thinks of Castiel dependent upon Clea after his own death", "gold_letter": "A", "pred_raw": "B", "pred_letter": "B", "ok": false}
+{"id": 141, "answer": "Mrs. Roberta's visit to him", "gold_letter": "B", "pred_raw": "A", "pred_letter": "A", "ok": false}
+{"id": 146, "answer": "Laundry bills", "gold_letter": "A", "pred_raw": "B", "pred_letter": "B", "ok": false}
+{"id": 147, "answer": "Aaliyah Hugo", "gold_letter": "C", "pred_raw": "A", "pred_letter": "A", "ok": false}
+{"id": 148, "answer": "Free indirect discourse", "gold_letter": "D", "pred_raw": "D", "pred_letter": "D", "ok": true}
+{"id": 149, "answer": "During a dance in the Lower Rooms", "gold_letter": "A", "pred_raw": "A", "pred_letter": "A", "ok": true}
+{"id": 150, "answer": "Alaska", "gold_letter": "C", "pred_raw": "A", "pred_letter": "A", "ok": false}
+{"id": 151, "answer": "Engraving", "gold_letter": "A", "pred_raw": "A", "pred_letter": "A", "ok": true}
+{"id": 152, "answer": "Saint-Agnes", "gold_letter": "D", "pred_raw": "A", "pred_letter": "A", "ok": false}
+{"id": 153, "answer": "Albert Tovesky", "gold_letter": "D", "pred_raw": "B", "pred_letter": "B", "ok": false}
+{"id": 154, "answer": "Undertaker", "gold_letter": "A", "pred_raw": "A", "pred_letter": "A", "ok": true}
+{"id": 155, "answer": "Chimney sweep", "gold_letter": "D", "pred_raw": "A", "pred_letter": "A", "ok": false}
+{"id": 156, "answer": "He wants her money", "gold_letter": "D", "pred_raw": "B", "pred_letter": "B", "ok": false}
+{"id": 157, "answer": "Because she does not want to stCici in the way of his ambition", "gold_letter": "B", "pred_raw": "A", "pred_letter": "A", "ok": false}
+{"id": 158, "answer": "Mrs. Angeline", "gold_letter": "A", "pred_raw": "A", "pred_letter": "A", "ok": true}
+{"id": 159, "answer": "Arjun", "gold_letter": "B", "pred_raw": "A", "pred_letter": "A", "ok": false}
+{"id": 160, "answer": "She thinks Mrs. Delanie might have romantic designs on Sir Dan", "gold_letter": "D", "pred_raw": "B", "pred_letter": "B", "ok": false}
+{"id": 161, "answer": "Randy Ayanna", "gold_letter": "C", "pred_raw": "B", "pred_letter": "B", "ok": false}
+{"id": 162, "answer": "Mohammed", "gold_letter": "C", "pred_raw": "B", "pred_letter": "B", "ok": false}
+{"id": 163, "answer": "He wants to be closer to Zelda.", "gold_letter": "B", "pred_raw": "B", "pred_letter": "B", "ok": true}
+{"id": 164, "answer": "Madame Elspeth", "gold_letter": "B", "pred_raw": "D", "pred_letter": "D", "ok": false}
+{"id": 165, "answer": "Mr. Tate", "gold_letter": "D", "pred_raw": "A", "pred_letter": "A", "ok": false}
+{"id": 166, "answer": "Marry Mya", "gold_letter": "C", "pred_raw": "A", "pred_letter": "A", "ok": false}
+{"id": 167, "answer": "Sends her a letter explaining his actions", "gold_letter": "A", "pred_raw": "A", "pred_letter": "A", "ok": true}
+{"id": 168, "answer": "She gets soaked in a rainstorm and becomes ill.", "gold_letter": "A", "pred_raw": "C", "pred_letter": "C", "ok": false}
+{"id": 169, "answer": "Abrianna", "gold_letter": "A", "pred_raw": "C", "pred_letter": "C", "ok": false}
+{"id": 177, "answer": "\"St. George\"", "gold_letter": "D", "pred_raw": "D", "pred_letter": "D", "ok": true}
+{"id": 178, "answer": "He was a captain", "gold_letter": "A", "pred_raw": "B", "pred_letter": "B", "ok": false}
+{"id": 179, "answer": "Rocky", "gold_letter": "A", "pred_raw": "B", "pred_letter": "B", "ok": false}
+{"id": 180, "answer": "A dye used for marking sheep", "gold_letter": "D", "pred_raw": "C", "pred_letter": "C", "ok": false}
+{"id": 181, "answer": "A North African territory", "gold_letter": "B", "pred_raw": "B", "pred_letter": "B", "ok": true}
+{"id": 182, "answer": "Experiences a religious illumination", "gold_letter": "D", "pred_raw": "C", "pred_letter": "C", "ok": false}
+{"id": 183, "answer": "Sebastianne's god", "gold_letter": "D", "pred_raw": "A", "pred_letter": "A", "ok": false}
+{"id": 184, "answer": "A goat's", "gold_letter": "A", "pred_raw": "B", "pred_letter": "B", "ok": false}
+{"id": 185, "answer": "She inherits Troy's estate and marries a nobleman.", "gold_letter": "C", "pred_raw": "C", "pred_letter": "C", "ok": true}
+{"id": 186, "answer": "She is executed publicly as a witch.", "gold_letter": "C", "pred_raw": "B", "pred_letter": "B", "ok": false}
+{"id": 187, "answer": "A meteor", "gold_letter": "B", "pred_raw": "C", "pred_letter": "C", "ok": false}
+{"id": 188, "answer": "Dayton Morton", "gold_letter": "B", "pred_raw": "A", "pred_letter": "A", "ok": false}
+{"id": 189, "answer": "Mr. Pratt", "gold_letter": "D", "pred_raw": "A", "pred_letter": "A", "ok": false}
+{"id": 190, "answer": "Return each other's letters", "gold_letter": "A", "pred_raw": "A", "pred_letter": "A", "ok": true}
+{"id": 191, "answer": "Kristi Finn", "gold_letter": "B", "pred_raw": "C", "pred_letter": "C", "ok": false}
+{"id": 196, "answer": "Kallie", "gold_letter": "D", "pred_raw": "C", "pred_letter": "C", "ok": false}
+{"id": 197, "answer": "Perla", "gold_letter": "D", "pred_raw": "C", "pred_letter": "C", "ok": false}
+{"id": 198, "answer": "It makes him sick", "gold_letter": "D", "pred_raw": "C", "pred_letter": "C", "ok": false}
+{"id": 199, "answer": "He wants to wait for Katniss", "gold_letter": "C", "pred_raw": "C", "pred_letter": "C", "ok": true}
+{"id": 200, "answer": "Miss Dave' brother, Solomon", "gold_letter": "A", "pred_raw": "C", "pred_letter": "C", "ok": false}
+{"id": 201, "answer": "Madame Royce", "gold_letter": "A", "pred_raw": "D", "pred_letter": "D", "ok": false}
+{"id": 210, "answer": "Mississippi", "gold_letter": "B", "pred_raw": "A", "pred_letter": "A", "ok": false}
+{"id": 211, "answer": "Chewing gum", "gold_letter": "D", "pred_raw": "D", "pred_letter": "D", "ok": true}
+{"id": 212, "answer": "9 ", "gold_letter": "D", "pred_raw": "B", "pred_letter": "B", "ok": false}
+{"id": 213, "answer": "Gia Leena", "gold_letter": "A", "pred_raw": "B", "pred_letter": "B", "ok": false}
+{"id": 214, "answer": "The Bloomsbury Group", "gold_letter": "A", "pred_raw": "A", "pred_letter": "A", "ok": true}
+{"id": 215, "answer": "She drowned herself", "gold_letter": "A", "pred_raw": "A", "pred_letter": "A", "ok": true}
+{"id": 216, "answer": "Mrs. Deandra", "gold_letter": "C", "pred_raw": "A", "pred_letter": "A", "ok": false}
+{"id": 217, "answer": "“The Charge of the Light Brigade”", "gold_letter": "C", "pred_raw": "A", "pred_letter": "A", "ok": false}
+{"id": 218, "answer": "He is an innkeeper", "gold_letter": "C", "pred_raw": "C", "pred_letter": "C", "ok": true}
+{"id": 219, "answer": "To make a truce", "gold_letter": "A", "pred_raw": "D", "pred_letter": "D", "ok": false}
+{"id": 220, "answer": "That Ace has been deposed", "gold_letter": "B", "pred_raw": "D", "pred_letter": "D", "ok": false}
+{"id": 221, "answer": "A boat", "gold_letter": "D", "pred_raw": "B", "pred_letter": "B", "ok": false}
+{"id": 226, "answer": "A native rescues him at the seashore", "gold_letter": "C", "pred_raw": "D", "pred_letter": "D", "ok": false}
+{"id": 227, "answer": "The main Typee dish made of breadfruit", "gold_letter": "A", "pred_raw": "D", "pred_letter": "D", "ok": false}
+{"id": 228, "answer": "France", "gold_letter": "B", "pred_raw": "B", "pred_letter": "B", "ok": true}
+{"id": 229, "answer": "Get a tattoo", "gold_letter": "C", "pred_raw": "B", "pred_letter": "B", "ok": false}
+{"id": 230, "answer": "Antagonistic", "gold_letter": "B", "pred_raw": "B", "pred_letter": "B", "ok": true}
+{"id": 231, "answer": "Gertie Marcella", "gold_letter": "D", "pred_raw": "B", "pred_letter": "B", "ok": false}
+{"id": 232, "answer": "Usurper", "gold_letter": "D", "pred_raw": "D", "pred_letter": "D", "ok": true}
+{"id": 233, "answer": "His mother", "gold_letter": "B", "pred_raw": "B", "pred_letter": "B", "ok": true}
+{"id": 238, "answer": "Both A and B", "gold_letter": "D", "pred_raw": "D", "pred_letter": "D", "ok": true}
+{"id": 239, "answer": "All of the above", "gold_letter": "D", "pred_raw": "D", "pred_letter": "D", "ok": true}
+{"id": 240, "answer": "All of the above", "gold_letter": "D", "pred_raw": "D", "pred_letter": "D", "ok": true}
+{"id": 241, "answer": "He feels she has been unfairly shunned by some of the best families in New York", "gold_letter": "C", "pred_raw": "A", "pred_letter": "A", "ok": false}
+{"id": 242, "answer": "Woollett, Massachusetts", "gold_letter": "A", "pred_raw": "A", "pred_letter": "A", "ok": true}
+{"id": 243, "answer": "To talk to Miss Gostrey", "gold_letter": "C", "pred_raw": "C", "pred_letter": "C", "ok": true}
+{"id": 244, "answer": "Sculptor", "gold_letter": "D", "pred_raw": "B", "pred_letter": "B", "ok": false}
+{"id": 245, "answer": "One", "gold_letter": "B", "pred_raw": "D", "pred_letter": "D", "ok": false}
+{"id": 246, "answer": "Mr. Yestin", "gold_letter": "A", "pred_raw": "A", "pred_letter": "A", "ok": true}
+{"id": 247, "answer": "Godfrey Wayne", "gold_letter": "D", "pred_raw": "C", "pred_letter": "C", "ok": false}
+{"id": 248, "answer": "Both B and C", "gold_letter": "D", "pred_raw": "D", "pred_letter": "D", "ok": true}
+{"id": 249, "answer": "Dancing", "gold_letter": "A", "pred_raw": "B", "pred_letter": "B", "ok": false}
+{"id": 250, "answer": "He writes a poem about solitude.", "gold_letter": "A", "pred_raw": "B", "pred_letter": "B", "ok": false}
+{"id": 251, "answer": "By sounding alarms and shocking the children when they approach books or flowers", "gold_letter": "D", "pred_raw": "D", "pred_letter": "D", "ok": true}
+{"id": 252, "answer": "To bring rain", "gold_letter": "A", "pred_raw": "B", "pred_letter": "B", "ok": false}
+{"id": 253, "answer": "A society of Alphas is unworkable.", "gold_letter": "A", "pred_raw": "C", "pred_letter": "C", "ok": false}
+{"id": 262, "answer": "Playing cards", "gold_letter": "B", "pred_raw": "A", "pred_letter": "A", "ok": false}
+{"id": 263, "answer": "A street organ", "gold_letter": "C", "pred_raw": "A", "pred_letter": "A", "ok": false}
+{"id": 264, "answer": "Two lovers", "gold_letter": "C", "pred_raw": "C", "pred_letter": "C", "ok": true}
+{"id": 265, "answer": "A chalice", "gold_letter": "C", "pred_raw": "B", "pred_letter": "B", "ok": false}
+{"id": 274, "answer": "Move quickly, since more players are entering the game.", "gold_letter": "C", "pred_raw": "B", "pred_letter": "B", "ok": false}
+{"id": 275, "answer": "A lens", "gold_letter": "A", "pred_raw": "D", "pred_letter": "D", "ok": false}
+{"id": 276, "answer": "Ser Hugh, a former squire", "gold_letter": "B", "pred_raw": "A", "pred_letter": "A", "ok": false}
+{"id": 277, "answer": "Accept Joff as king instead of naming Stannis.", "gold_letter": "A", "pred_raw": "B", "pred_letter": "B", "ok": false}
+{"id": 278, "answer": "She is afraid of the desolate land because there is nothing to hide behind", "gold_letter": "B", "pred_raw": "B", "pred_letter": "B", "ok": true}
+{"id": 279, "answer": "She hides in her emigrant chest", "gold_letter": "D", "pred_raw": "B", "pred_letter": "B", "ok": false}
+{"id": 280, "answer": "Rosie", "gold_letter": "A", "pred_raw": "C", "pred_letter": "C", "ok": false}
+{"id": 281, "answer": "His wife, Felicity", "gold_letter": "A", "pred_raw": "B", "pred_letter": "B", "ok": false}
+{"id": 282, "answer": "\"Saints\"", "gold_letter": "D", "pred_raw": "D", "pred_letter": "D", "ok": true}
+{"id": 283, "answer": "Morning", "gold_letter": "A", "pred_raw": "D", "pred_letter": "D", "ok": false}
+{"id": 284, "answer": "His father strikes his mother.", "gold_letter": "A", "pred_raw": "A", "pred_letter": "A", "ok": true}
+{"id": 285, "answer": "A kiss on the forehead", "gold_letter": "D", "pred_raw": "B", "pred_letter": "B", "ok": false}
+{"id": 286, "answer": "Kailey", "gold_letter": "D", "pred_raw": "A", "pred_letter": "A", "ok": false}
+{"id": 287, "answer": "Kailey", "gold_letter": "D", "pred_raw": "B", "pred_letter": "B", "ok": false}
+{"id": 288, "answer": "Her father's house", "gold_letter": "B", "pred_raw": "D", "pred_letter": "D", "ok": false}
+{"id": 289, "answer": "Boredom", "gold_letter": "B", "pred_raw": "A", "pred_letter": "A", "ok": false}
+{"id": 290, "answer": "He is distantly related to the Han's wife", "gold_letter": "D", "pred_raw": "B", "pred_letter": "B", "ok": false}
+{"id": 291, "answer": "Having the prince join them avoids a scandal in the family", "gold_letter": "D", "pred_raw": "A", "pred_letter": "A", "ok": false}
+{"id": 292, "answer": "A painting of a Christ who has just been taken off the cross", "gold_letter": "B", "pred_raw": "B", "pred_letter": "B", "ok": true}
+{"id": 293, "answer": "A hedgehog", "gold_letter": "B", "pred_raw": "B", "pred_letter": "B", "ok": true}
+{"id": 294, "answer": "Richard Cormac", "gold_letter": "D", "pred_raw": "B", "pred_letter": "B", "ok": false}
+{"id": 295, "answer": "A skimmity-ride", "gold_letter": "B", "pred_raw": "B", "pred_letter": "B", "ok": true}
+{"id": 296, "answer": "Hay-trusser", "gold_letter": "D", "pred_raw": "D", "pred_letter": "D", "ok": true}
+{"id": 297, "answer": "He worries that he is too young for the position", "gold_letter": "D", "pred_raw": "B", "pred_letter": "B", "ok": false}
+{"id": 298, "answer": "A gold coin", "gold_letter": "A", "pred_raw": "B", "pred_letter": "B", "ok": false}
+{"id": 299, "answer": "Alen and Zola", "gold_letter": "D", "pred_raw": "D", "pred_letter": "D", "ok": true}
+{"id": 300, "answer": "A coffin", "gold_letter": "A", "pred_raw": "A", "pred_letter": "A", "ok": true}
+{"id": 301, "answer": "His harpoon", "gold_letter": "B", "pred_raw": "A", "pred_letter": "A", "ok": false}
+{"id": 302, "answer": "Her tone of voice does not indicate that the young man is Indian", "gold_letter": "C", "pred_raw": "B", "pred_letter": "B", "ok": false}
+{"id": 303, "answer": "Because she wants to see the real India", "gold_letter": "B", "pred_raw": "B", "pred_letter": "B", "ok": true}
+{"id": 304, "answer": "She speaks frankly about her dislike for Mrs. Jaya", "gold_letter": "D", "pred_raw": "C", "pred_letter": "C", "ok": false}
+{"id": 305, "answer": "He does not stand when Cerys enters", "gold_letter": "D", "pred_raw": "B", "pred_letter": "B", "ok": false}
+{"id": 310, "answer": "dog", "gold_letter": "C", "pred_raw": "B", "pred_letter": "B", "ok": false}
+{"id": 311, "answer": "F.B.", "gold_letter": "D", "pred_raw": "D", "pred_letter": "D", "ok": true}
+{"id": 312, "answer": "An Italian client", "gold_letter": "B", "pred_raw": "D", "pred_letter": "D", "ok": false}
+{"id": 313, "answer": "bow-legged", "gold_letter": "A", "pred_raw": "D", "pred_letter": "D", "ok": false}
+{"id": 318, "answer": "Thirty", "gold_letter": "D", "pred_raw": "C", "pred_letter": "C", "ok": false}
+{"id": 319, "answer": "Amos Bronson Alcott", "gold_letter": "A", "pred_raw": "D", "pred_letter": "D", "ok": false}
+{"id": 320, "answer": "A Week on the Merrimack and Concord Rivers ", "gold_letter": "A", "pred_raw": "A", "pred_letter": "A", "ok": true}
+{"id": 321, "answer": "A morning star", "gold_letter": "B", "pred_raw": "A", "pred_letter": "A", "ok": false}
