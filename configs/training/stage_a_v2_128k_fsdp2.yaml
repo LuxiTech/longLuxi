@@ -18,7 +18,7 @@ dataset: longluxi_packed_v2_128k
 dataset_dir: external/LLaMA-Factory/data
 template: empty
 cutoff_len: 131072
-max_samples: 0              # use full dataset
+max_samples: 100000         # cap > dataset size (1988) = use all
 preprocessing_num_workers: 8
 dataloader_num_workers: 2
 packing: false              # already packed upstream

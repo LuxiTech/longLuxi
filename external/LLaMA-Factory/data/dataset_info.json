@@ -1,4 +1,16 @@
 {
+  "longluxi_packed_v2_128k": {
+    "file_name": "longluxi_packed_v2_128k.jsonl",
+    "columns": {
+      "prompt": "text"
+    }
+  },
+  "longluxi_packed_v2_256k": {
+    "file_name": "longluxi_packed_v2_256k.jsonl",
+    "columns": {
+      "prompt": "text"
+    }
+  },
   "identity": {
     "file_name": "identity.json"
   },
