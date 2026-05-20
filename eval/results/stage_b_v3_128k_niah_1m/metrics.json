@@ -1,0 +1,9 @@
+{
+  "model_id": "checkpoints/stage_b_v3_128k/checkpoint-200",
+  "yarn_config": "yarn_1m@vllm-server",
+  "n_cells": 10,
+  "accuracy": 1.0,
+  "by_length": {
+    "1000000": 1.0
+  }
+}

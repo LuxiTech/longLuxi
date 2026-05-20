@@ -11,6 +11,12 @@
       "prompt": "text"
     }
   },
+  "longluxi_packed_v3_128k": {
+    "file_name": "longluxi_packed_v3_128k.jsonl",
+    "columns": {
+      "prompt": "text"
+    }
+  },
   "identity": {
     "file_name": "identity.json"
   },

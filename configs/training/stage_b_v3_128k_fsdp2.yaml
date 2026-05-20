@@ -1,0 +1,52 @@
+### Stage B CPT @ 128K — v3 data (COT synthetic + real long-docs) + conservative LR.
+### Goals:
+###   - improve vt via better synthetic data (COT traces + multi-target)
+###   - retain LongBench-v2 long gain from real-doc training
+###   - minimize disruption to YaRN extrapolation at 1.5M-2M
+### Strategy vs Stage A:
+###   - LR 3e-5 → 1e-5 (weight drift control)
+###   - max_steps 500 → 250 (less drift accumulation; ~1 epoch over 1690 seqs)
+###   - data v2 → v3 (COT traces, multi-target Q+A)
+
+### model
+model_name_or_path: /home/user01/Minko/models/Qwen3.5-4B
+trust_remote_code: true
+flash_attn: fa2
+enable_liger_kernel: true
+
+### method
+stage: pt
+do_train: true
+finetuning_type: full
+
+### dataset
+dataset: longluxi_packed_v3_128k
+dataset_dir: external/LLaMA-Factory/data
+template: empty
+cutoff_len: 131072
+max_samples: 100000
+preprocessing_num_workers: 8
+dataloader_num_workers: 2
+packing: false
+neat_packing: false
+
+### output
+output_dir: checkpoints/stage_b_v3_128k
+logging_steps: 1
+save_steps: 50
+save_total_limit: 3
+plot_loss: true
+overwrite_output_dir: true
+save_only_model: true
+report_to: none
+
+### train
+per_device_train_batch_size: 1
+gradient_accumulation_steps: 1
+max_steps: 250
+learning_rate: 1.0e-5
+warmup_ratio: 0.05
+lr_scheduler_type: cosine
+bf16: true
+gradient_checkpointing: true
+ddp_timeout: 180000000

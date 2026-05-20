@@ -1,9 +1,0 @@
-{
-  "model_id": "/home/user01/Minko/longluxi/checkpoints/phase3a_smoke_128k",
-  "yarn_config": "yarn_1m@vllm-server",
-  "n_cells": 10,
-  "accuracy": 1.0,
-  "by_length": {
-    "131072": 1.0
-  }
-}

@@ -1,0 +1,16 @@
+{
+  "model_id": "checkpoints/stage_b_v3_128k/checkpoint-200",
+  "yarn_config": "yarn_1m@vllm-server",
+  "n_cells": 50,
+  "accuracy": 0.7,
+  "by_length": {
+    "1000000": 0.7
+  },
+  "by_task": {
+    "niah_single_1": 0.8,
+    "niah_multikey_1": 1.0,
+    "niah_multiquery": 0.6,
+    "vt": 0.1,
+    "qa_1": 1.0
+  }
+}
