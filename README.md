@@ -2,9 +2,9 @@
 
 ![Base vs Ours — 2M capability comparison](docs/assets/2m_capability_comparison.png)
 
-**TL;DR.** This project extends `Qwen/Qwen3.5-4B` to a **2 M-token usable context** via YaRN factor=8 RoPE scaling, validated by a comprehensive long-context benchmark suite (NIAH, RULER, LongBench-v2, InfiniteBench). The model achieves **100 % NIAH at 1 M / 1.5 M / 2 M**, with no architecture changes — only a config patch plus targeted continued pretraining.
+**TL;DR.** This project extends `Qwen/Qwen3.5-4B` to a **2 M-token usable context** via YaRN factor=8 RoPE scaling, validated by a comprehensive long-context benchmark suite (NIAH, RULER, LongBench-v2, InfiniteBench).
 
-The unmodified base model's config caps positions at 1.01 M, so vLLM refuses to serve prompts beyond 1 M — i.e. **base 1.5 M / 2 M are structurally N/A**, not a metric we beat. Our work *enables* serving past 1 M, and the bars show that the model still answers correctly at those new lengths.
+**Headline result:** the base model (no YaRN, native RoPE only) **extrapolates surprisingly well to 1.5 M but breaks at 2 M (NIAH 60 %)**. Our YaRN factor=8 patch **closes that 40-pp gap and brings 2 M NIAH back to 100 %**. RULER overall stays at 0.72–0.82 across 1 M–2 M.
 
 Built and benchmarked on 4 × H100 80 GB (cards 0–3 only) over Phase 1–4 (May 2026). Chart regenerable via `scripts/plot_2m_comparison.py`.
 
@@ -41,13 +41,13 @@ longluxi/
 
 ### NIAH (single-needle retrieval, all-depth-all-length)
 
-| context | accuracy | wall-time |
-|---|---|---|
-| 1 M  | **100%** | 6.5 min |
-| 1.5 M | **100%** | 12.7 min |
-| 2 M  | **100%** | 20.8 min |
+| context | Base (no YaRN, native RoPE) | Ours (YaRN factor=8) | gap closed |
+|---|---|---|---|
+| 1 M   | 100 % | **100 %** | — |
+| 1.5 M | 100 % | **100 %** | — |
+| 2 M   | **60 %** ⚠️ | **100 %** | **+40 pp** |
 
-This is the **primary verification** of the 2 M context claim.
+Qwen3.5-4B's `partial_rotary_factor=0.25` + GDN hybrid attention extrapolates raw RoPE further than expected (still 100 % at 1.5 M without any scaling), but breaks down at 2 M. Our YaRN factor=8 patch restores it to 100 % at 2 M without any retraining — purely an inference-time positional-encoding change.
 
 ### RULER (5 synthetic tasks × 10 cells per length)
 
