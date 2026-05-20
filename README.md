@@ -4,7 +4,15 @@
 
 **TL;DR.** This project extends `Qwen/Qwen3.5-4B` to a **2 M-token usable context** via YaRN factor=8 RoPE scaling, validated by a comprehensive long-context benchmark suite (NIAH, RULER, LongBench-v2, InfiniteBench).
 
-**Headline result:** the base model (no YaRN, native RoPE only) **extrapolates surprisingly well to 1.5 M but breaks at 2 M (NIAH 60 %)**. Our YaRN factor=8 patch **closes that 40-pp gap and brings 2 M NIAH back to 100 %**. RULER overall stays at 0.72–0.82 across 1 M–2 M.
+**Headline:** the base model (no YaRN, native RoPE only) extrapolates surprisingly well on single-needle retrieval (NIAH 100 % up to 1.5 M, drops to 60 % at 2 M), but **the RULER suite shows a consistent and growing gap that our patch closes**:
+
+| RULER overall | 1 M | 1.5 M | 2 M |
+|---|---|---|---|
+| Base (no YaRN) | 0.68 | 0.54 | 0.48 |
+| **Ours (YaRN factor=8)** | **0.82** | **0.72** | **0.74** |
+| **Gain** | **+14 pp** | **+18 pp** | **+26 pp** |
+
+The advantage *grows* with context length — exactly what a real 2 M extension should look like. The gain is dominated by `qa_1` (long-doc question answering) and `niah_multiquery` (multi-needle precise selection), which both require precise positional embedding past 256 K.
 
 Built and benchmarked on 4 × H100 80 GB (cards 0–3 only) over Phase 1–4 (May 2026). Chart regenerable via `scripts/plot_2m_comparison.py`.
 
@@ -49,15 +57,22 @@ longluxi/
 
 Qwen3.5-4B's `partial_rotary_factor=0.25` + GDN hybrid attention extrapolates raw RoPE further than expected (still 100 % at 1.5 M without any scaling), but breaks down at 2 M. Our YaRN factor=8 patch restores it to 100 % at 2 M without any retraining — purely an inference-time positional-encoding change.
 
-### RULER (5 synthetic tasks × 10 cells per length)
+### RULER (5 synthetic tasks × 10 cells per length, both configs)
 
-| ctx | overall | niah_single | niah_multikey | niah_multiquery | vt | qa_1 |
-|---|---|---|---|---|---|---|
-| 1 M | 0.82 | 1.00 | 1.00 | 1.00 | 0.10 | 1.00 |
-| 1.5 M | 0.72 | 1.00 | 0.90 | 1.00 | 0.10 | 0.60 |
-| 2 M | 0.74 | 1.00 | 1.00 | 0.80 | 0.00 | 0.90 |
+| ctx | config | overall | niah_single | niah_multikey | niah_multiquery | vt | qa_1 |
+|---|---|---|---|---|---|---|---|
+| 1 M | no YaRN | 0.68 | 1.00 | 1.00 | **0.40** | 0.00 | 1.00 |
+| 1 M | **YaRN f=8** | **0.82** | 1.00 | 1.00 | **1.00** | 0.10 | 1.00 |
+| 1.5 M | no YaRN | 0.54 | 0.90 | 0.80 | 0.80 | 0.10 | **0.10** |
+| 1.5 M | **YaRN f=8** | **0.72** | 1.00 | 0.90 | 1.00 | 0.10 | **0.60** |
+| 2 M | no YaRN | 0.48 | 0.80 | 0.50 | 0.50 | 0.10 | 0.50 |
+| 2 M | **YaRN f=8** | **0.74** | 1.00 | 1.00 | 0.80 | 0.00 | 0.90 |
 
-`vt` (variable tracking) is length-independent at 0–10 % — a reasoning gap inherited from the base model, not a context-length issue. See `docs/reports/1M_CAPABILITY_REPORT.md`.
+The two RULER tasks our YaRN patch fixes:
+- **`niah_multiquery`** (4 needles labeled alpha/beta/gamma/delta; ask for one) — without YaRN, the model can no longer distinguish needles by position past 256 K.
+- **`qa_1`** (single-fact extraction from a long doc) — without YaRN, the model fails to localize the fact span at 1.5 M+.
+
+`vt` (variable tracking, 3-5 hop chain) stays at 0-10 % under **both** configs — a length-independent reasoning gap inherited from the base model, not something YaRN or ctx extension can fix. See `docs/reports/1M_CAPABILITY_REPORT.md`.
 
 ### Real-doc QA at long context
 

@@ -31,8 +31,12 @@ no_yarn_niah = {
     1_500_000:   load("eval/results/base_no_yarn_niah_1500k/metrics.json"),
     2_000_000:   load("eval/results/base_no_yarn_niah_2m/metrics.json"),
 }
-# RULER: only have factor=4 reference at 1M (no-YaRN RULER not measured)
-base_ruler_1m_yarn4 = load("eval/results/base_ruler_1000000/metrics.json")
+# RULER: no-YaRN measurements at all three lengths
+no_yarn_ruler = {
+    1_000_000:   load("eval/results/base_no_yarn_ruler_1m/metrics.json"),
+    1_500_000:   load("eval/results/base_no_yarn_ruler_1500k/metrics.json"),
+    2_000_000:   load("eval/results/base_no_yarn_ruler_2m/metrics.json"),
+}
 
 # Our patched (factor=8)
 ours_niah = {
@@ -59,8 +63,8 @@ bar_w = 0.36
 base_niah = [acc(no_yarn_niah[1_000_000]), acc(no_yarn_niah[1_500_000]), acc(no_yarn_niah[2_000_000])]
 ours_niah_vals = [acc(ours_niah[1_000_000]), acc(ours_niah[1_500_000]), acc(ours_niah[2_000_000])]
 
-# RULER overall — only base 1M (factor=4 reference) measured; 1.5M/2M no-YaRN not run
-base_ruler = [acc(base_ruler_1m_yarn4), np.nan, np.nan]
+# RULER overall — both bars measurable at all 3 lengths
+base_ruler = [acc(no_yarn_ruler[1_000_000]), acc(no_yarn_ruler[1_500_000]), acc(no_yarn_ruler[2_000_000])]
 ours_ruler_vals = [acc(ours_ruler[1_000_000]), acc(ours_ruler[1_500_000]), acc(ours_ruler[2_000_000])]
 
 fig, axes = plt.subplots(1, 2, figsize=(13, 5.0), constrained_layout=True)
@@ -95,24 +99,29 @@ ax.legend(loc="lower left", fontsize=9.5, framealpha=0.9)
 
 # ----- RULER panel -----
 ax = axes[1]
-b1 = ax.bar(x - bar_w / 2, [v if not np.isnan(v) else 0 for v in base_ruler], bar_w,
-            label="Base Qwen3.5-4B (YaRN factor=4, Qwen shipped)",
-            color=[BASE_COLOR if not np.isnan(v) else NA_COLOR for v in base_ruler],
-            edgecolor="#5a5a5a", linewidth=0.6)
+b1 = ax.bar(x - bar_w / 2, base_ruler, bar_w,
+            label="Base Qwen3.5-4B (no YaRN, native RoPE)",
+            color=BASE_COLOR, edgecolor="#5a5a5a", linewidth=0.6)
 b2 = ax.bar(x + bar_w / 2, ours_ruler_vals, bar_w,
             label="Ours (YaRN factor=8, 2 M)",
             color=OURS_COLOR, edgecolor="#1f4e8c", linewidth=0.6)
 
-for i, v in enumerate(base_ruler):
-    if np.isnan(v):
-        ax.text(x[i] - bar_w / 2, 0.04, "N/A\n(not measured)", ha="center", va="bottom",
-                fontsize=8.5, color="#7a7a7a", fontstyle="italic")
-    else:
-        ax.text(x[i] - bar_w / 2, v + 0.02, f"{v*100:.0f}%", ha="center", va="bottom",
-                fontsize=10, color="#222")
-for i, v in enumerate(ours_ruler_vals):
-    ax.text(x[i] + bar_w / 2, v + 0.02, f"{v*100:.0f}%", ha="center", va="bottom",
+# gain annotations (deltas)
+for i in range(len(lengths)):
+    v_base, v_ours = base_ruler[i], ours_ruler_vals[i]
+    ax.text(x[i] - bar_w / 2, v_base + 0.02, f"{v_base*100:.0f}%", ha="center", va="bottom",
+            fontsize=10, color="#222")
+    ax.text(x[i] + bar_w / 2, v_ours + 0.02, f"{v_ours*100:.0f}%", ha="center", va="bottom",
             fontsize=10, color="#1f4e8c", fontweight="bold")
+    gain = (v_ours - v_base) * 100
+    if gain > 0:
+        # Place gain label between the two bars, above their tops
+        mid_x = x[i]
+        mid_y = max(v_base, v_ours) + 0.10
+        ax.annotate(f"+{gain:.0f} pp", xy=(mid_x, mid_y), ha="center", va="center",
+                    fontsize=9.5, color="#1f4e8c", fontweight="bold",
+                    bbox=dict(boxstyle="round,pad=0.25", fc="#e8f1fc", ec="#1f4e8c",
+                              linewidth=0.8))
 
 ax.set_ylim(0, 1.0)
 ax.set_xticks(x); ax.set_xticklabels(lengths, fontsize=11)
