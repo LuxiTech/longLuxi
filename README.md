@@ -1,8 +1,12 @@
 # longluxi — Qwen3.5-4B with 2M Context
 
-**TL;DR.** This project extends `Qwen/Qwen3.5-4B` to a **2 M-token usable context** via YaRN factor=8 RoPE scaling, validated by a comprehensive long-context benchmark suite (NIAH, RULER, LongBench-v2, InfiniteBench). The model achieves **100% NIAH at 1 M / 1.5 M / 2 M**, with no architecture changes — only a config patch plus targeted continued pretraining.
+![Base vs Ours — 2M capability comparison](docs/assets/2m_capability_comparison.png)
 
-Built and benchmarked on 4 × H100 80 GB (cards 0–3 only) over Phase 1–4 (May 2026).
+**TL;DR.** This project extends `Qwen/Qwen3.5-4B` to a **2 M-token usable context** via YaRN factor=8 RoPE scaling, validated by a comprehensive long-context benchmark suite (NIAH, RULER, LongBench-v2, InfiniteBench). The model achieves **100 % NIAH at 1 M / 1.5 M / 2 M**, with no architecture changes — only a config patch plus targeted continued pretraining.
+
+The unmodified base model's config caps positions at 1.01 M, so vLLM refuses to serve prompts beyond 1 M — i.e. **base 1.5 M / 2 M are structurally N/A**, not a metric we beat. Our work *enables* serving past 1 M, and the bars show that the model still answers correctly at those new lengths.
+
+Built and benchmarked on 4 × H100 80 GB (cards 0–3 only) over Phase 1–4 (May 2026). Chart regenerable via `scripts/plot_2m_comparison.py`.
 
 ---
 
