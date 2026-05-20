@@ -1,0 +1,50 @@
+{"length_tokens": 2000000, "depth_pct": 80, "task": "niah_single_1", "expected": "1478163327", "pred": "147", "ok": false, "input_tokens": -1}
+{"length_tokens": 2000000, "depth_pct": 80, "task": "niah_single_1", "expected": "2181241943", "pred": "2181", "ok": false, "input_tokens": -1}
+{"length_tokens": 2000000, "depth_pct": 20, "task": "niah_single_1", "expected": "3342331444", "pred": "3342331444", "ok": true, "input_tokens": -1}
+{"length_tokens": 2000000, "depth_pct": 80, "task": "niah_single_1", "expected": "2812140441", "pred": "281", "ok": false, "input_tokens": -1}
+{"length_tokens": 2000000, "depth_pct": 20, "task": "niah_single_1", "expected": "1402418010", "pred": "1402418010", "ok": true, "input_tokens": -1}
+{"length_tokens": 2000000, "depth_pct": 20, "task": "niah_single_1", "expected": "9703905715", "pred": "9703905715", "ok": true, "input_tokens": -1}
+{"length_tokens": 2000000, "depth_pct": 20, "task": "niah_single_1", "expected": "2801823908", "pred": "2801823908", "ok": true, "input_tokens": -1}
+{"length_tokens": 2000000, "depth_pct": 50, "task": "niah_single_1", "expected": "7825844140", "pred": "7825844140", "ok": true, "input_tokens": -1}
+{"length_tokens": 2000000, "depth_pct": 20, "task": "niah_single_1", "expected": "7110082321", "pred": "7110082321", "ok": true, "input_tokens": -1}
+{"length_tokens": 2000000, "depth_pct": 50, "task": "niah_single_1", "expected": "1667779376", "pred": "1667779376", "ok": true, "input_tokens": -1}
+{"length_tokens": 2000000, "depth_pct": -1, "task": "niah_multikey_1", "expected": "2445662585", "pred": "2445662585", "ok": true, "input_tokens": -1}
+{"length_tokens": 2000000, "depth_pct": -1, "task": "niah_multikey_1", "expected": "7887950851", "pred": "7887950851", "ok": true, "input_tokens": -1}
+{"length_tokens": 2000000, "depth_pct": -1, "task": "niah_multikey_1", "expected": "2625792787", "pred": "27454", "ok": false, "input_tokens": -1}
+{"length_tokens": 2000000, "depth_pct": -1, "task": "niah_multikey_1", "expected": "4026113008", "pred": "4026113008", "ok": true, "input_tokens": -1}
+{"length_tokens": 2000000, "depth_pct": -1, "task": "niah_multikey_1", "expected": "2566942273", "pred": "256", "ok": false, "input_tokens": -1}
+{"length_tokens": 2000000, "depth_pct": -1, "task": "niah_multikey_1", "expected": "5996775663", "pred": "5996775663", "ok": true, "input_tokens": -1}
+{"length_tokens": 2000000, "depth_pct": -1, "task": "niah_multikey_1", "expected": "4332894265", "pred": "4332894265", "ok": true, "input_tokens": -1}
+{"length_tokens": 2000000, "depth_pct": -1, "task": "niah_multikey_1", "expected": "8110054933", "pred": "8110054933", "ok": true, "input_tokens": -1}
+{"length_tokens": 2000000, "depth_pct": -1, "task": "niah_multikey_1", "expected": "7010379415", "pred": "7010379415", "ok": true, "input_tokens": -1}
+{"length_tokens": 2000000, "depth_pct": -1, "task": "niah_multikey_1", "expected": "3694860228", "pred": "369", "ok": false, "input_tokens": -1}
+{"length_tokens": 2000000, "depth_pct": -1, "task": "niah_multiquery", "expected": "5774080233", "pred": "8047877267", "ok": false, "input_tokens": -1}
+{"length_tokens": 2000000, "depth_pct": -1, "task": "niah_multiquery", "expected": "8385972235", "pred": "42726", "ok": false, "input_tokens": -1}
+{"length_tokens": 2000000, "depth_pct": -1, "task": "niah_multiquery", "expected": "5951406973", "pred": "9592390865", "ok": false, "input_tokens": -1}
+{"length_tokens": 2000000, "depth_pct": -1, "task": "niah_multiquery", "expected": "8760038701", "pred": "8760038701", "ok": true, "input_tokens": -1}
+{"length_tokens": 2000000, "depth_pct": -1, "task": "niah_multiquery", "expected": "8128575500", "pred": "6004182", "ok": false, "input_tokens": -1}
+{"length_tokens": 2000000, "depth_pct": -1, "task": "niah_multiquery", "expected": "8357059814", "pred": "6898796145", "ok": false, "input_tokens": -1}
+{"length_tokens": 2000000, "depth_pct": -1, "task": "niah_multiquery", "expected": "1965067727", "pred": "1965067727", "ok": true, "input_tokens": -1}
+{"length_tokens": 2000000, "depth_pct": -1, "task": "niah_multiquery", "expected": "4888749350", "pred": "9894264595", "ok": false, "input_tokens": -1}
+{"length_tokens": 2000000, "depth_pct": -1, "task": "niah_multiquery", "expected": "3084839399", "pred": "3084839399", "ok": true, "input_tokens": -1}
+{"length_tokens": 2000000, "depth_pct": -1, "task": "niah_multiquery", "expected": "1422701550", "pred": "4131356954", "ok": false, "input_tokens": -1}
+{"length_tokens": 2000000, "depth_pct": -1, "task": "vt", "expected": "54473", "pred": "10\n\nThe chain of reasoning follows these steps:\nv0 = 1\nv1 = v0 * 3 = 3\nv2 = v1 * 2 = 6\nv3 = v2 + 4 = 10\nv4 = v3 + 3 = 13\nv5 = v4 + 2 = 15\nv6 = v5 + 2 = 17\nv7 = v6 + 2 = 19\nv8 = v7 + 2 = 21\nv9 = v8 + 2", "ok": false, "input_tokens": -1}
+{"length_tokens": 2000000, "depth_pct": -1, "task": "vt", "expected": "68800", "pred": "100", "ok": false, "input_tokens": -1}
+{"length_tokens": 2000000, "depth_pct": -1, "task": "vt", "expected": "42742", "pred": "100", "ok": false, "input_tokens": -1}
+{"length_tokens": 2000000, "depth_pct": -1, "task": "vt", "expected": "95477", "pred": "100", "ok": false, "input_tokens": -1}
+{"length_tokens": 2000000, "depth_pct": -1, "task": "vt", "expected": "40982", "pred": "183\n\nEnd of the chain.", "ok": false, "input_tokens": -1}
+{"length_tokens": 2000000, "depth_pct": -1, "task": "vt", "expected": "73092", "pred": "100", "ok": false, "input_tokens": -1}
+{"length_tokens": 2000000, "depth_pct": -1, "task": "vt", "expected": "59672", "pred": "181\n\nThe chain of reasoning follows these steps:\n1. v0 = 1\n2. v1 = v0 * 3 = 3\n3. v2 = v1 * 4 = 12\n4. v3 = v2 * 5 = 60\n5. v4 = v3 * 6 = 360\n6. v5 = v4 * 7 = 2520\n7. v6 = v5 * 8 = 20160\n8. v7 = v6 * 9 =", "ok": false, "input_tokens": -1}
+{"length_tokens": 2000000, "depth_pct": -1, "task": "vt", "expected": "69638", "pred": "100", "ok": false, "input_tokens": -1}
+{"length_tokens": 2000000, "depth_pct": -1, "task": "vt", "expected": "34890", "pred": "181\n\nThe chain of reasoning follows these steps:\n1. v0 = 1\n2. v1 = v0 * 3 = 3\n3. v2 = v1 * 4 = 12\n4. v3 = v2 * 5 = 60\n5. v4 = v3 * 6 = 360\n6. v5 = v4 * 7 = 2520\n7. v6 = v5 * 8 = 20160\n8. v7 = v6 * 9 =", "ok": false, "input_tokens": -1}
+{"length_tokens": 2000000, "depth_pct": -1, "task": "vt", "expected": "85914", "pred": "100", "ok": false, "input_tokens": -1}
+{"length_tokens": 2000000, "depth_pct": -1, "task": "qa_1", "expected": "158", "pred": "158", "ok": true, "input_tokens": -1}
+{"length_tokens": 2000000, "depth_pct": -1, "task": "qa_1", "expected": "614", "pred": "10000", "ok": false, "input_tokens": -1}
+{"length_tokens": 2000000, "depth_pct": -1, "task": "qa_1", "expected": "158", "pred": "158", "ok": true, "input_tokens": -1}
+{"length_tokens": 2000000, "depth_pct": -1, "task": "qa_1", "expected": "971", "pred": "971", "ok": true, "input_tokens": -1}
+{"length_tokens": 2000000, "depth_pct": -1, "task": "qa_1", "expected": "709", "pred": "709", "ok": true, "input_tokens": -1}
+{"length_tokens": 2000000, "depth_pct": -1, "task": "qa_1", "expected": "513", "pred": "513", "ok": true, "input_tokens": -1}
+{"length_tokens": 2000000, "depth_pct": -1, "task": "qa_1", "expected": "692", "pred": "692", "ok": true, "input_tokens": -1}
+{"length_tokens": 2000000, "depth_pct": -1, "task": "qa_1", "expected": "734", "pred": "734", "ok": true, "input_tokens": -1}
+{"length_tokens": 2000000, "depth_pct": -1, "task": "qa_1", "expected": "773", "pred": "10000", "ok": false, "input_tokens": -1}
+{"length_tokens": 2000000, "depth_pct": -1, "task": "qa_1", "expected": "423", "pred": "1000", "ok": false, "input_tokens": -1}
