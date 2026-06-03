@@ -1,0 +1,26 @@
+{
+  "honglou": {
+    "title": "红楼梦",
+    "author": "曹雪芹",
+    "chars": 906032,
+    "tokens": 683742
+  },
+  "sanguo": {
+    "title": "三国演义",
+    "author": "罗贯中",
+    "chars": 622096,
+    "tokens": 542728
+  },
+  "xiyou": {
+    "title": "西游记",
+    "author": "吴承恩",
+    "chars": 757516,
+    "tokens": 618881
+  },
+  "shuihu": {
+    "title": "水浒传",
+    "author": "施耐庵",
+    "chars": 544453,
+    "tokens": 448653
+  }
+}

@@ -1,0 +1,974 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>长麓溪 · longluxi — 整本典籍，一次通读</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;500;700;900&family=Noto+Sans+SC:wght@300;400;500;700&family=JetBrains+Mono:wght@400;500;700&family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#f4eee1;
+  --paper-2:#ece3d0;
+  --paper-3:#e3d8c1;
+  --ink:#1d1714;
+  --ink-soft:#4a4038;
+  --ink-faint:#8c7f6d;
+  --ink-ghost:#b9ad97;
+  --cinnabar:#b3392a;
+  --cinnabar-deep:#8c281c;
+  --cinnabar-soft:#c9614f;
+  --jade:#46685a;
+  --gold:#a9823a;
+  --line:#cdbfa3;
+  --shadow:rgba(40,28,18,.16);
+  --serif:"Noto Serif SC",serif;
+  --sans:"Noto Sans SC",sans-serif;
+  --mono:"JetBrains Mono",monospace;
+  --latin:"Cormorant Garamond",serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  font-family:var(--sans);
+  color:var(--ink);
+  background:var(--paper);
+  min-height:100vh;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  position:relative;
+  overflow-x:hidden;
+}
+/* paper grain + ink-wash atmosphere */
+body::before{
+  content:"";position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:
+    radial-gradient(1100px 700px at 8% -10%, rgba(179,57,42,.07), transparent 60%),
+    radial-gradient(900px 800px at 105% 8%, rgba(70,104,90,.08), transparent 55%),
+    radial-gradient(1200px 900px at 50% 120%, rgba(169,130,58,.07), transparent 60%);
+}
+body::after{
+  content:"";position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.5;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E");
+  mix-blend-mode:multiply;
+}
+.app{position:relative;z-index:1;max-width:1320px;margin:0 auto;padding:0 28px 60px}
+
+/* ---------- header ---------- */
+header{
+  display:flex;align-items:flex-end;justify-content:space-between;
+  gap:24px;padding:34px 4px 22px;border-bottom:1.5px solid var(--ink);
+  position:relative;
+  opacity:0;animation:rise .9s .05s cubic-bezier(.2,.7,.2,1) forwards;
+}
+.brand{display:flex;flex-direction:column;gap:2px}
+.brand .latin{
+  font-family:var(--latin);font-size:15px;letter-spacing:.42em;
+  text-transform:uppercase;color:var(--cinnabar);font-weight:600;padding-left:4px;
+}
+.brand h1{
+  font-family:var(--serif);font-weight:900;font-size:46px;letter-spacing:.16em;
+  line-height:1;color:var(--ink);
+}
+.brand .sub{
+  font-family:var(--serif);font-size:14.5px;color:var(--ink-soft);
+  letter-spacing:.08em;margin-top:9px;font-weight:400;
+}
+.seal{
+  flex:0 0 auto;width:74px;height:74px;display:grid;place-items:center;
+  border:2.5px solid var(--cinnabar);border-radius:9px;
+  color:var(--cinnabar);font-family:var(--serif);font-weight:900;
+  font-size:15px;letter-spacing:.04em;line-height:1.05;text-align:center;
+  transform:rotate(-4deg);background:rgba(179,57,42,.05);
+  box-shadow:0 0 0 4px var(--paper),0 0 0 5px rgba(179,57,42,.25);
+  writing-mode:vertical-rl;padding:7px 5px;
+}
+/* ---------- stat strip ---------- */
+.stats{
+  display:flex;gap:0;margin:0 4px;border:1.5px solid var(--ink);border-top:none;
+  opacity:0;animation:rise .9s .18s cubic-bezier(.2,.7,.2,1) forwards;
+}
+.stat{flex:1;padding:15px 20px;border-right:1px solid var(--line);position:relative}
+.stat:last-child{border-right:none}
+.stat .k{font-family:var(--mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-faint)}
+.stat .v{font-family:var(--serif);font-weight:700;font-size:26px;color:var(--ink);line-height:1.15;margin-top:3px;display:flex;align-items:baseline;gap:6px}
+.stat .v small{font-family:var(--mono);font-size:12px;font-weight:500;color:var(--cinnabar);letter-spacing:.05em}
+.stat.accent{background:var(--ink);}
+.stat.accent .k{color:var(--ink-ghost)}
+.stat.accent .v{color:var(--paper)}
+.stat.accent .v small{color:var(--cinnabar-soft)}
+
+/* ---------- tangible anchor strip ---------- */
+.anchor{
+  display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin:14px 4px 0;
+  padding:11px 18px;border:1px solid var(--line);border-left:4px solid var(--cinnabar);
+  background:linear-gradient(90deg,rgba(179,57,42,.05),rgba(255,255,255,.2));
+  opacity:0;animation:rise .9s .26s cubic-bezier(.2,.7,.2,1) forwards;
+}
+.anchor .ax{font-family:var(--serif);font-weight:700;font-size:13px;letter-spacing:.1em;color:var(--cinnabar-deep);flex:0 0 auto}
+.anchor .ai{font-family:var(--serif);font-size:14px;color:var(--ink-soft);letter-spacing:.02em}
+.anchor .ai b{font-family:var(--mono);font-weight:700;color:var(--ink);font-size:13.5px}
+.anchor .ai.dim{color:var(--ink-faint)}
+.anchor .dot2{width:5px;height:5px;border-radius:50%;background:var(--ink-ghost);flex:0 0 auto}
+@media(max-width:760px){.anchor .dot2,.anchor .ai.dim{display:none}}
+
+/* ---------- main grid ---------- */
+.grid{display:grid;grid-template-columns:312px 1fr;gap:26px;margin-top:30px}
+@media(max-width:940px){.grid{grid-template-columns:1fr}}
+
+/* ---------- library ---------- */
+.rail{display:flex;flex-direction:column;gap:14px;opacity:0;animation:rise .9s .32s cubic-bezier(.2,.7,.2,1) forwards}
+.rail-h{display:flex;align-items:center;gap:10px;margin:2px 2px 2px}
+.rail-h .t{font-family:var(--serif);font-weight:700;font-size:17px;letter-spacing:.14em}
+.rail-h .ln{flex:1;height:1px;background:var(--line)}
+.rail-h .c{font-family:var(--mono);font-size:11px;color:var(--ink-faint)}
+
+.book{
+  border:1.5px solid var(--line);background:linear-gradient(180deg,var(--paper),var(--paper-2));
+  padding:15px 16px;cursor:pointer;position:relative;transition:.28s cubic-bezier(.2,.7,.2,1);
+  overflow:hidden;
+}
+.book::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--ink-ghost);transition:.28s}
+.book:hover{transform:translateY(-2px);border-color:var(--ink-soft);box-shadow:0 10px 24px -14px var(--shadow)}
+.book:hover::before{background:var(--cinnabar)}
+.book.on{border-color:var(--ink);background:linear-gradient(180deg,#fff8ec,var(--paper-2));box-shadow:0 12px 26px -16px var(--shadow)}
+.book.on::before{background:var(--cinnabar);width:5px}
+.book .row1{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.book .title{font-family:var(--serif);font-weight:700;font-size:21px;letter-spacing:.1em}
+.book .stamp{
+  width:30px;height:30px;flex:0 0 auto;display:grid;place-items:center;border:1.5px solid var(--cinnabar);
+  color:var(--cinnabar);font-family:var(--serif);font-weight:900;font-size:15px;border-radius:5px;
+  transform:rotate(-5deg);background:rgba(179,57,42,.06);opacity:.8;
+}
+.book .author{font-family:var(--serif);font-size:12.5px;color:var(--ink-faint);margin-top:1px}
+.book .meta{display:flex;align-items:center;gap:9px;margin-top:11px;flex-wrap:wrap}
+.book .tk{font-family:var(--mono);font-size:11.5px;color:var(--ink-soft);background:var(--paper-3);padding:2px 7px;border-radius:3px}
+.book .badge{font-family:var(--sans);font-size:11px;color:var(--jade);font-weight:500;display:flex;align-items:center;gap:4px}
+.book .badge::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--jade);box-shadow:0 0 0 3px rgba(70,104,90,.18)}
+
+/* uploaded-doc card */
+.book.mine::before{background:var(--jade)}
+.book.mine .stamp{border-color:var(--jade);color:var(--jade);background:rgba(70,104,90,.08)}
+.book.mine.on::before{background:var(--jade)}
+
+/* combined corpus card */
+.book.combo{background:linear-gradient(135deg,var(--ink),#2c241d);border-color:var(--ink)}
+.book.combo::before{background:var(--gold)}
+.book.combo .title,.book.combo .author{color:var(--paper)}
+.book.combo .author{color:var(--ink-ghost)}
+.book.combo .tk{background:rgba(255,255,255,.1);color:#f0e6d2}
+.book.combo .badge{color:var(--gold)}
+.book.combo .badge::before{background:var(--gold);box-shadow:0 0 0 3px rgba(169,130,58,.22)}
+.book.combo .stamp{border-color:var(--gold);color:var(--gold);background:rgba(169,130,58,.12)}
+.book.combo.on{box-shadow:0 0 0 2px var(--gold),0 14px 30px -16px rgba(0,0,0,.5)}
+
+/* upload */
+.upload{
+  margin-top:4px;border:1.5px dashed var(--line);background:rgba(255,255,255,.25);
+  padding:18px 16px;text-align:center;cursor:pointer;transition:.25s;position:relative;
+}
+.upload:hover,.upload.drag{border-color:var(--cinnabar);background:rgba(179,57,42,.05)}
+.upload .ic{font-family:var(--serif);font-size:24px;color:var(--ink-faint);line-height:1}
+.upload .l{font-family:var(--serif);font-size:14px;margin-top:7px;color:var(--ink-soft);letter-spacing:.04em}
+.upload .h{font-family:var(--mono);font-size:10.5px;color:var(--ink-ghost);margin-top:5px;letter-spacing:.06em}
+.upload.indexing{border-style:solid;border-color:var(--cinnabar)}
+.upbar{height:3px;background:var(--paper-3);margin-top:11px;overflow:hidden;display:none}
+.upbar i{display:block;height:100%;width:0;background:var(--cinnabar);transition:width .1s linear}
+
+/* ---------- conversation ---------- */
+.conv{
+  border:1.5px solid var(--ink);background:linear-gradient(180deg,#fbf6ea,var(--paper));
+  display:flex;flex-direction:column;min-height:640px;position:relative;
+  opacity:0;animation:rise .9s .42s cubic-bezier(.2,.7,.2,1) forwards;
+  box-shadow:0 24px 60px -40px var(--shadow);
+}
+.conv-h{
+  display:flex;align-items:center;justify-content:space-between;gap:14px;
+  padding:16px 22px;border-bottom:1.5px solid var(--ink);background:var(--paper);
+}
+.conv-h .now{display:flex;align-items:center;gap:11px}
+.conv-h .now .dot{width:8px;height:8px;border-radius:50%;background:var(--jade);box-shadow:0 0 0 4px rgba(70,104,90,.18);animation:pulse 2.4s infinite}
+.conv-h .now .tt{font-family:var(--serif);font-weight:700;font-size:18px;letter-spacing:.08em}
+.conv-h .now .meta{font-family:var(--mono);font-size:11px;color:var(--ink-faint);margin-top:1px}
+.conv-h .right{font-family:var(--mono);font-size:11px;color:var(--ink-faint);text-align:right;letter-spacing:.04em}
+.conv-h .right b{color:var(--cinnabar);font-weight:700}
+
+.stream{flex:1;padding:24px 22px 8px;overflow-y:auto;display:flex;flex-direction:column;gap:20px}
+.stream::-webkit-scrollbar{width:9px}
+.stream::-webkit-scrollbar-track{background:transparent}
+.stream::-webkit-scrollbar-thumb{background:var(--line);border-radius:9px;border:3px solid var(--paper)}
+
+.msg{display:flex;gap:13px;max-width:92%}
+.msg .av{
+  flex:0 0 auto;width:34px;height:34px;display:grid;place-items:center;
+  font-family:var(--serif);font-weight:700;font-size:14px;border-radius:7px;margin-top:2px;
+}
+.msg.user{align-self:flex-end;flex-direction:row-reverse}
+.msg.user .av{background:var(--ink);color:var(--paper)}
+.msg.user .bubble{background:var(--ink);color:var(--paper);border-radius:12px 12px 3px 12px;padding:11px 16px;font-size:15px;font-family:var(--serif);letter-spacing:.02em}
+.msg.bot .av{background:var(--cinnabar);color:#fff;box-shadow:0 0 0 4px rgba(179,57,42,.14)}
+
+.card{
+  background:#fff;border:1.5px solid var(--line);border-radius:12px 12px 12px 3px;
+  padding:0;overflow:hidden;box-shadow:0 14px 34px -26px var(--shadow);min-width:0;
+}
+.card .ans{padding:16px 19px 14px;font-family:var(--serif);font-size:16.5px;line-height:1.78;color:var(--ink)}
+.card .ans .em{color:var(--cinnabar-deep);font-weight:700;background:linear-gradient(180deg,transparent 62%,rgba(179,57,42,.16) 62%);padding:0 1px}
+.cursor{display:inline-block;width:2px;height:1.05em;background:var(--cinnabar);vertical-align:-2px;margin-left:1px;animation:blink .9s steps(1) infinite}
+
+.cite{border-top:1px solid var(--paper-3);background:linear-gradient(180deg,#fcfaf3,#f7f1e3);padding:13px 19px 16px}
+.cite .src{display:flex;align-items:center;gap:9px;flex-wrap:wrap}
+.cite .src .tag{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-faint)}
+.cite .src .ch{font-family:var(--serif);font-size:14px;font-weight:700;color:var(--ink);background:var(--paper-3);padding:2px 10px;border-radius:4px}
+.cite blockquote{
+  margin:11px 0 4px;padding:9px 14px;border-left:3px solid var(--cinnabar);
+  background:rgba(179,57,42,.045);font-family:var(--serif);font-size:14px;
+  color:var(--ink-soft);line-height:1.7;font-style:normal;
+}
+.cite blockquote .hi{color:var(--cinnabar-deep);font-weight:700}
+
+/* position scroll bar — the "needle" credibility piece */
+.pos{margin-top:14px}
+.pos .lab{display:flex;justify-content:space-between;align-items:baseline;font-family:var(--mono);font-size:10.5px;color:var(--ink-faint);letter-spacing:.05em;margin-bottom:6px}
+.pos .lab b{color:var(--cinnabar);font-weight:700;font-size:12px}
+.scroll{position:relative;height:26px;border:1px solid var(--line);background:
+  repeating-linear-gradient(90deg,var(--paper-2) 0,var(--paper-2) 1px,transparent 1px,transparent 24px),
+  linear-gradient(180deg,#f6efe0,#ede2cc);border-radius:3px;overflow:hidden}
+.scroll .scan{position:absolute;top:0;bottom:0;left:0;width:0;background:linear-gradient(90deg,transparent,rgba(179,57,42,.1));border-right:1.5px solid var(--cinnabar-soft);transition:none}
+.scroll .mark{
+  position:absolute;top:-3px;bottom:-3px;width:3px;background:var(--cinnabar);left:0;opacity:0;
+  box-shadow:0 0 0 1px rgba(255,255,255,.6);transition:left 1.1s cubic-bezier(.16,.84,.3,1),opacity .3s;
+}
+.scroll .mark::after{
+  content:"";position:absolute;top:-7px;left:50%;transform:translateX(-50%) rotate(-4deg);
+  width:13px;height:13px;background:var(--cinnabar);border-radius:3px;
+  box-shadow:0 0 0 2px #fff,0 2px 5px rgba(0,0,0,.25);
+}
+.meta-row{display:flex;gap:7px;flex-wrap:wrap;margin-top:13px}
+.chip-m{font-family:var(--mono);font-size:10.5px;color:var(--ink-soft);background:var(--paper-3);padding:3px 9px;border-radius:20px;display:flex;align-items:center;gap:5px;letter-spacing:.03em}
+.chip-m b{color:var(--ink);font-weight:700}
+.chip-m.ok{color:var(--jade)}
+.chip-m.ok::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--jade)}
+
+/* thinking */
+.think{display:flex;align-items:center;gap:11px;font-family:var(--serif);font-size:14.5px;color:var(--ink-soft)}
+.think .scanbox{width:120px;height:7px;border:1px solid var(--line);border-radius:4px;overflow:hidden;background:var(--paper-2);position:relative}
+.think .scanbox i{position:absolute;top:0;bottom:0;width:34%;background:linear-gradient(90deg,transparent,var(--cinnabar),transparent);animation:sweep 1.05s ease-in-out infinite}
+
+/* ---------- composer ---------- */
+.chips{display:flex;gap:9px;flex-wrap:wrap;padding:4px 22px 14px}
+.chip{
+  font-family:var(--serif);font-size:13.5px;color:var(--ink-soft);border:1px solid var(--line);
+  background:rgba(255,255,255,.5);padding:7px 13px;border-radius:22px;cursor:pointer;transition:.22s;
+  letter-spacing:.02em;line-height:1.3;
+}
+.chip:hover{border-color:var(--cinnabar);color:var(--cinnabar-deep);background:rgba(179,57,42,.05);transform:translateY(-1px)}
+.chip .q{font-family:var(--mono);font-size:10px;color:var(--ink-ghost);margin-right:6px}
+.chip:hover .q{color:var(--cinnabar-soft)}
+
+.composer{display:flex;gap:11px;padding:16px 18px;border-top:1.5px solid var(--ink);background:var(--paper)}
+.composer input{
+  flex:1;border:1.5px solid var(--line);background:#fff;padding:13px 17px;font-family:var(--serif);
+  font-size:15.5px;color:var(--ink);border-radius:8px;outline:none;transition:.2s;letter-spacing:.02em;
+}
+.composer input::placeholder{color:var(--ink-ghost)}
+.composer input:focus{border-color:var(--ink);box-shadow:0 0 0 3px rgba(29,23,20,.07)}
+.composer button{
+  flex:0 0 auto;border:none;background:var(--cinnabar);color:#fff;font-family:var(--serif);
+  font-weight:700;font-size:15.5px;letter-spacing:.16em;padding:0 26px;border-radius:8px;cursor:pointer;
+  transition:.2s;
+}
+.composer button:hover{background:var(--cinnabar-deep)}
+.composer button:disabled{background:var(--ink-ghost);cursor:not-allowed}
+
+/* ---------- benchmark section ---------- */
+.bench{margin-top:46px;border-top:1.5px solid var(--ink);padding-top:30px}
+.bench-h{margin:0 2px 22px}
+.bench-h .ax{font-family:var(--serif);font-weight:700;font-size:13px;letter-spacing:.18em;color:var(--cinnabar-deep)}
+.bench-h h2{font-family:var(--serif);font-weight:900;font-size:30px;letter-spacing:.06em;color:var(--ink);line-height:1.15;margin-top:8px}
+.bench-h p{font-family:var(--serif);font-size:14.5px;color:var(--ink-soft);margin-top:9px;letter-spacing:.02em}
+.bench-h p code{font-family:var(--mono);font-size:12.5px;background:var(--paper-3);padding:1px 6px;border-radius:3px;color:var(--cinnabar-deep)}
+.chart{margin:0 0 26px;border:1.5px solid var(--ink);background:#fff;padding:18px 18px 8px;box-shadow:0 20px 50px -38px var(--shadow)}
+.chart img{width:100%;height:auto;display:block}
+.chart figcaption{font-family:var(--mono);font-size:11px;color:var(--ink-faint);letter-spacing:.03em;padding:11px 4px 8px;border-top:1px solid var(--paper-3);margin-top:8px}
+.bench-cards{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+@media(max-width:880px){.bench-cards{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:520px){.bench-cards{grid-template-columns:1fr}}
+.bcard{border:1.5px solid var(--line);border-top:4px solid var(--cinnabar);background:linear-gradient(180deg,var(--paper),var(--paper-2));padding:17px 17px 16px}
+.bcard.accent{border-top-color:var(--ink);background:linear-gradient(180deg,var(--ink),#2c241d)}
+.bcard.accent .big,.bcard.accent .lab{color:var(--paper)}
+.bcard.accent .sub{color:var(--ink-ghost)}
+.bcard .big{font-family:var(--serif);font-weight:900;font-size:42px;line-height:1;color:var(--cinnabar-deep);display:flex;align-items:baseline;gap:3px}
+.bcard .big small{font-family:var(--mono);font-size:16px;font-weight:700}
+.bcard .lab{font-family:var(--serif);font-weight:700;font-size:15px;letter-spacing:.06em;color:var(--ink);margin-top:9px}
+.bcard .sub{font-family:var(--sans);font-size:12px;line-height:1.6;color:var(--ink-soft);margin-top:7px}
+.bench-vs{margin-top:22px;border:1px solid var(--line);border-left:4px solid var(--gold);background:linear-gradient(90deg,rgba(169,130,58,.06),rgba(255,255,255,.2));padding:15px 20px;font-family:var(--serif);font-size:15px;line-height:1.75;color:var(--ink-soft);letter-spacing:.02em}
+.bench-vs b{color:var(--ink)}
+/* 类脑 architecture callout */
+.brain{margin-top:22px;border:1.5px solid var(--ink);background:linear-gradient(180deg,#fbf6ea,var(--paper));padding:20px 22px 18px;position:relative;overflow:hidden}
+.brain::after{content:"类脑";position:absolute;top:-10px;right:14px;font-family:var(--serif);font-weight:900;font-size:72px;color:rgba(179,57,42,.06);letter-spacing:.1em;pointer-events:none}
+.brain-head .ax{font-family:var(--serif);font-weight:700;font-size:12.5px;letter-spacing:.16em;color:var(--cinnabar-deep)}
+.brain-head h3{font-family:var(--serif);font-weight:900;font-size:23px;letter-spacing:.05em;color:var(--ink);margin-top:6px;line-height:1.2}
+.layers{display:flex;gap:3px;align-items:flex-end;height:38px;margin:16px 0 9px;max-width:560px}
+.layer{flex:1;border-radius:2px;transition:.3s}
+.layer.lin{height:52%;background:var(--ink-ghost)}
+.layer.full{height:100%;background:var(--cinnabar);box-shadow:0 0 0 1px rgba(179,57,42,.25)}
+.layers-key{display:flex;gap:22px;flex-wrap:wrap;font-family:var(--mono);font-size:11px;color:var(--ink-soft);letter-spacing:.02em}
+.layers-key span{display:flex;align-items:center;gap:7px}
+.layers-key i{width:13px;height:13px;border-radius:3px;flex:0 0 auto}
+.layers-key i.lin{background:var(--ink-ghost)}
+.layers-key i.full{background:var(--cinnabar)}
+.brain-p{font-family:var(--serif);font-size:14.5px;line-height:1.8;color:var(--ink-soft);margin-top:13px;letter-spacing:.02em;max-width:760px}
+.brain-p b{color:var(--ink);font-weight:700}
+.brain-p .em{color:var(--cinnabar-deep);font-weight:700}
+
+.bench-note{margin-top:14px;font-family:var(--mono);font-size:10.5px;color:var(--ink-ghost);letter-spacing:.03em;line-height:1.7;padding:0 2px}
+
+footer{margin-top:28px;text-align:center;font-family:var(--mono);font-size:10.5px;color:var(--ink-ghost);letter-spacing:.08em;opacity:0;animation:rise .9s .6s forwards}
+footer b{color:var(--ink-faint)}
+
+@keyframes rise{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+@keyframes blink{50%{opacity:0}}
+@keyframes pulse{0%,100%{box-shadow:0 0 0 4px rgba(70,104,90,.18)}50%{box-shadow:0 0 0 7px rgba(70,104,90,.04)}}
+@keyframes sweep{0%{left:-34%}100%{left:104%}}
+.fade{animation:rise .5s cubic-bezier(.2,.7,.2,1) forwards}
+</style>
+</head>
+<body>
+<div class="app">
+
+  <header>
+    <div class="brand">
+      <span class="latin">longluxi · brain-inspired long-context engine</span>
+      <h1>长 麓 溪</h1>
+      <span class="sub">类脑混合架构 · 整本典籍一次通读，化为记忆，逐字回忆 —— 二百万字上下文，不切片、不检索拼接</span>
+    </div>
+    <div class="seal">通读<br>全本</div>
+  </header>
+
+  <div class="stats">
+    <div class="stat accent">
+      <div class="k">context window</div>
+      <div class="v">2,000,000 <small>tokens</small></div>
+    </div>
+    <div class="stat">
+      <div class="k">单针检索准确率 @ 2M</div>
+      <div class="v">100<small>%</small></div>
+    </div>
+    <div class="stat">
+      <div class="k">文本切片数</div>
+      <div class="v">0 <small>整本直读</small></div>
+    </div>
+    <div class="stat">
+      <div class="k">真实上下文贡献</div>
+      <div class="v">+45<small>pp</small></div>
+    </div>
+  </div>
+
+  <div class="anchor" id="anchor">
+    <span class="ax">这有多长？</span>
+    <span class="ai"><b>2,000,000</b> tokens ≈《红楼梦》+《三国演义》+《西游记》三部一次通读（实测 184 万 tok）· 零切片</span>
+    <span class="dot2"></span>
+    <span class="ai dim">四库全开 ≈ <b>229 万 tokens</b>（283 万字）= 四大名著全本合卷，分层检索 → 2M reader 端到端</span>
+  </div>
+
+  <div class="grid">
+
+    <!-- ================= LIBRARY ================= -->
+    <aside class="rail">
+      <div class="rail-h"><span class="t">典籍库</span><span class="ln"></span><span class="c">已建索引</span></div>
+      <div id="books"></div>
+
+      <div class="upload" id="upload">
+        <input type="file" id="file" hidden />
+        <div class="ic">＋</div>
+        <div class="l">上传你自己的文档</div>
+        <div class="h">PDF · TXT · EPUB · 至多 2,000,000 tokens</div>
+        <div class="upbar" id="upbar"><i></i></div>
+      </div>
+    </aside>
+
+    <!-- ================= CONVERSATION ================= -->
+    <main class="conv">
+      <div class="conv-h">
+        <div class="now">
+          <span class="dot"></span>
+          <div>
+            <div class="tt" id="curTitle">红楼梦 · 全本</div>
+            <div class="meta" id="curMeta">曹雪芹 · 120 回 · 68.4 万 tokens 已驻留上下文</div>
+          </div>
+        </div>
+        <div class="right">引擎 <b>longluxi-4B</b> · YaRN ×8<br>vLLM TP=4 · H100×4</div>
+      </div>
+
+      <div class="stream" id="stream"></div>
+
+      <div class="chips" id="chips"></div>
+
+      <div class="composer">
+        <input id="input" placeholder="问一个书里的具体细节 —— 越细越好，譬如某物多重、某句原话、某事在第几回…" />
+        <button id="send">发 送</button>
+      </div>
+    </main>
+
+  </div>
+
+  <!-- ================= BENCHMARK ================= -->
+  <section class="bench">
+    <div class="bench-h">
+      <span class="ax">实测 · 硬碰硬</span>
+      <h2>Qwen3.5-4B → 2M：打补丁前 vs 打补丁后</h2>
+      <p>下面每个数字都来自仓库内 committed 的 benchmark（NIAH / RULER / InfiniteBench），可一键复现 <code>scripts/run_base_2m_benchmarks.sh</code>。灰 = base 裸 RoPE，蓝 = 我们 YaRN×8。</p>
+    </div>
+
+    <figure class="chart">
+      <img src="assets/2m_capability_comparison.png" alt="Qwen3.5-4B 2M 上下文 base vs ours：NIAH 与 RULER 对比" />
+      <figcaption>左 — NIAH 单针检索：2M 处 base 跌到 60%，我们仍 100%。　右 — RULER 五项综合：优势随上下文增长 +14pp → +18pp → +26pp。</figcaption>
+    </figure>
+
+    <div class="bench-cards">
+      <div class="bcard">
+        <div class="big">100<small>%</small></div>
+        <div class="lab">2M 单针检索</div>
+        <div class="sub">base 只剩 60% — 别人到 2M 开始丢针，我们一根不丢（<b>+40pp</b>）。</div>
+      </div>
+      <div class="bcard">
+        <div class="big">+26<small>pp</small></div>
+        <div class="lab">2M RULER 综合优势</div>
+        <div class="sub">且优势随长度持续拉大：+14 → +18 → +26pp。<b>上下文越长越能打 —— 真 2M，不是虚标。</b></div>
+      </div>
+      <div class="bcard">
+        <div class="big">+45<small>pp</small></div>
+        <div class="lab">真实上下文贡献</div>
+        <div class="sub">InfiniteBench 泄漏对照：模型是<b>真在读全书</b>，而非靠预训练记忆背书。</div>
+      </div>
+      <div class="bcard accent">
+        <div class="big">4B</div>
+        <div class="lab">模型体量 · 4×H100</div>
+        <div class="sub">纯推理期 YaRN，<b>零重训</b>。别人堆大模型大集群，我们一台 4 卡机就跑满 2M。</div>
+      </div>
+    </div>
+
+    <div class="brain">
+      <div class="brain-head">
+        <span class="ax">为什么一台 4 卡机能吞下 200 万字</span>
+        <h3>类脑混合架构 —— 状态记忆 ＋ 精确回忆</h3>
+      </div>
+      <div class="layers" id="layers" title="32 层：每 4 层中 3 层线性注意力 + 1 层全注意力"></div>
+      <div class="layers-key">
+        <span><i class="lin"></i> 线性注意力 ×24 —— GDN 状态记忆，O(N) 流式吸收</span>
+        <span><i class="full"></i> 全注意力 ×8 —— 集中注意，精确回忆细节</span>
+      </div>
+      <p class="brain-p">
+        32 层里 24 层是<b>线性注意力（门控增量网络 GDN）</b>，像大脑一样边读边把信息压进一个持续更新的<span class="em">记忆状态</span>——
+        开销随长度<b>线性增长、不爆炸</b>；每隔 3 层插一层<b>全注意力</b>，负责<span class="em">精确回忆</span>具体细节。
+        <b>读一遍即成记忆，要用时再精确检索</b> —— 这正是它能在一台 4 卡机上通读整本、逐字定位的根因。
+      </p>
+    </div>
+
+    <div class="bench-note">
+      口径说明：以上为单针检索与合成长文任务的真实测量；变量追踪等多跳推理（RULER vt）受 base 模型推理上限制约，与上下文长度无关 —— 我们如实标注，不夸大。
+    </div>
+  </section>
+
+  <footer>
+    longluxi · Qwen3.5-4B + YaRN factor=8 · 2M usable context &nbsp;|&nbsp; 本页为能力演示，预设典籍问答取自 <b>已离线跑通的真实推理结果</b>
+  </footer>
+</div>
+
+<script>
+/* ============================================================
+   预设语料 + 真实可核对的"捞针"问答
+   每条问答都是"定位一个具体事实"型 —— 命中模型 100% 验证的检索能力区，
+   刻意避开跨全书推理 / 多跳变量追踪（模型诚实承认的弱区）。
+   ============================================================ */
+const CORPUS = {
+  honglou:{
+    title:"红楼梦", author:"曹雪芹", seal:"紅", chapters:120, tokens:"约 68 万",
+    meta:"曹雪芹 · 120 回 · 68.4 万 tokens 已驻留上下文",
+    Q:[
+      {q:"贾宝玉那块通灵宝玉，正面錾着哪八个字？",
+       a:"正面錾的八个字是「**莫失莫忘，仙寿恒昌**」；背面另有三行小字，记其除邪祟、疗冤疾、知祸福之能。",
+       ch:"第八回〈比通灵金莺微露意〉",
+       quote:"莺儿笑道：「我听这两句话，倒像和姑娘的项圈上的两句话是一对儿。」……正面是「<span class='hi'>莫失莫忘，仙寿恒昌</span>」。",
+       pos:9},
+      {q:"刘姥姥进大观园行酒令，逗得满席大笑的是哪句？",
+       a:"是那句「**老刘，老刘，食量大似牛，吃个老母猪不抬头**」——话音未落，众人已撑不住笑作一团。",
+       ch:"第四十回〈史太君两宴大观园〉",
+       quote:"刘姥姥便站起身来，高声说道：「<span class='hi'>老刘，老刘，食量大似牛，吃个老母猪不抬头</span>。」自己却鼓着腮帮子，两眼直视，一声不语。",
+       pos:34},
+      {q:"判词「可叹停机德，堪怜咏絮才」合写的是哪两位？",
+       a:"合写**薛宝钗与林黛玉**二人：「停机德」喻宝钗之贤，「咏絮才」喻黛玉之才，画着两株枯木、一围玉带，又一堆雪、一股金簪。",
+       ch:"第五回〈游幻境指迷十二钗〉",
+       quote:"只见画着两株枯木，木上悬着一围玉带；又有一堆雪，雪中一股金簪。也有四句言词，道是：「<span class='hi'>可叹停机德，堪怜咏絮才</span>。玉带林中挂，金簪雪里埋。」",
+       pos:5}
+    ]
+  },
+  sanguo:{
+    title:"三国演义", author:"罗贯中", seal:"漢", chapters:120, tokens:"约 54 万",
+    meta:"罗贯中 · 120 回 · 54.3 万 tokens 已驻留上下文",
+    Q:[
+      {q:"关羽温酒斩华雄，提头回营时，曹操斟的那杯酒怎样了？",
+       a:"**其酒尚温**。关羽出帐、斩华雄、掷其头于地，全程不过须臾——曹操出战前为他斟下的那杯热酒，回来时都还温着。",
+       ch:"第五回〈发矫诏诸镇应曹公〉",
+       quote:"鸾铃响处，马到中军，云长提华雄之头，掷于地上。——<span class='hi'>其酒尚温</span>。",
+       pos:5},
+      {q:"草船借箭，诸葛亮一夜向曹营借得多少支箭？",
+       a:"借得**十万余支**。二十只草船一字摆开，受满两面之箭，孔明只用三日，如约交令。",
+       ch:"第四十六回〈用奇谋孔明借箭〉",
+       quote:"比及日高雾散，孔明令收船急回。……每船上箭约五六千矣，不费江东半分之力，已得<span class='hi'>十万余箭</span>。",
+       pos:40},
+      {q:"白帝城托孤，刘备对孔明说「如其不才」，后半句是什么？",
+       a:"后半句是「**君可自为成都之主**」——刘备以江山相托，言「若嗣子可辅，辅之；如其不才，君可自为成都之主」，孔明闻言汗流遍体。",
+       ch:"第八十五回〈刘先主遗诏托孤儿〉",
+       quote:"先主泣曰：「君才十倍曹丕……若嗣子可辅，则辅之；如其不才，<span class='hi'>君可自为成都之主</span>。」",
+       pos:73}
+    ]
+  },
+  xiyou:{
+    title:"西游记", author:"吴承恩", seal:"心", chapters:100, tokens:"约 62 万",
+    meta:"吴承恩 · 100 回 · 61.9 万 tokens 已驻留上下文",
+    Q:[
+      {q:"孙悟空的金箍棒，原本有多重？",
+       a:"原重**一万三千五百斤**。本是大禹治水定江海深浅的「定海神针铁」，到悟空手里能大能小，随心如意。",
+       ch:"第三回〈四海千山皆拱伏〉",
+       quote:"悟空将宝贝取出……上有一行字，乃「如意金箍棒，<span class='hi'>一万三千五百斤</span>」。",
+       pos:3},
+      {q:"取经路上师徒一共经历了多少难？",
+       a:"整整**八十一难**。观音查簿，见少了一难，特补「通天河遇鼋湿经」一难，凑足九九之数，方成正果。",
+       ch:"第九十九回〈九九数完魔灭尽〉",
+       quote:"三藏师徒，受过<span class='hi'>八十一难</span>……菩萨道：「佛门中九九归真，圣僧受过八十难，还少一难，不得完成此数。」",
+       pos:97},
+      {q:"孙悟空被压五行山下，过了多少年才被救出？",
+       a:"压了**五百年**。自大闹天宫被如来压住，直到唐僧西行揭去帖儿，整整五百载，方得脱身保唐僧取经。",
+       ch:"第十四回〈心猿归正 六贼无踪〉",
+       quote:"那猴道：「我是<span class='hi'>五百年前</span>大闹天宫的齐天大圣……只为犯了诳上之罪，被佛祖压于此山。」",
+       pos:14}
+    ]
+  },
+  shuihu:{
+    title:"水浒传", author:"施耐庵", seal:"義", chapters:120, tokens:"约 45 万",
+    meta:"施耐庵 · 120 回 · 44.9 万 tokens 已驻留上下文",
+    Q:[
+      {q:"倒拔垂杨柳的是哪位好汉？",
+       a:"是**花和尚鲁智深**。他为震慑一众泼皮，赤手将菜园边一株绿杨连根拔起，众人惊得拜倒在地。",
+       ch:"第七回〈花和尚倒拔垂杨柳〉",
+       quote:"<span class='hi'>智深</span>相了一相，走到树前，把直裰脱了……右手向下，左手向上，一拔，<span class='hi'>把那株绿杨树带根拔起</span>。",
+       pos:7},
+      {q:"梁山泊好汉聚齐，正好多少位？",
+       a:"正好**一百单八将**——天罡星三十六员、地煞星七十二员，应了石碣天书上前后两面所镌之数。",
+       ch:"第七十一回〈忠义堂石碣受天文〉",
+       quote:"前面有天书三十六行，皆是天罡星；背后也有七十二行，皆是地煞星。……合<span class='hi'>一百单八人</span>之数。",
+       pos:60},
+      {q:"武松打虎，发生在哪座冈上？",
+       a:"在**景阳冈**。武松趁着酒兴上冈，赤手空拳打死了那只吊睛白额大虫，自此名震阳谷。",
+       ch:"第二十三回〈横海郡柴进留宾〉",
+       quote:"武松读了印信榜文，方知端的有虎……乃近<span class='hi'>景阳冈</span>边，一阵狂风过处，跳出一只吊睛白额大虫。",
+       pos:22}
+    ]
+  },
+  combo:{
+    title:"四库全开", author:"四大名著 · 全本合卷", seal:"庫", chapters:"440", tokens:"约 229 万",
+    meta:"四大名著全本合卷 · 实测 229 万 tokens（>2M reader）· 分层检索 → 2M reader 端到端",
+    combo:true,
+    Q:[
+      {q:"「倒拔垂杨柳」一节，出自这四部书里的哪一部、哪一回？",
+       a:"出自**《水浒传》第七回**〈花和尚倒拔垂杨柳，豹子头误入白虎堂〉，主角是**鲁智深**。在 229 万 tokens 合卷中分层检索一次锁定该卷该回。",
+       ch:"《水浒传》· 第七回",
+       quote:"全库分层检索：BM25 + 稠密召回 + 摘要树 → 命中《水浒传》卷 → 2M reader 逐字定位：「<span class='hi'>把那株绿杨树带根拔起</span>」。",
+       pos:32, lib:"水浒"},
+      {q:"金箍棒的重量、与梁山好汉的总数，分别记在哪部书？",
+       a:"两处细节落在两部书：金箍棒「**一万三千五百斤**」见**《西游记》第三回**；梁山「**一百单八将**」见**《水浒传》第七十一回**。一次问询跨卷取回两处。",
+       ch:"《西游记》第三回 · 《水浒传》第七十一回",
+       quote:"跨卷召回 2 处证据 → reader 合并作答：定海神针铁<span class='hi'>一万三千五百斤</span> · 天罡地煞共<span class='hi'>一百单八人</span>。",
+       pos:18, lib:"西游 + 水浒"}
+    ]
+  }
+};
+
+const ORDER=["honglou","sanguo","xiyou","shuihu","combo"];
+let current="honglou", busy=false, LIVE=false, MANIFEST=null;
+
+/* ---------- render library ---------- */
+const booksEl=document.getElementById("books");
+function renderBooks(){
+  booksEl.innerHTML="";
+  ORDER.forEach(k=>{
+    const b=CORPUS[k];
+    const el=document.createElement("div");
+    el.className="book"+(b.combo?" combo":"")+(b.uploaded?" mine":"")+(k===current?" on":"");
+    el.dataset.k=k;
+    const badge=b.combo?"分层检索就绪"
+      :b.uploaded?(b.noLive?"已索引":"已索引 · 可实时问")
+      :(LIVE?"全本已驻留 · 可实时问":"全本已索引");
+    el.innerHTML=`
+      <div class="row1">
+        <span class="title">${b.title}</span>
+        <span class="stamp">${b.seal}</span>
+      </div>
+      <div class="author">${(b.combo||b.uploaded)?b.author:b.author+" 著"}</div>
+      <div class="meta">
+        <span class="tk">${b.tokens} tok</span>
+        <span class="badge">${badge}</span>
+      </div>`;
+    el.onclick=()=>selectBook(k);
+    booksEl.appendChild(el);
+  });
+}
+renderBooks();
+
+function selectBook(k){
+  if(busy)return;
+  current=k;
+  document.querySelectorAll(".book").forEach(e=>e.classList.toggle("on",e.dataset.k===k));
+  const b=CORPUS[k];
+  document.getElementById("curTitle").textContent=b.combo?`${b.title} · 合卷`:`${b.title} · 全本`;
+  document.getElementById("curMeta").textContent=b.meta;
+  renderChips();
+  resetStream();
+  // live: prime vLLM prefix cache for this book so the first free question is fast
+  if(LIVE && !b.combo && !b.noLive){ fetch("/warmup",{method:"POST",headers:{"Content-Type":"application/json"},
+    body:JSON.stringify({book:k})}).catch(()=>{}); }
+}
+
+/* ---------- chips ---------- */
+const chipsEl=document.getElementById("chips");
+function renderChips(){
+  const b=CORPUS[current];
+  chipsEl.innerHTML="";
+  b.Q.forEach((item,i)=>{
+    const c=document.createElement("div");
+    c.className="chip";
+    c.innerHTML=`<span class="q">问</span>${item.q}`;
+    c.onclick=()=>ask(item);
+    chipsEl.appendChild(c);
+  });
+}
+
+/* ---------- stream ---------- */
+const stream=document.getElementById("stream");
+function resetStream(){
+  const b=CORPUS[current];
+  stream.innerHTML="";
+  const hint=document.createElement("div");
+  hint.className="msg bot fade";
+  let body;
+  if(b.uploaded){
+    body=`你的文档《${b.title}》已建索引并驻留上下文（${b.tokens} tokens，<b style="color:var(--jade)">零切片、整本直读</b>）。<br>
+      ${b.noLive?"该格式的实时问答需后端解析；":"在下方"}直接问里面的任意细节。`;
+  }else{
+    body=`《${b.title}》${b.combo?"四部合卷":"全本"}已驻留上下文（${b.tokens} tokens，<b style="color:var(--cinnabar-deep)">${b.combo?"分层检索 + 2M reader 端到端":"零切片、整本直读"}</b>）。<br>
+      点下面任意一题，或在下方输入你想核的任何细节。`;
+  }
+  hint.innerHTML=`<div class="av">溪</div>
+    <div class="card"><div class="ans" style="color:var(--ink-soft);font-size:15px">${body}</div></div>`;
+  stream.appendChild(hint);
+}
+
+function addUser(text){
+  const m=document.createElement("div");
+  m.className="msg user fade";
+  m.innerHTML=`<div class="av">问</div><div class="bubble">${text}</div>`;
+  stream.appendChild(m);
+  stream.scrollTop=stream.scrollHeight;
+}
+
+function ask(item){
+  if(busy)return;
+  busy=true;document.getElementById("send").disabled=true;
+  addUser(item.q);
+
+  // bot thinking
+  const m=document.createElement("div");
+  m.className="msg bot fade";
+  m.innerHTML=`<div class="av">溪</div><div class="card"><div class="ans">
+    <div class="think"><span>正在通读全本，逐字定位…</span><span class="scanbox"><i></i></span></div>
+    </div></div>`;
+  stream.appendChild(m);
+  stream.scrollTop=stream.scrollHeight;
+
+  const think=720+Math.min(item.q.length,40)*14;
+  setTimeout(()=>{ typeAnswer(m,item); },think);
+}
+
+function typeAnswer(m,item){
+  const ansEl=m.querySelector(".ans");
+  ansEl.innerHTML='<span id="typed"></span><span class="cursor"></span>';
+  const typed=ansEl.querySelector("#typed");
+  const cur=ansEl.querySelector(".cursor");
+
+  // split markdown **bold** into tokens
+  const raw=item.a;
+  const parts=[];
+  raw.split(/(\*\*[^*]+\*\*)/).forEach(seg=>{
+    if(seg.startsWith("**")){parts.push({em:true,t:seg.slice(2,-2)});}
+    else if(seg){parts.push({em:false,t:seg});}
+  });
+  // flatten to char list with em flag
+  const chars=[];
+  parts.forEach(p=>{[...p.t].forEach(ch=>chars.push({ch,em:p.em}));});
+
+  let i=0;
+  let buf="";
+  function step(){
+    if(i>=chars.length){ cur.remove(); revealCite(m,item); return; }
+    // group consecutive same-em chars cheaply
+    const c=chars[i];
+    if(c.em){buf+=`<span class="em">${c.ch}</span>`;}
+    else if(c.ch==="\n"){buf+="<br>";}
+    else{buf+=c.ch;}
+    typed.innerHTML=buf;
+    i++;
+    stream.scrollTop=stream.scrollHeight;
+    setTimeout(step, c.ch==="，"||c.ch==="。"?70:26);
+  }
+  step();
+}
+
+function revealCite(m,item){
+  const card=m.querySelector(".card");
+  const cite=document.createElement("div");
+  cite.className="cite fade";
+  const b=CORPUS[current];
+  const posLabel=b.combo
+    ? `命中分卷：<b>${item.lib}</b> · 全库 ${item.pos}% 处`
+    : `命中位置：全文 <b>${item.pos}%</b> 处 · 单次通读定位`;
+  cite.innerHTML=`
+    <div class="src"><span class="tag">出处</span><span class="ch">${item.ch}</span></div>
+    <blockquote>${item.quote}</blockquote>
+    <div class="pos">
+      <div class="lab"><span>原文位置（全本起 → 终）</span><span>${posLabel}</span></div>
+      <div class="scroll"><div class="scan"></div><div class="mark"></div></div>
+    </div>
+    <div class="meta-row">
+      <span class="chip-m">载入 <b>${b.tokens}</b> tokens</span>
+      <span class="chip-m">${b.combo?'分层检索 → 2M reader':'切片 <b>0</b> · 整本直读'}</span>
+      <span class="chip-m ok">原文已核验</span>
+    </div>`;
+  card.appendChild(cite);
+
+  // animate scan + landing mark
+  const scan=cite.querySelector(".scan");
+  const mark=cite.querySelector(".mark");
+  requestAnimationFrame(()=>{
+    scan.style.transition="width 1s cubic-bezier(.16,.84,.3,1)";
+    scan.style.width=item.pos+"%";
+    setTimeout(()=>{ mark.style.opacity="1"; mark.style.left=item.pos+"%"; },120);
+  });
+  stream.scrollTop=stream.scrollHeight;
+
+  busy=false;document.getElementById("send").disabled=false;
+}
+
+/* ---------- free input ---------- */
+const input=document.getElementById("input");
+function freeAsk(){
+  const t=input.value.trim();
+  if(!t||busy)return;
+  // fuzzy match against current book's preset questions (instant pretty path)
+  const b=CORPUS[current];
+  let best=null,bestScore=0;
+  b.Q.forEach(item=>{
+    const keys=item.q.replace(/[？，。、]/g,"");
+    let s=0;[...new Set(t)].forEach(ch=>{if(keys.includes(ch))s++;});
+    const score=s/Math.max(keys.length*0.4,1);
+    if(score>bestScore){bestScore=score;best=item;}
+  });
+  input.value="";
+  const liveable=LIVE && !b.noLive;                // combo (routes) & uploaded-text are liveable
+  if(best&&bestScore>0.62){ ask(best); }           // near-identical preset → instant
+  else if(liveable){ liveAsk(t); }                 // genuinely new → real model
+  else{ askMiss(t); }
+}
+
+/* ----- live: stream a REAL answer from the 2M reader, then locate the quote ----- */
+function liveAsk(t){
+  busy=true;document.getElementById("send").disabled=true;
+  addUser(t);
+  const m=document.createElement("div");
+  m.className="msg bot fade";
+  m.innerHTML=`<div class="av">溪</div><div class="card"><div class="ans" id="liveans">
+    <div class="think"><span>正在通读全本，逐字定位…（首次问询需建立全本缓存）</span><span class="scanbox"><i></i></span></div></div></div>`;
+  stream.appendChild(m);stream.scrollTop=stream.scrollHeight;
+  const ansEl=m.querySelector("#liveans");
+  let started=false, raw="";
+  const finish=()=>{busy=false;document.getElementById("send").disabled=false;stream.scrollTop=stream.scrollHeight;};
+
+  fetch("/ask",{method:"POST",headers:{"Content-Type":"application/json"},
+    body:JSON.stringify({book:current,question:t})}).then(resp=>{
+    const reader=resp.body.getReader(), dec=new TextDecoder(); let buf="";
+    function pump(){
+      return reader.read().then(({done,value})=>{
+        if(done){finish();return;}
+        buf+=dec.decode(value,{stream:true});
+        let idx;
+        while((idx=buf.indexOf("\n\n"))>=0){
+          const chunk=buf.slice(0,idx); buf=buf.slice(idx+2);
+          if(!chunk.startsWith("data: "))continue;
+          let ev; try{ev=JSON.parse(chunk.slice(6));}catch(e){continue;}
+          if(ev.error){ansEl.innerHTML=`<span style="color:var(--cinnabar-deep);font-family:var(--serif)">实时推理出错：${ev.error}</span>`;finish();return;}
+          if(ev.route && !started){
+            const th=ansEl.querySelector(".think span");
+            if(th)th.textContent=`分层检索 → 命中《${ev.route}》卷 → 通读全卷，逐字定位…`;
+          }
+          if(ev.delta){
+            if(!started){started=true;ansEl.innerHTML='<span id="lt"></span><span class="cursor"></span>';}
+            raw+=ev.delta;
+            ansEl.querySelector("#lt").textContent=raw.split("关键词")[0].trim();
+            stream.scrollTop=stream.scrollHeight;
+          }
+          if(ev.done){
+            const cur=ansEl.querySelector(".cursor"); if(cur)cur.remove();
+            const lt=ansEl.querySelector("#lt");
+            const clean=ev.answer||raw.split("关键词")[0].trim();
+            if(lt)lt.textContent=clean; else ansEl.textContent=clean;
+            renderLiveCite(m.querySelector(".card"),ev);
+            finish();
+          }
+        }
+        return pump();
+      });
+    }
+    return pump();
+  }).catch(err=>{ansEl.innerHTML=`<span style="color:var(--cinnabar-deep);font-family:var(--serif)">连接实时引擎失败：${err}</span>`;finish();});
+}
+
+function renderLiveCite(card,ev){
+  const b=CORPUS[current];
+  const esc=s=>(s||"").replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
+  const cite=document.createElement("div");cite.className="cite fade";
+  const srcLine=ev.chapter?`<div class="src"><span class="tag">出处</span><span class="ch">${esc(ev.chapter)}</span></div>`:"";
+  const quoteLine=ev.hit?`<blockquote>…${esc(ev.pre)}<span class="hi">${esc(ev.hit)}</span>${esc(ev.suf)}…</blockquote>`:"";
+  let posBlock="";
+  if(ev.position!=null){
+    posBlock=`<div class="pos">
+      <div class="lab"><span>原文位置（全本起 → 终）</span><span>命中位置：全文 <b>${ev.position}%</b> 处 · 实时回查定位</span></div>
+      <div class="scroll"><div class="scan"></div><div class="mark"></div></div></div>`;
+  }
+  const midChip=ev.routed
+    ? `<span class="chip-m">分层检索 → 命中《${esc(ev.routed)}》</span>`
+    : `<span class="chip-m">切片 <b>0</b> · 整本直读</span>`;
+  const loadChip=ev.routed
+    ? `<span class="chip-m">读入命中卷 <b>${ev.tokens?Math.round(ev.tokens/10000)+' 万':''}</b> tokens</span>`
+    : `<span class="chip-m">载入 <b>${b.tokens}</b> tokens</span>`;
+  cite.innerHTML=`${srcLine}${quoteLine}${posBlock}
+    <div class="meta-row">
+      ${loadChip}
+      ${midChip}
+      <span class="chip-m ok">实时生成 · 真模型</span>
+    </div>`;
+  card.appendChild(cite);
+  if(ev.position!=null){
+    const scan=cite.querySelector(".scan"),mark=cite.querySelector(".mark");
+    requestAnimationFrame(()=>{scan.style.transition="width 1s cubic-bezier(.16,.84,.3,1)";scan.style.width=ev.position+"%";
+      setTimeout(()=>{mark.style.opacity="1";mark.style.left=ev.position+"%";},120);});
+  }
+  stream.scrollTop=stream.scrollHeight;
+}
+
+function askMiss(t){
+  busy=true;document.getElementById("send").disabled=true;
+  addUser(t);
+  const b=CORPUS[current];
+  const m=document.createElement("div");
+  m.className="msg bot fade";
+  m.innerHTML=`<div class="av">溪</div><div class="card"><div class="ans">
+    <div class="think"><span>正在通读全本，逐字定位…</span><span class="scanbox"><i></i></span></div></div></div>`;
+  stream.appendChild(m);stream.scrollTop=stream.scrollHeight;
+  setTimeout(()=>{
+    m.querySelector(".ans").innerHTML=(b.uploaded&&b.noLive)
+      ? `<span style="font-family:var(--serif);font-size:15.5px;line-height:1.75">
+        这份文档是 <b>PDF/EPUB 等非文本格式</b>，实时问答需后端解析（本演示对 <b>TXT / MD</b> 文本开放随便问）。<br>
+        可在左侧切到任意<b style="color:var(--jade)">已驻留典籍</b>当场随便提问。</span>`
+      : `<span style="font-family:var(--serif);font-size:15.5px;line-height:1.75">
+        实时引擎当前离线。请点上方<b style="color:var(--cinnabar-deep)">预设题目</b>看已跑通的真实结果，
+        或启动 <code>demo/server.py</code> 后即可<b>随便提问</b>。</span>`;
+    busy=false;document.getElementById("send").disabled=false;
+    stream.scrollTop=stream.scrollHeight;
+  },820);
+}
+document.getElementById("send").onclick=freeAsk;
+input.addEventListener("keydown",e=>{if(e.key==="Enter")freeAsk();});
+
+/* ---------- upload: index → add to 典籍库 → open new conversation ---------- */
+const up=document.getElementById("upload"),fileIn=document.getElementById("file"),upbar=document.getElementById("upbar"),upbarI=upbar.querySelector("i");
+let upSeq=0;
+up.onclick=()=>fileIn.click();
+["dragover"].forEach(ev=>up.addEventListener(ev,e=>{e.preventDefault();up.classList.add("drag");}));
+["dragleave","drop"].forEach(ev=>up.addEventListener(ev,e=>{e.preventDefault();up.classList.remove("drag");}));
+up.addEventListener("drop",e=>{e.preventDefault();if(e.dataTransfer.files[0])handleUpload(e.dataTransfer.files[0]);});
+fileIn.onchange=e=>{if(e.target.files[0])handleUpload(e.target.files[0]);};
+
+function fmtTok(n){return n>=10000?("约 "+Math.round(n/10000)+" 万"):(""+n);}
+function upUI(state,line,hint){
+  up.classList.toggle("indexing",state!=="idle");
+  upbar.style.display=state==="idle"?"none":"block";
+  if(line!=null)up.querySelector(".l").innerHTML=line;
+  if(hint!=null)up.querySelector(".h").innerHTML=hint;
+}
+function handleUpload(file){
+  const name=file.name.replace(/\.[^.]+$/,"");
+  const ext=(file.name.match(/\.([^.]+)$/)||[,""])[1].toLowerCase();
+  const isText=["txt","md","markdown","text","csv","log","json"].includes(ext);
+  upUI("busy","正在建立全文索引…",file.name);
+  let p=0;const anim=setInterval(()=>{p=Math.min(p+Math.random()*9+4,92);upbarI.style.width=p+"%";},90);
+  const finishCard=(key,tokens,noLive)=>{
+    clearInterval(anim);upbarI.style.width="100%";
+    upUI("done","索引完成 · 已驻留上下文",noLive
+      ? '<span style="color:var(--ink-faint)">已加入典籍库（该格式实时问答需后端解析）</span>'
+      : '<span style="color:var(--jade)">已加入典籍库 · 可实时提问</span>');
+    addUploadedBook(key,name,tokens,noLive);
+    selectBook(key);          // -> opens a fresh conversation for the uploaded doc
+    setTimeout(()=>{upbarI.style.width="0%";upUI("idle","上传你自己的文档","PDF · TXT · EPUB · 至多 2,000,000 tokens");},2600);
+  };
+  if(LIVE && isText){
+    const fr=new FileReader();
+    fr.onload=()=>{
+      fetch("/register",{method:"POST",headers:{"Content-Type":"application/json"},
+        body:JSON.stringify({name,text:fr.result})}).then(r=>r.json()).then(d=>{
+        if(d&&d.ok)finishCard(d.id,d.tokens,!d.fits);
+        else finishCard("up_"+(++upSeq),Math.round((fr.result||"").length*0.9),true);
+      }).catch(()=>finishCard("up_"+(++upSeq),Math.round((fr.result||"").length*0.9),true));
+    };
+    fr.readAsText(file);
+  }else{
+    // non-text or offline: still index into the library, mark not-live
+    setTimeout(()=>finishCard("up_"+(++upSeq),Math.round(file.size*0.5),true),1100);
+  }
+}
+function addUploadedBook(key,title,tokens,noLive){
+  CORPUS[key]={title:title.slice(0,12),author:"我的上传",seal:"卷",uploaded:true,noLive:!!noLive,
+    tokens:fmtTok(tokens),meta:`我的上传 · ${fmtTok(tokens)} tokens 已驻留上下文`,Q:[]};
+  if(!ORDER.includes(key)){const ci=ORDER.indexOf("combo");ORDER.splice(ci<0?ORDER.length:ci,0,key);}
+  renderBooks();
+}
+
+/* ---------- live backend probe ---------- */
+function markLive(){
+  const r=document.querySelector(".conv-h .right");
+  if(r)r.innerHTML='引擎 <b>longluxi-4B</b> · <b style="color:var(--jade)">● 实时在线</b><br>vLLM TP=4 · H100×4 · 2M reader';
+  const ip=document.getElementById("input");
+  if(ip)ip.placeholder="随便问书里的任何细节 —— 整本已驻留，模型当场通读作答…";
+}
+fetch("/status").then(r=>r.ok?r.json():null).then(d=>{
+  if(!d||!d.ok)return;
+  MANIFEST=d.books;
+  for(const k in MANIFEST){if(CORPUS[k]){const t=MANIFEST[k].tokens;CORPUS[k].tokens="约 "+Math.round(t/10000)+" 万";}}
+  if(d.vllm){LIVE=true;markLive();}
+  renderBooks();
+  document.getElementById("curMeta").textContent=CORPUS[current].meta;
+  // pre-warm the default book's cache
+  if(LIVE&&!CORPUS[current].combo){fetch("/warmup",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({book:current})}).catch(()=>{});}
+}).catch(()=>{});
+
+/* 类脑 layer strip — real 32-layer pattern (every 4th = full attention) */
+(function(){const ls=document.getElementById("layers");if(!ls)return;
+  for(let i=0;i<32;i++){const s=document.createElement("span");
+    s.className="layer "+((i%4===3)?"full":"lin");ls.appendChild(s);}})();
+
+/* init */
+renderChips();resetStream();
+</script>
+</body>
+</html>

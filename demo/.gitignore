@@ -1,0 +1,3 @@
+# raw Project Gutenberg downloads — regenerate books/ via prepare_books.py
+books_raw/
+__pycache__/
